@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+         prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1"
+         xmlns="http://javafx.com/javafx/25">
+    <Tab text="Animal Info">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <Label fx:id="animalInfoLabel" layoutX="258.0" layoutY="34.0" text="Label">
+                <font>
+                    <Font size="36.0"/>
+                </font>
+            </Label>
+            <Label layoutX="65.0" layoutY="104.0" text="Animial Species:"/>
+            <Label layoutX="111.0" layoutY="168.0" text="Weight:"/>
+            <Label layoutX="115.0" layoutY="255.0" text="Length:"/>
+            <Label layoutX="115.0" layoutY="209.0" prefHeight="18.0" prefWidth="43.0" text="Height: "/>
+            <Label layoutX="273.0" layoutY="104.0" text="Animal Type:"/>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Tag Info">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <Label layoutX="234.0" layoutY="42.0" text="Tag Info">
+                <font>
+                    <Font size="36.0"/>
+                </font>
+            </Label>
+            <TextArea fx:id="tagInfoTextArea" layoutX="200.0" layoutY="122.0" prefHeight="200.0"
+                      prefWidth="200.0"/>
+        </AnchorPane>
+    </Tab>
+    <Tab text="Visualize Tag Info">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0"/>
+    </Tab>
+</TabPane>
