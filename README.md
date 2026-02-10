@@ -1,2 +1,13 @@
-# SWE2-Project-AnimalTracker
-Is the group project for Software Engineering 2. This system will support wildlife research by allowing scientists, contributors, guests, and administrators to collaborate on tracking and analyzing migration data.​
+# Project Title
+
+## Description
+Brief description of the project (statement of purpose)
+
+## Installation instructions
+how to setup a development environment
+
+## Run instructions
+include relevant details like login information for sample users
+
+##Test instructions
+explain how to run the tests for all portions of the system
