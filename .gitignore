@@ -2,7 +2,7 @@
 *.class
 
 #IDE files
-*.idea
+.idea/
 
 #target files
 target/
