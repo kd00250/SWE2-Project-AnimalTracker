@@ -3,6 +3,10 @@
 
 #IDE files
 *.idea
+
+#target files
+target/
+
 # Log file
 *.log
 
