@@ -22,12 +22,12 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label prefHeight="35.0" prefWidth="86.0" text="Height: ">
+            <Label prefHeight="35.0" prefWidth="136.0" text="Height (cm): ">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label text="Weight: ">
+            <Label text="Weight (lbs): ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label text="Length: ">
+            <Label text="Length (cm): ">
                <font>
                   <Font size="24.0" />
                </font>
