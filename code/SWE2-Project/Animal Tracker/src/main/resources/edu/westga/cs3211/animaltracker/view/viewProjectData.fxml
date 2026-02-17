@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="projectNameLabel" layoutX="284.0" layoutY="14.0" prefHeight="70.0" prefWidth="310.0" text="Project Name">
@@ -18,7 +17,7 @@
       </Label>
       <VBox alignment="TOP_RIGHT" layoutX="77.0" layoutY="118.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
          <children>
-            <Label text="Animal Species:  ">
+            <Label text="Animal Class:  ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -45,15 +44,15 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="animalSpeciesComboBox" layoutX="256.0" layoutY="125.0" prefWidth="150.0" />
+      <ComboBox fx:id="animalClassComboBox" layoutX="256.0" layoutY="125.0" prefWidth="150.0" />
       <VBox alignment="TOP_RIGHT" layoutX="489.0" layoutY="117.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
          <children>
-            <Label text="Animal Type: ">
+            <Label text="Subject : ">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label text="Animal: ">
+            <Label text="Animal Name: ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -76,7 +75,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="animalTypeComboBox" layoutX="672.0" layoutY="125.0" prefWidth="150.0" />
+      <ComboBox fx:id="subjectComboBox" layoutX="672.0" layoutY="125.0" prefWidth="150.0" />
       <VBox layoutX="-170.0" layoutY="288.0" prefHeight="200.0" prefWidth="100.0" />
       <Label layoutX="373.0" layoutY="351.0" text="Tag Info">
          <font>
