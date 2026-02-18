@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.model.request;
+package edu.westga.cs3211.animaltracker.model.login.request;
 
 public final class LoginRequest extends Request {
     private String username;

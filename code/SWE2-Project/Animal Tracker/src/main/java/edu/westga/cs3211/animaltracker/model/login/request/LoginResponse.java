@@ -1,6 +1,6 @@
-package edu.westga.cs3211.animaltracker.model.request;
+package edu.westga.cs3211.animaltracker.model.login.request;
 
-public class LoginResponse extends Response {
+public final class LoginResponse extends Response {
 
     private String loginToken;
     private int timeout;
@@ -17,5 +17,9 @@ public class LoginResponse extends Response {
 
         this.loginToken = loginToken;
         this.timeout = timeout;
+    }
+
+    public String getToken() {
+        return loginToken;
     }
 }
