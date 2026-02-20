@@ -1,11 +1,10 @@
-package edu.westga.cs3211.animaltracker.view;
+package edu.westga.cs3211.animaltracker.view.codebehind;
 
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import jdk.jshell.spi.ExecutionControl;
 
 public class LoginCodeBehind {
 

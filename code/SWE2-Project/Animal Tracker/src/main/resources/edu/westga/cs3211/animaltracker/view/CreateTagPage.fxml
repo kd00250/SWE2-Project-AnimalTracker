@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="517.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.CreateTagCodeBehind">
+<AnchorPane prefHeight="517.0" prefWidth="738.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.codebehind.CreateTagCodeBehind">
    <children>
       <Label layoutX="302.0" layoutY="39.0" text="Create A New Tag">
          <font>

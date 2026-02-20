@@ -1,11 +1,14 @@
 package edu.westga.cs3211.animaltracker.model.login.request;
 
+import java.time.ZonedDateTime;
+
 /**
  * The login response class.
  */
 public final class LoginResponse extends Response {
 
     private final String loginToken;
+    private final ZonedDateTime creationTime;
     private final int timeout;
 
     /**
@@ -26,6 +29,7 @@ public final class LoginResponse extends Response {
 
         this.loginToken = loginToken;
         this.timeout = timeout;
+        this.creationTime = ZonedDateTime.now();
     }
 
     /**
@@ -44,5 +48,9 @@ public final class LoginResponse extends Response {
      */
     public int getTimeout() {
         return this.timeout;
+    }
+
+    public ZonedDateTime getCreationTime() {
+        return this.creationTime;
     }
 }

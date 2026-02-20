@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.view;
+package edu.westga.cs3211.animaltracker.view.codebehind;
 
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;

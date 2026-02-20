@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.CreateProjectCodeBehind">
+<AnchorPane prefHeight="500.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.codebehind.CreateProjectCodeBehind">
     <children>
         <Button fx:id="backButton" layoutX="695.0" layoutY="14.0" mnemonicParsing="false" onAction="#onBackButtonClick" text="Back" />
         <Button fx:id="createProjectButton" layoutX="330.0" layoutY="460.0" mnemonicParsing="false" onAction="#onCreateProjectClick" text="Create Project" />
