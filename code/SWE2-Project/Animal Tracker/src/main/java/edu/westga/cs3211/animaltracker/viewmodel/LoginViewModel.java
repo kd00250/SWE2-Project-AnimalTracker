@@ -37,4 +37,7 @@ public class LoginViewModel {
     public boolean isLoginValid() {
         return this.authenticator.isValidToken(this.loginResponse.getValue().getToken());
     }
+    public LoginResponse getLoginResponse() {
+        return this.loginResponse.getValue();
+    }
 }

@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.view.codebehind;
+package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.login.request.LoginResponse;
 import edu.westga.cs3211.animaltracker.viewmodel.LandingPageViewModel;

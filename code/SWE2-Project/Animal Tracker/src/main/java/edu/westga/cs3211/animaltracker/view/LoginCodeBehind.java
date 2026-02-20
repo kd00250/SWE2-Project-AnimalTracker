@@ -1,15 +1,22 @@
-package edu.westga.cs3211.animaltracker.view.codebehind;
+package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class LoginCodeBehind {
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private AnchorPane mainPane;
 
     @FXML
     private TextField passwordTextField;
@@ -39,7 +46,12 @@ public class LoginCodeBehind {
     }
 
     private void processCorrectLogin() {
-        return; //TODO implement login
+        try {
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LandingPath, this.mainPane, PageInformation.LandingTitle);
+            controller.setAuthenticationSession(this.viewModel.getLoginResponse());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

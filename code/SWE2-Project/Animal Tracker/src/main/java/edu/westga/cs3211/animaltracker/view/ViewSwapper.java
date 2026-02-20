@@ -1,6 +1,8 @@
-package edu.westga.cs3211.animaltracker.view.swap;
+package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.Main;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -10,14 +12,14 @@ import java.io.IOException;
 public final class ViewSwapper {
 
     /**
-     * Loads a page from a given fxmlPath from the stage given with a set title.
+     * Loads a page from a given fxmlPath from the node given with a set title.
      * @param <T> the controller type
      * @param fxmlPath the fxml path
-     * @param stage the stage
+     * @param node the node
      * @param title the page title
      * @return the controller of the fxml page that was loaded.
      */
-    public static <T> T loadPageFromStage(String fxmlPath, Stage stage, String title) throws IOException {
+    public static <T> T loadPageFromStage(String fxmlPath, Node node, String title) throws IOException {
         if (fxmlPath == null) {
             throw new IllegalArgumentException("FXML path must be non null");
         }
@@ -26,7 +28,7 @@ public final class ViewSwapper {
             throw new IllegalArgumentException("fxmlpath cannot be empty");
         }
 
-        if (stage == null) {
+        if (node == null) {
             throw new IllegalArgumentException("Stage cannot be null");
         }
 
@@ -37,8 +39,8 @@ public final class ViewSwapper {
         if (title.isEmpty()) {
             throw new IllegalArgumentException("Title cannot be empty");
         }
-
-        FXMLLoader loader = new FXMLLoader(ViewSwapper.class.getResource(fxmlPath));
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxmlPath));
         Parent root = loader.load();
         T controller = loader.getController();
 

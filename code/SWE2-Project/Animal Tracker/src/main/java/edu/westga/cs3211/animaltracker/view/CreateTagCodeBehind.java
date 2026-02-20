@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.view.codebehind;
+package edu.westga.cs3211.animaltracker.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
