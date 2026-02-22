@@ -44,11 +44,16 @@ public class ConstructorTest {
 
     @Test
     void testZeroTagID() {
-        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 0.0, 17.0, 0, ""));
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, 0, ""));
+    }
+
+    @Test
+    void testNegativeTagID() {
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, -21, ""));
     }
 
     @Test
     void testNullDescription() {
-        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 0.0, 17.0, 122345, null));
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, 122345, null));
     }
 }

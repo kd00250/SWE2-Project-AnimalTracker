@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.model;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Project {
     private String name;
     private List<Scientist> scientists;
     private List<Animal> animals;
+    private int id;
 
     /**
      * Instantiates a new Project.
@@ -85,6 +87,7 @@ public class Project {
         this.name = name;
         this.scientists = scientists;
         this.animals = animals;
+        this.id = DataStorage.getNextProjectId();
     }
 
     /**

@@ -47,7 +47,7 @@ public class Animal {
         this.length = length;
         this.tagID = tagID;
         this.description = description;
-        this.id = DataStorage.getAnimals().size() + 1;
+        this.id = DataStorage.getNextAnimalId();
     }
 
     /**
