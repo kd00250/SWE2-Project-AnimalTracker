@@ -88,6 +88,7 @@ public class Project {
         this.scientists = scientists;
         this.animals = animals;
         this.id = DataStorage.getNextProjectId();
+        DataStorage.getProjects().put(this.getId(), this);
     }
 
     /**
@@ -205,5 +206,14 @@ public class Project {
             throw new IllegalArgumentException("animalClass cannot be null");
         }
         return this.animals.stream().filter(animal -> animal.getAnimalClass().equals(animalClass)).toList();
+    }
+
+    /**
+     * Gets the project id.
+     *
+     * @return the project id
+     */
+    public int getId() {
+        return this.id;
     }
 }

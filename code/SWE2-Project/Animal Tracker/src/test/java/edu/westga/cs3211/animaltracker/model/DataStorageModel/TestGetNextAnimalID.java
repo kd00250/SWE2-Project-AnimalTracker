@@ -6,10 +6,7 @@ import edu.westga.cs3211.animaltracker.model.DataStorage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/**
- * the animal id test class.
- */
-public class TestGetNextAnimalID {
+class TestGetNextAnimalID {
 
     @BeforeEach
     void setUp() {

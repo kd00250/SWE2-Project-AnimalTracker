@@ -7,10 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * the project id test class.
- */
-public class TestGetNextProjectID {
+class TestGetNextProjectID {
 
     @BeforeEach
     void setUp() {
@@ -25,7 +22,7 @@ public class TestGetNextProjectID {
     @Test
     void testGetNextAnimalIDNotEmpty() {
         Project project = new Project("Whales");
-        DataStorage.getProjects().put(DataStorage.getNextProjectId(), project);
         assertEquals(2, DataStorage.getNextProjectId());
+        assertEquals(DataStorage.getProjects().get(1), project);
     }
 }

@@ -6,10 +6,7 @@ import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import org.junit.jupiter.api.Test;
 
-/**
- * The test Constructor Class.
- */
-public class ConstructorTest {
+class ConstructorTest {
 
     @Test
     void testValidConstructor() {

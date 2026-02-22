@@ -23,5 +23,5 @@ public enum AnimalClass {
     /**
      * the amphibian enum.
      */
-    AMPHIBIAN;
+    AMPHIBIAN
 }
