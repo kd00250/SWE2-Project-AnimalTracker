@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="565.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.LandingPageCodeBehind">
+<AnchorPane fx:id="mainPane" prefHeight="565.0" prefWidth="449.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.LandingPageCodeBehind">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="76.0" layoutY="52.0" prefHeight="455.0" prefWidth="297.0">
          <children>
@@ -17,8 +17,8 @@
             </Label>
             <VBox alignment="CENTER" prefHeight="423.0" prefWidth="297.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
-                  <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
+                  <Button mnemonicParsing="false" onAction="#onCreateProjectClick" prefHeight="61.0" prefWidth="248.0" text="Create Project" />
+                  <Button mnemonicParsing="false" onAction="#onViewProjectClick" prefHeight="61.0" prefWidth="248.0" text="View Project" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
