@@ -10,6 +10,7 @@ public class Animal {
     private double length;
     private int tagID;
     private String description;
+    private int id;
 
     /**
      * instantiates a new instance of the animal class.
@@ -46,6 +47,7 @@ public class Animal {
         this.length = length;
         this.tagID = tagID;
         this.description = description;
+        this.id = DataStorage.getNextAnimalId();
     }
 
     /**
