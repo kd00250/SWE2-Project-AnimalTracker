@@ -6,32 +6,33 @@ package edu.westga.cs3211.animaltracker.model;
  */
 public class User {
 
-    private String name;
-    private String id;
+    private String username;
+    private String password;
     private Role role;
 
     /**
      * Instantiates a new Scientist.
-     * @pre name != null && !name.isBlank() &&
-     *      id != null && !id.isBlank()
-     * @param name the Name
-     * @param id the ID
+     * @pre username != null && !username.isBlank() &&
+     *      password != null && !password.isBlank()
+     * @param username the Username
+     * @param password the password
+     * @param role the role
      */
-    public User(String name, String id, Role role) {
-        if (name == null) {
+    public User(String username, String password, Role role) {
+        if (username == null) {
             throw new IllegalArgumentException("name cannot be null");
         }
-        if (name.isBlank()) {
+        if (username.isBlank()) {
             throw new IllegalArgumentException("name cannot be blank");
         }
-        if (id == null) {
+        if (password == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
-        if (id.isBlank()) {
+        if (password.isBlank()) {
             throw new IllegalArgumentException("ID cannot be blank");
         }
-        this.name = name;
-        this.id = id;
+        this.username = username;
+        this.password = password;
         this.role = role;
     }
 
@@ -40,20 +41,22 @@ public class User {
      * @return the Scientist Name
      */
     public String getName() {
-        return this.name;
+        return this.username;
     }
 
     /**
      * Gets the user ID.
      * @return the user ID
      */
-    public String getId() {
-        return this.id;
+    public String getPassword() {
+        return this.password;
     }
 
     /**
      * Gets the role.
      * @return the role
      */
-    public Role getRole() { return this.role;}
+    public Role getRole() {
+        return this.role;
+    }
 }
