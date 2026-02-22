@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.LoginCodeBehind">
+<AnchorPane fx:id="mainPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.LoginCodeBehind">
     <children>
         <Label layoutX="267.0" layoutY="14.0" text="Login">
             <font>
@@ -18,14 +18,14 @@
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField layoutX="226.0" layoutY="87.0" />
+        <TextField fx:id="usernameTextField" layoutX="226.0" layoutY="87.0" />
         <Label layoutX="271.0" layoutY="128.0" text="Password">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <TextField layoutX="226.0" layoutY="156.0" />
-        <Button fx:id="loginButton" layoutX="262.0" layoutY="212.0" mnemonicParsing="false" text="Login">
+        <TextField fx:id="passwordTextField" layoutX="226.0" layoutY="156.0" />
+        <Button fx:id="loginButton" layoutX="262.0" layoutY="212.0" mnemonicParsing="false" onAction="#onLoginClick" text="Login">
             <font>
                 <Font size="18.0" />
             </font>
