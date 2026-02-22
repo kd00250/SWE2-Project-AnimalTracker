@@ -48,6 +48,7 @@ public class Animal {
         this.tagID = tagID;
         this.description = description;
         this.id = DataStorage.getNextAnimalId();
+        DataStorage.getAnimals().put(this.getId(), this);
     }
 
     /**
@@ -96,5 +97,13 @@ public class Animal {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * gets the animal id.
+     * @return the animal id
+     */
+    public int getId() {
+        return this.id;
     }
 }

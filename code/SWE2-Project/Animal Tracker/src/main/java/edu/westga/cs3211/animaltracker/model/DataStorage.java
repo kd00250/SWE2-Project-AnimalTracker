@@ -19,8 +19,7 @@ public class DataStorage {
         animals = new HashMap<>();
         projects = new HashMap<>();
 
-        Animal bird = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        animals.put(getNextAnimalId(), bird);
+        new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
     }
 
     /**
@@ -82,7 +81,6 @@ public class DataStorage {
         animals = new HashMap<>();
         projects = new HashMap<>();
 
-        Animal bird = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        animals.put(getNextAnimalId(), bird);
+        new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
     }
 }
