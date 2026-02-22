@@ -10,7 +10,7 @@ import java.util.HashMap;
  * This class is for testing purpose only and is taking the place of a sever storing information
  */
 public class DataStorage {
-    private static ArrayList<Scientist> scientists;
+    private static ArrayList<User> scientists;
     private static HashMap<Integer, Animal> animals;
     private static HashMap<Integer, Project> projects;
 
@@ -27,7 +27,7 @@ public class DataStorage {
      *
      * @return the scientists
      */
-    public static ArrayList<Scientist> getScientists() {
+    public static ArrayList<User> getScientists() {
         return scientists;
     }
 

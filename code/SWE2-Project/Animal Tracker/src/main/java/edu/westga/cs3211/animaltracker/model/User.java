@@ -4,10 +4,11 @@ package edu.westga.cs3211.animaltracker.model;
  * The Scientist Class.
  * @author mrocker1
  */
-public class Scientist {
+public class User {
 
     private String name;
     private String id;
+    private Role role;
 
     /**
      * Instantiates a new Scientist.
@@ -16,7 +17,7 @@ public class Scientist {
      * @param name the Name
      * @param id the ID
      */
-    public Scientist(String name, String id) {
+    public User(String name, String id, Role role) {
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
         }
@@ -31,6 +32,7 @@ public class Scientist {
         }
         this.name = name;
         this.id = id;
+        this.role = role;
     }
 
     /**
@@ -42,10 +44,16 @@ public class Scientist {
     }
 
     /**
-     * Gets the Scientist ID.
-     * @return the Scientist ID
+     * Gets the user ID.
+     * @return the user ID
      */
     public String getId() {
         return this.id;
     }
+
+    /**
+     * Gets the role.
+     * @return the role
+     */
+    public Role getRole() { return this.role;}
 }

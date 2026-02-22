@@ -3,7 +3,6 @@ module edu.westga.cs3211.animaltracker {
     requires javafx.fxml;
     requires transitive javafx.graphics;
     requires java.desktop;
-    requires java.sql;
 
     opens edu.westga.cs3211.animaltracker.view to javafx.fxml;
     exports edu.westga.cs3211.animaltracker;
