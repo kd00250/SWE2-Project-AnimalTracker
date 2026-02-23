@@ -14,8 +14,8 @@ import java.util.UUID;
  */
 public class DataStorage {
     private static ArrayList<Scientist> scientists;
-    private static HashMap<String, User> userUsernameMap;
-    private static HashMap<String, User> userTokenMap;
+    private static HashMap<String, User> usernameMap;
+    private static HashMap<String, User> tokenMap;
     private static HashMap<String, ZonedDateTime> expirationMap;
     private static HashMap<Integer, Animal> animals;
     private static HashMap<Integer, Project> projects;
@@ -52,12 +52,12 @@ public class DataStorage {
     }
 
     /**
-     * Gets the user name map.
+     * Gets the username map.
      *
      * @return the username map
      */
     public static HashMap<String, User> getUsernameMap() {
-        return userUsernameMap;
+        return usernameMap;
     }
 
     /**
@@ -103,7 +103,7 @@ public class DataStorage {
             throw new IllegalArgumentException("User cannot be null.");
         }
         var token = UUID.randomUUID().toString();
-        userTokenMap.put(token, user);
+        tokenMap.put(token, user);
         expirationMap.put(token, ZonedDateTime.now(ZoneId.of("UTC")));
         return token;
     }
@@ -114,7 +114,7 @@ public class DataStorage {
      * @return the user
      */
     public static User getUserByUsername(String username) {
-        return userUsernameMap.get(username);
+        return usernameMap.get(username);
     }
 
     /**
@@ -123,7 +123,7 @@ public class DataStorage {
      * @return the user
      */
     public static User getUserByToken(String token) {
-        return userTokenMap.get(token);
+        return tokenMap.get(token);
     }
 
     /**
@@ -133,8 +133,8 @@ public class DataStorage {
         scientists = new ArrayList<>();
         animals = new HashMap<>();
         projects = new HashMap<>();
-        userUsernameMap = new HashMap<>();
-        userTokenMap = new HashMap<>();
+        usernameMap = new HashMap<>();
+        tokenMap = new HashMap<>();
         expirationMap = new HashMap<>();
 
         new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
