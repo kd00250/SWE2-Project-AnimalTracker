@@ -52,6 +52,24 @@ public class DataStorage {
     }
 
     /**
+     * Gets the user name map.
+     *
+     * @return the username map
+     */
+    public static HashMap<String, User> getUsernameMap() {
+        return userUsernameMap;
+    }
+
+    /**
+     * Gets the expiration date map.
+     *
+     * @return the expiration date map
+     */
+    public static HashMap<String, ZonedDateTime> getExpirationDateMap() {
+        return expirationMap;
+    }
+
+    /**
      * gets the next highest animal id.
      *
      * @return the next highestID

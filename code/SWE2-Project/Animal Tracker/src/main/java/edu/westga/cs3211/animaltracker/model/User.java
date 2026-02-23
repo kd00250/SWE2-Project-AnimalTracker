@@ -40,7 +40,7 @@ public class User {
      * Gets the Scientist Name.
      * @return the Scientist Name
      */
-    public String getName() {
+    public String getUsername() {
         return this.username;
     }
 
