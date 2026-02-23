@@ -99,6 +99,9 @@ public class DataStorage {
      * @return the token for the user
      */
     public static String generateTokenForUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
         var token = UUID.randomUUID().toString();
         userTokenMap.put(token, user);
         expirationMap.put(token, ZonedDateTime.now(ZoneId.of("UTC")));
@@ -119,7 +122,7 @@ public class DataStorage {
      * @param token the token
      * @return the user
      */
-    public static User getScientistByToken(String token) {
+    public static User getUserByToken(String token) {
         return userTokenMap.get(token);
     }
 

@@ -34,6 +34,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        DataStorage.getUsernameMap().put(username, this);
     }
 
     /**
