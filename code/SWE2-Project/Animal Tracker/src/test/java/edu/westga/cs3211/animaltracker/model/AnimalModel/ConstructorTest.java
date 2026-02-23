@@ -4,13 +4,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+<<<<<<< feature-AddTagState
 import edu.westga.cs3211.animaltracker.model.TagStatus;
+=======
+import edu.westga.cs3211.animaltracker.model.DataStorage;
+import org.junit.jupiter.api.BeforeEach;
+>>>>>>> dev
 import org.junit.jupiter.api.Test;
 
-/**
- * The test Constructor Class.
- */
-public class ConstructorTest {
+class ConstructorTest {
+
+    @BeforeEach
+    void setUp() {
+        DataStorage.reset();
+    }
 
     @Test
     void testValidConstructor() {
@@ -22,6 +29,7 @@ public class ConstructorTest {
         assertEquals(122345, animal.getTagID());
         assertEquals(TagStatus.ACTIVE, animal.getTagStatus());
         assertEquals("", animal.getDescription());
+        assertEquals(2, animal.getId());
     }
 
     @Test
@@ -46,11 +54,16 @@ public class ConstructorTest {
 
     @Test
     void testZeroTagID() {
-        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 0.0, 17.0, 0, ""));
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, 0, ""));
+    }
+
+    @Test
+    void testNegativeTagID() {
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, -21, ""));
     }
 
     @Test
     void testNullDescription() {
-        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 0.0, 17.0, 122345, null));
+        assertThrows(IllegalArgumentException.class, () -> new Animal(AnimalClass.BIRD, 12.0, 10.0, 17.0, 122345, null));
     }
 }

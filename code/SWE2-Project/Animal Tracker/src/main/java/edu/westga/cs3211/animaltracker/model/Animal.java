@@ -10,7 +10,11 @@ public class Animal {
     private double length;
     private int tagID;
     private String description;
+<<<<<<< feature-AddTagState
     private TagStatus tagStatus;
+=======
+    private int id;
+>>>>>>> dev
 
     /**
      * instantiates a new instance of the animal class.
@@ -49,6 +53,8 @@ public class Animal {
         this.tagID = tagID;
         this.tagStatus = TagStatus.ACTIVE;
         this.description = description;
+        this.id = DataStorage.getNextAnimalId();
+        DataStorage.getAnimals().put(this.getId(), this);
     }
 
     /**
@@ -112,5 +118,13 @@ public class Animal {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * gets the animal id.
+     * @return the animal id
+     */
+    public int getId() {
+        return this.id;
     }
 }

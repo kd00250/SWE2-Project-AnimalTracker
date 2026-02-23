@@ -12,6 +12,7 @@ public class Project {
     private String name;
     private List<Scientist> scientists;
     private List<Animal> animals;
+    private int id;
 
     /**
      * Instantiates a new Project.
@@ -85,6 +86,8 @@ public class Project {
         this.name = name;
         this.scientists = scientists;
         this.animals = animals;
+        this.id = DataStorage.getNextProjectId();
+        DataStorage.getProjects().put(this.getId(), this);
     }
 
     /**
@@ -202,5 +205,14 @@ public class Project {
             throw new IllegalArgumentException("animalClass cannot be null");
         }
         return this.animals.stream().filter(animal -> animal.getAnimalClass().equals(animalClass)).toList();
+    }
+
+    /**
+     * Gets the project id.
+     *
+     * @return the project id
+     */
+    public int getId() {
+        return this.id;
     }
 }
