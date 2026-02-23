@@ -30,12 +30,16 @@ public class CreateTagCodeBehind {
 
     private final CreateTagViewModel viewModel;
 
-    public CreateTagCodeBehind(){
+    /**
+     * Initializes a CreateTagCodeBehind.
+     */
+    public CreateTagCodeBehind() {
         this.viewModel = new CreateTagViewModel();
     }
 
     /**
      * Called when the cancel button is clicked.
+     *
      * @param event the event
      */
     @FXML
@@ -53,6 +57,11 @@ public class CreateTagCodeBehind {
         }
     }
 
+    /**
+     * Called when submit button is clicked.
+     *
+     * @param event the event
+     */
     @FXML
     public void onSubmitClick(ActionEvent event) {
         var confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -66,8 +75,13 @@ public class CreateTagCodeBehind {
         }
     }
 
+    /**
+     * Called when generateId is clicked.
+     *
+     * @param event the event
+     */
     @FXML
-    public void onGenerateIdClick(ActionEvent event){
+    public void onGenerateIdClick(ActionEvent event) {
         this.viewModel.generateTagId();
     }
 

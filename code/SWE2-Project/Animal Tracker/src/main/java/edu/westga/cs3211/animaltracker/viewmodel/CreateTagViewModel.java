@@ -62,7 +62,7 @@ public class CreateTagViewModel {
      */
     public void clear() {
         this.animalClass.set(null);
-        this.tagId.set("000000");
+        this.tagId.set("******");
         this.description.set("");
     }
 
@@ -72,14 +72,14 @@ public class CreateTagViewModel {
      * @return a true or false depending on if they can submit
      */
     public BooleanBinding canSubmit() {
-       return this.description.isEmpty()
-               .or(this.animalClass.isNull())
-               .or(this.tagId.isEqualTo("000000"));
+        return this.description.isEmpty()
+                .or(this.animalClass.isNull())
+                .or(this.tagId.isEqualTo("******"));
     }
 
     private void buildProperties() {
         this.animalClass = new SimpleObjectProperty<>();
-        this.tagId = new SimpleStringProperty("000000");
+        this.tagId = new SimpleStringProperty("******");
         this.description = new SimpleStringProperty("");
     }
 }
