@@ -93,6 +93,6 @@ public class CreateTagCodeBehind {
         this.tagId.textProperty().bind(this.viewModel.tagIdProperty());
         this.descriptionText.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
 
-        this.submitButton.disableProperty().bind(this.viewModel.canSubmit());
+        this.submitButton.disableProperty().bind(this.viewModel.isSubmitInvalid());
     }
 }
