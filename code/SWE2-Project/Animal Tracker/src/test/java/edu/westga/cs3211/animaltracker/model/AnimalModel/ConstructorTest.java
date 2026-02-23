@@ -4,12 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
-<<<<<<< feature-AddTagState
 import edu.westga.cs3211.animaltracker.model.TagStatus;
-=======
 import edu.westga.cs3211.animaltracker.model.DataStorage;
 import org.junit.jupiter.api.BeforeEach;
->>>>>>> dev
 import org.junit.jupiter.api.Test;
 
 class ConstructorTest {

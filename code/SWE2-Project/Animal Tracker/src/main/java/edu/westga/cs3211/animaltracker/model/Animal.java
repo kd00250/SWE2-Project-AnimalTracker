@@ -10,11 +10,8 @@ public class Animal {
     private double length;
     private int tagID;
     private String description;
-<<<<<<< feature-AddTagState
     private TagStatus tagStatus;
-=======
     private int id;
->>>>>>> dev
 
     /**
      * instantiates a new instance of the animal class.
