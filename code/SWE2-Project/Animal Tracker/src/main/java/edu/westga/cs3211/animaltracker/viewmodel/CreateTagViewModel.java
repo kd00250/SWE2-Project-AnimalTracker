@@ -10,6 +10,9 @@ import java.util.Random;
  * The CreateTagViewModel class.
  */
 public class CreateTagViewModel {
+    private static final int MINIMUM_VALUE = 100000;
+    private static final int MAXIMUM_VALUE = 900000;
+    private static final String DEFAULT_TAG = "******";
     private ObjectProperty<AnimalClass> animalClass;
     private StringProperty tagId;
     private StringProperty description;
@@ -31,7 +34,7 @@ public class CreateTagViewModel {
     }
 
     /**
-     * Tag Id Property
+     * Tag Id Property.
      *
      * @return the tag id property
      */
@@ -40,7 +43,7 @@ public class CreateTagViewModel {
     }
 
     /**
-     * Description property
+     * Description property.
      *
      * @return the description property
      */
@@ -49,11 +52,11 @@ public class CreateTagViewModel {
     }
 
     /**
-     * Generates a random six-digit id for tag creation
+     * Generates a random six-digit id for tag creation.
      */
     public void generateTagId() {
         Random random = new Random();
-        int randomNumber = 100000 + random.nextInt(900000);
+        int randomNumber = MINIMUM_VALUE + random.nextInt(MAXIMUM_VALUE);
         this.tagId.set(String.valueOf(randomNumber));
     }
 
@@ -62,7 +65,7 @@ public class CreateTagViewModel {
      */
     public void clear() {
         this.animalClass.set(null);
-        this.tagId.set("******");
+        this.tagId.set(DEFAULT_TAG);
         this.description.set("");
     }
 
@@ -71,15 +74,15 @@ public class CreateTagViewModel {
      *
      * @return a true or false depending on if they can submit
      */
-    public BooleanBinding canSubmit() {
+    public BooleanBinding isSubmitInvalid() {
         return this.description.isEmpty()
                 .or(this.animalClass.isNull())
-                .or(this.tagId.isEqualTo("******"));
+                .or(this.tagId.isEqualTo(DEFAULT_TAG));
     }
 
     private void buildProperties() {
         this.animalClass = new SimpleObjectProperty<>();
-        this.tagId = new SimpleStringProperty("******");
+        this.tagId = new SimpleStringProperty(DEFAULT_TAG);
         this.description = new SimpleStringProperty("");
     }
 }

@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.TagStatus;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,6 +20,7 @@ public class ConstructorTest {
         assertEquals(15.0, animal.getWeight());
         assertEquals(17.0, animal.getLength());
         assertEquals(122345, animal.getTagID());
+        assertEquals(TagStatus.ACTIVE, animal.getTagStatus());
         assertEquals("", animal.getDescription());
     }
 

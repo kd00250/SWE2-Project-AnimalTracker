@@ -10,14 +10,16 @@ public class Animal {
     private double length;
     private int tagID;
     private String description;
+    private TagStatus tagStatus;
 
     /**
      * instantiates a new instance of the animal class.
+     *
      * @param animalClass the class of the animal
-     * @param height the height of the animal
-     * @param weight the weight of the animal
-     * @param length the length of the animal
-     * @param tagID the tagID of the animal
+     * @param height      the height of the animal
+     * @param weight      the weight of the animal
+     * @param length      the length of the animal
+     * @param tagID       the tagID of the animal
      * @param description the description of the animal
      */
     public Animal(AnimalClass animalClass, double height, double weight, double length, int tagID, String description) {
@@ -45,11 +47,13 @@ public class Animal {
         this.weight = weight;
         this.length = length;
         this.tagID = tagID;
+        this.tagStatus = TagStatus.ACTIVE;
         this.description = description;
     }
 
     /**
      * gets the class of the animal.
+     *
      * @return the animal class
      */
     public AnimalClass getAnimalClass() {
@@ -58,6 +62,7 @@ public class Animal {
 
     /**
      * gets the height of the animal.
+     *
      * @return the height
      */
     public double getHeight() {
@@ -66,6 +71,7 @@ public class Animal {
 
     /**
      * gets the weight of the animal.
+     *
      * @return the weight
      */
     public double getWeight() {
@@ -74,6 +80,7 @@ public class Animal {
 
     /**
      * gets the length of the animal.
+     *
      * @return the length
      */
     public double getLength() {
@@ -82,6 +89,7 @@ public class Animal {
 
     /**
      * gets the tagID for the animal.
+     *
      * @return the tagID
      */
     public int getTagID() {
@@ -89,7 +97,17 @@ public class Animal {
     }
 
     /**
+     * Gets the tagStatus of the animal.
+     *
+     * @return the TagStatus
+     */
+    public TagStatus getTagStatus() {
+        return this.tagStatus;
+    }
+
+    /**
      * gets the description of the animal description.
+     *
      * @return the description of the animal
      */
     public String getDescription() {
