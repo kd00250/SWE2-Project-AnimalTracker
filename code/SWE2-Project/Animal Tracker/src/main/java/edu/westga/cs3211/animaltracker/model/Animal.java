@@ -10,6 +10,7 @@ public class Animal {
     private double length;
     private int tagID;
     private String description;
+    private int id;
 
     /**
      * instantiates a new instance of the animal class.
@@ -46,6 +47,8 @@ public class Animal {
         this.length = length;
         this.tagID = tagID;
         this.description = description;
+        this.id = DataStorage.getNextAnimalId();
+        DataStorage.getAnimals().put(this.getId(), this);
     }
 
     /**
@@ -94,5 +97,13 @@ public class Animal {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * gets the animal id.
+     * @return the animal id
+     */
+    public int getId() {
+        return this.id;
     }
 }

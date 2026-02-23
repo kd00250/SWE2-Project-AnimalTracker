@@ -1,9 +1,7 @@
 package edu.westga.cs3211.animaltracker.model.ProjectModel;
 
-import edu.westga.cs3211.animaltracker.model.Animal;
-import edu.westga.cs3211.animaltracker.model.AnimalClass;
-import edu.westga.cs3211.animaltracker.model.Project;
-import edu.westga.cs3211.animaltracker.model.Scientist;
+import edu.westga.cs3211.animaltracker.model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,6 +10,11 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestAddAnimal {
+
+    @BeforeEach
+    void setUp() {
+        DataStorage.reset();
+    }
 
     @Test
     void testAddNullAnimal() {
