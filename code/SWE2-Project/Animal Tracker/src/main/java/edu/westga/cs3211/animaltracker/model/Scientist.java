@@ -2,7 +2,6 @@ package edu.westga.cs3211.animaltracker.model;
 
 /**
  * The Scientist Class.
- * @author mrocker1
  */
 public class Scientist {
 

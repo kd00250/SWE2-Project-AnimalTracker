@@ -4,9 +4,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.TagStatus;
+import edu.westga.cs3211.animaltracker.model.DataStorage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class ConstructorTest {
+
+    @BeforeEach
+    void setUp() {
+        DataStorage.reset();
+    }
 
     @Test
     void testValidConstructor() {
@@ -16,7 +24,9 @@ class ConstructorTest {
         assertEquals(15.0, animal.getWeight());
         assertEquals(17.0, animal.getLength());
         assertEquals(122345, animal.getTagID());
+        assertEquals(TagStatus.ACTIVE, animal.getTagStatus());
         assertEquals("", animal.getDescription());
+        assertEquals(2, animal.getId());
     }
 
     @Test

@@ -1,8 +1,11 @@
 package edu.westga.cs3211.animaltracker.model;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * The data storage class.
@@ -11,16 +14,14 @@ import java.util.HashMap;
  */
 public class DataStorage {
     private static ArrayList<Scientist> scientists;
+    private static HashMap<String, User> usernameMap;
+    private static HashMap<String, User> tokenMap;
+    private static HashMap<String, ZonedDateTime> expirationMap;
     private static HashMap<Integer, Animal> animals;
     private static HashMap<Integer, Project> projects;
 
     static {
-        scientists = new ArrayList<>();
-        animals = new HashMap<>();
-        projects = new HashMap<>();
-
-        Animal bird = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        animals.put(getNextAnimalId(), bird);
+        reset();
     }
 
     /**
@@ -51,6 +52,24 @@ public class DataStorage {
     }
 
     /**
+     * Gets the username map.
+     *
+     * @return the username map
+     */
+    public static HashMap<String, User> getUsernameMap() {
+        return usernameMap;
+    }
+
+    /**
+     * Gets the expiration date map.
+     *
+     * @return the expiration date map
+     */
+    public static HashMap<String, ZonedDateTime> getExpirationDateMap() {
+        return expirationMap;
+    }
+
+    /**
      * gets the next highest animal id.
      *
      * @return the next highestID
@@ -75,14 +94,49 @@ public class DataStorage {
     }
 
     /**
+     * generates the token for the user.
+     * @param user the user
+     * @return the token for the user
+     */
+    public static String generateTokenForUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null.");
+        }
+        var token = UUID.randomUUID().toString();
+        tokenMap.put(token, user);
+        expirationMap.put(token, ZonedDateTime.now(ZoneId.of("UTC")));
+        return token;
+    }
+
+    /**
+     * gets user by username.
+     * @param username the username.
+     * @return the user
+     */
+    public static User getUserByUsername(String username) {
+        return usernameMap.get(username);
+    }
+
+    /**
+     * gets the scientist by token.
+     * @param token the token
+     * @return the user
+     */
+    public static User getUserByToken(String token) {
+        return tokenMap.get(token);
+    }
+
+    /**
      * resets the collects (to be used in testing purposes only).
      */
     public static void reset() {
         scientists = new ArrayList<>();
         animals = new HashMap<>();
         projects = new HashMap<>();
+        usernameMap = new HashMap<>();
+        tokenMap = new HashMap<>();
+        expirationMap = new HashMap<>();
 
-        Animal bird = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        animals.put(getNextAnimalId(), bird);
+        new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
     }
 }

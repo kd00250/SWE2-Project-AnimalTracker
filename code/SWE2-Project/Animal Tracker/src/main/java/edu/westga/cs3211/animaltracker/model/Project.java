@@ -1,6 +1,5 @@
 package edu.westga.cs3211.animaltracker.model;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
