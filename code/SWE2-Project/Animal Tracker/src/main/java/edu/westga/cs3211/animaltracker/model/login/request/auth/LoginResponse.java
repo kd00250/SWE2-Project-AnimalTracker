@@ -1,4 +1,6 @@
-package edu.westga.cs3211.animaltracker.model.login.request;
+package edu.westga.cs3211.animaltracker.model.login.request.auth;
+
+import edu.westga.cs3211.animaltracker.model.login.request.Response;
 
 import java.time.ZonedDateTime;
 

@@ -15,6 +15,6 @@ class TestGetScientists {
 
     @Test
     void getScientists() {
-        assertEquals(0, DataStorage.getScientists().size());
+        assertEquals(0, DataStorage.getUsers().size());
     }
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
  * This class is for testing purpose only and is taking the place of a sever storing information
  */
 public class DataStorage {
-    private static ArrayList<Scientist> scientists;
+    private static ArrayList<User> users;
     private static HashMap<String, User> usernameMap;
     private static HashMap<String, User> tokenMap;
     private static HashMap<String, ZonedDateTime> expirationMap;
@@ -29,8 +29,8 @@ public class DataStorage {
      *
      * @return the scientists
      */
-    public static ArrayList<Scientist> getScientists() {
-        return scientists;
+    public static ArrayList<User> getUsers() {
+        return users;
     }
 
     /**
@@ -130,7 +130,7 @@ public class DataStorage {
      * resets the collects (to be used in testing purposes only).
      */
     public static void reset() {
-        scientists = new ArrayList<>();
+        users = new ArrayList<>();
         animals = new HashMap<>();
         projects = new HashMap<>();
         usernameMap = new HashMap<>();
@@ -138,5 +138,6 @@ public class DataStorage {
         expirationMap = new HashMap<>();
 
         new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
+        users.add(new User("Bob", "1234", Role.SCIENTIST));
     }
 }

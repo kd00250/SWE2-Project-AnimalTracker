@@ -48,7 +48,7 @@ public class LoginCodeBehind {
     private void processCorrectLogin() {
         try {
             LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LandingPath, this.mainPane, PageInformation.LandingTitle);
-            controller.setAuthenticationSession(this.viewModel.getLoginResponse());
+            controller.setSession(this.viewModel.getLoginResponse(), this.viewModel.getServerService());
         } catch (IOException e) {
             e.printStackTrace();
         }
