@@ -1,9 +1,11 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.login.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -42,7 +44,14 @@ public class LoginCodeBehind {
 
     @FXML
     void onLoginClick(ActionEvent event) {
-        this.viewModel.processLoginRequest();
+        try {
+            this.viewModel.processLoginRequest();
+        } catch (InvalidRequestException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Invalid Login Attempt");
+            alert.showAndWait();
+        }
+
         if (this.viewModel.isLoginValid()) {
             this.processCorrectLogin();
         }
