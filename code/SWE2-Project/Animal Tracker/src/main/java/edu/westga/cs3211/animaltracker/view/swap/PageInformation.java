@@ -1,12 +1,36 @@
 package edu.westga.cs3211.animaltracker.view.swap;
 
-public class PageInformation {
-    public static final String LandingPath = "view/LandingPage.fxml";
-    public static final String LandingTitle = "Main Page";
+/**
+ * Defines various information about the UI pages.
+ */
+public final class PageInformation {
+    /**
+     * The landing page path.
+     */
+    public static final String LANDING_PATH = "view/LandingPage.fxml";
 
-    public static final String CreateProjectPath = "view/createProject.fxml";
-    public static final String CreateProjectTitle = "Create Project";
+    /**
+     * The landing page title.
+     */
+    public static final String LANDING_TITLE = "Main Page";
 
-    public static final String ViewProjectPath = "view/viewProjectData.fxml";
-    public static final String ViewProjectTitle = "View Project";
+    /**
+     * The create project page path.
+     */
+    public static final String CREATE_PROJECT_PATH = "view/createProject.fxml";
+
+    /**
+     * The title for the create project page.
+     */
+    public static final String CREATE_PROJECT_TITLE = "Create Project";
+
+    /**
+     * The path for the view project page.
+     */
+    public static final String VIEW_PROJECT_PATH = "view/viewProjectData.fxml";
+
+    /**
+     * The view project page title.
+     */
+    public static final String VIEW_PROJECT_TITLE = "View Project";
 }

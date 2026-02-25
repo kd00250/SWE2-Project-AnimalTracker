@@ -21,12 +21,20 @@ public final class LoginRequest extends Request {
         this.password = password;
     }
 
+    /**
+     * Gets the username.
+     * @return the username
+     */
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
+    /**
+     * Gets the password.
+     * @return the password
+     */
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override

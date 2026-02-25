@@ -1,15 +1,20 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.login.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * The login code behind class.
+ */
 public class LoginCodeBehind {
 
     @FXML
@@ -39,7 +44,14 @@ public class LoginCodeBehind {
 
     @FXML
     void onLoginClick(ActionEvent event) {
-        this.viewModel.processLoginRequest();
+        try {
+            this.viewModel.processLoginRequest();
+        } catch (InvalidRequestException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Invalid Login Attempt");
+            alert.showAndWait();
+        }
+
         if (this.viewModel.isLoginValid()) {
             this.processCorrectLogin();
         }
@@ -47,12 +59,11 @@ public class LoginCodeBehind {
 
     private void processCorrectLogin() {
         try {
-            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LandingPath, this.mainPane, PageInformation.LandingTitle);
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LANDING_PATH, this.mainPane, PageInformation.LANDING_TITLE);
             controller.setSession(this.viewModel.getLoginResponse(), this.viewModel.getServerService());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 }

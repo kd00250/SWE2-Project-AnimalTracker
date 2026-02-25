@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
     @Test
     void testValidLoginAttempt() {
-        var username = "tim";
-        var password = "123";
+        var username = "Bob";
+        var password = "1234";
         var request = new LoginRequest(username, password);
         var auth = new LocalServer();
         var response = auth.login(request);
@@ -22,5 +22,25 @@ public class LoginTest {
     void testNullRequestOnLogin() {
         var auth = new LocalServer();
         assertThrows(IllegalArgumentException.class, () -> auth.login(null));
+    }
+
+    @Test
+    void testUserFoundWrongPassword() {
+        var username = "Bob";
+        var password = "12345";
+        var request = new LoginRequest(username, password);
+        var auth = new LocalServer();
+        var response = auth.login(request);
+        assertNull(response);
+    }
+
+    @Test
+    void testUserNotFound() {
+        var username = "1616161616";
+        var password = "12345";
+        var request = new LoginRequest(username, password);
+        var auth = new LocalServer();
+        var response = auth.login(request);
+        assertNull(response);
     }
 }

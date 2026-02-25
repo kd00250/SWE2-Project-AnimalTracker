@@ -24,6 +24,11 @@ public interface ServerService {
      */
     boolean isValidToken(String token);
 
+    /**
+     * Request the role for a given user.
+     * @param request  the request
+     * @return the role of the user
+     */
     Role requestUserRole(UserDataRequest request);
 
 }

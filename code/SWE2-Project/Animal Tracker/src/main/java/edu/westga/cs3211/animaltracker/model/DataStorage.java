@@ -95,6 +95,7 @@ public class DataStorage {
 
     /**
      * generates the token for the user.
+     *
      * @param user the user
      * @return the token for the user
      */
@@ -110,6 +111,7 @@ public class DataStorage {
 
     /**
      * gets user by username.
+     *
      * @param username the username.
      * @return the user
      */
@@ -119,11 +121,24 @@ public class DataStorage {
 
     /**
      * gets the scientist by token.
+     *
      * @param token the token
      * @return the user
      */
     public static User getUserByToken(String token) {
         return tokenMap.get(token);
+    }
+
+    /**
+     * Checks if a given token exist in the storage.
+     * @param token the token
+     * @return true if token exist, otherwise false
+     */
+    public static boolean tokenExist(String token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token cannot be null.");
+        }
+        return tokenMap.containsKey(token);
     }
 
     /**

@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.model.ScientistModel;
 
+import edu.westga.cs3211.animaltracker.model.Scientist;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
