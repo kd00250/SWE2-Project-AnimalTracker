@@ -10,6 +10,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * The login code behind class.
+ */
 public class LoginCodeBehind {
 
     @FXML
@@ -47,12 +50,11 @@ public class LoginCodeBehind {
 
     private void processCorrectLogin() {
         try {
-            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LandingPath, this.mainPane, PageInformation.LandingTitle);
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LANDING_PATH, this.mainPane, PageInformation.LANDING_TITLE);
             controller.setSession(this.viewModel.getLoginResponse(), this.viewModel.getServerService());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
 }

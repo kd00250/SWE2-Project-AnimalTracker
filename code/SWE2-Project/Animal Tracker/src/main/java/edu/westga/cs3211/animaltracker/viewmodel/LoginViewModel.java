@@ -8,12 +8,18 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+/**
+ * The login view model class.
+ */
 public class LoginViewModel {
     private StringProperty username;
     private StringProperty password;
     private ServerService authenticator;
     private SimpleObjectProperty<LoginResponse> loginResponse;
 
+    /**
+     * Instantiates a new login view model.
+     */
     public LoginViewModel() {
         this.username = new SimpleStringProperty("");
         this.password = new SimpleStringProperty("");
@@ -21,19 +27,34 @@ public class LoginViewModel {
         this.authenticator = new LocalServer();
     }
 
+    /**
+     * Gets the username property.
+     * @return the username property
+     */
     public StringProperty usernameProperty() {
         return this.username;
     }
 
+    /**
+     * Gets the password property.
+     * @return the password property
+     */
     public StringProperty passwordProperty() {
         return this.password;
     }
 
+    /**
+     * Request that the current information in the filled out information should be used to login.
+     */
     public void processLoginRequest() {
         var response = this.authenticator.login(new LoginRequest(this.usernameProperty().get(), this.passwordProperty().get()));
         this.loginResponse.setValue(response);
     }
 
+    /**
+     * Checks if the login request was valid.
+     * @return true if valid, otherwise false
+     */
     public boolean isLoginValid() {
         if (this.loginResponse.getValue() == null) {
             return false;
@@ -41,10 +62,18 @@ public class LoginViewModel {
         return this.authenticator.isValidToken(this.loginResponse.getValue().getToken());
     }
 
+    /**
+     * Gets the login response value.
+     * @return the login response
+     */
     public LoginResponse getLoginResponse() {
         return this.loginResponse.getValue();
     }
 
+    /**
+     * Gets the server.
+     * @return the server
+     */
     public ServerService getServerService() {
         return this.authenticator;
     }

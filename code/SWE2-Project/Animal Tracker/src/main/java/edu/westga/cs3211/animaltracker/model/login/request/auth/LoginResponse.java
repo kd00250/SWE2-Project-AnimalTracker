@@ -52,6 +52,10 @@ public final class LoginResponse extends Response {
         return this.timeout;
     }
 
+    /**
+     * Gets the creation time for this response.
+     * @return the expiration time
+     */
     public ZonedDateTime getCreationTime() {
         return this.creationTime;
     }

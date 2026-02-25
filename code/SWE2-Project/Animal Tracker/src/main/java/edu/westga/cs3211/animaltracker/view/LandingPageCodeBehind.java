@@ -12,6 +12,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * The landing page code behind.
+ */
 public class LandingPageCodeBehind {
     private LandingPageViewModel landingViewModel;
 
@@ -34,10 +37,9 @@ public class LandingPageCodeBehind {
     void onCreateProjectClick(ActionEvent event) {
 
         try {
-            CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CreateProjectPath, this.mainPane, PageInformation.CreateProjectTitle);
+            CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -45,19 +47,25 @@ public class LandingPageCodeBehind {
     @FXML
     void onViewProjectClick(ActionEvent event) {
         try {
-            ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.ViewProjectPath, this.mainPane, PageInformation.ViewProjectTitle);
+            ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.VIEW_PROJECT_PATH, this.mainPane, PageInformation.VIEW_PROJECT_TITLE);
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     private void disableBasedOnRole(Role role) {
         if (role == Role.CONTRIBUTOR || role == Role.GUEST || role == Role.ADMIN) {
             this.createProjectButton.setDisable(true);
             this.viewProjectButton.setDisable(true);
         }
     }
+
+    /**
+     * Sets the session for this page.
+     * @param session the users session
+     * @param server the server to be used
+     */
     public void setSession(LoginResponse session, ServerService server) {
         this.landingViewModel.setSession(session, server);
         var usersRole = this.landingViewModel.getUserRole();
