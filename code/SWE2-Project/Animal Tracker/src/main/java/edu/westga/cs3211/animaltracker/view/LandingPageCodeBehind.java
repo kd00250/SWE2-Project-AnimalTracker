@@ -52,13 +52,15 @@ public class LandingPageCodeBehind {
             e.printStackTrace();
         }
     }
-
-    public void setSession(LoginResponse session, ServerService server) {
-        this.landingViewModel.setSession(session, server);
-        var usersRole = this.landingViewModel.getUserRole();
-        if (usersRole == Role.CONTRIBUTOR || usersRole == Role.GUEST) {
+    private void disableBasedOnRole(Role role) {
+        if (role == Role.CONTRIBUTOR || role == Role.GUEST || role == Role.ADMIN) {
             this.createProjectButton.setDisable(true);
             this.viewProjectButton.setDisable(true);
         }
+    }
+    public void setSession(LoginResponse session, ServerService server) {
+        this.landingViewModel.setSession(session, server);
+        var usersRole = this.landingViewModel.getUserRole();
+        this.disableBasedOnRole(usersRole);
     }
 }

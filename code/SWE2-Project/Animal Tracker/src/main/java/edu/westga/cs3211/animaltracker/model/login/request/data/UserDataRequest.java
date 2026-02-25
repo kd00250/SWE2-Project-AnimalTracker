@@ -22,5 +22,6 @@ public final class UserDataRequest extends Request {
         if (token.isEmpty()) {
             throw new InvalidRequestException("Token is empty");
         }
+
     }
 }

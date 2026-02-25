@@ -126,6 +126,12 @@ public class DataStorage {
         return tokenMap.get(token);
     }
 
+    public static boolean tokenExist(String token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token cannot be null.");
+        }
+        return tokenMap.containsKey(token);
+    }
     /**
      * resets the collects (to be used in testing purposes only).
      */

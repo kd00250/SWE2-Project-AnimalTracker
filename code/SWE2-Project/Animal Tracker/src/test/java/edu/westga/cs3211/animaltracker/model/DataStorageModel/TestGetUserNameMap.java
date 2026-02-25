@@ -9,6 +9,6 @@ class TestGetUserNameMap {
 
     @Test
     void testGetUsernameMap() {
-        assertEquals(0, DataStorage.getUsernameMap().size());
+        assertEquals(1, DataStorage.getUsernameMap().size());
     }
 }

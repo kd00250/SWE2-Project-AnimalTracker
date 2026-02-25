@@ -41,7 +41,14 @@ public class LocalServer implements ServerService {
 
     @Override
     public Role requestUserRole(UserDataRequest request) {
-        var user = DataStorage.getUserByToken(request.getToken());
-        return user.getRole();
+        if (request == null) {
+            throw new IllegalArgumentException("UserDataRequest is null");
+        }
+        request.validateRequest();
+        if (DataStorage.tokenExist(request.getToken())) {
+            var user = DataStorage.getUserByToken(request.getToken());
+            return user.getRole();
+        }
+        return null;
     }
 }
