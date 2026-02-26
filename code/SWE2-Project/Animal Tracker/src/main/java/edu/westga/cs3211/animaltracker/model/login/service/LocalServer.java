@@ -1,10 +1,14 @@
 package edu.westga.cs3211.animaltracker.model.login.service;
 
 import edu.westga.cs3211.animaltracker.model.DataStorage;
+import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.request.data.GetAllProjectsForUserRequest;
 import edu.westga.cs3211.animaltracker.model.login.request.data.UserDataRequest;
+
+import java.util.List;
 
 /**
  * The local login auth class.
@@ -50,5 +54,20 @@ public class LocalServer implements ServerService {
             return user.getRole();
         }
         return null;
+    }
+
+    @Override
+    public List<Project> requestUserProjects(GetAllProjectsForUserRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
+
+        request.validateRequest();
+
+        if (!this.isValidToken(request.getToken())) {
+            throw new IllegalArgumentException("Invalid or expired token");
+        }
+
+        return request.getAllProjectsForUser();
     }
 }

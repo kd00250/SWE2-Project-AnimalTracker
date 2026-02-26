@@ -1,10 +1,13 @@
 package edu.westga.cs3211.animaltracker.model.login.service;
 
+import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.request.data.GetAllProjectsForUserRequest;
 import edu.westga.cs3211.animaltracker.model.login.request.data.UserDataRequest;
+
+import java.util.List;
 
 /**
  * The auth login service interface.
@@ -30,5 +33,13 @@ public interface ServerService {
      * @return the role of the user
      */
     Role requestUserRole(UserDataRequest request);
+
+    /**
+     * Gets all projects for the user associated with the request token.
+     *
+     * @param request the get all projects for user request
+     * @return a list of projects associated with the user
+     */
+    List<Project> requestUserProjects(GetAllProjectsForUserRequest request);
 
 }

@@ -31,6 +31,14 @@ public class LandingPageViewModel {
     }
 
     /**
+     * Gets the Server Service Information.
+     * @return the ServerService
+     */
+    public ServerService getServerService() {
+        return this.serverService;
+    }
+
+    /**
      * Gets the role for the logged-in user.
      * @return the users role
      */
@@ -38,6 +46,5 @@ public class LandingPageViewModel {
         var request = new UserDataRequest(this.authSession.getToken());
         return this.serverService.requestUserRole(request);
     }
-
 
 }

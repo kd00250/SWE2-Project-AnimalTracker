@@ -33,4 +33,14 @@ public final class PageInformation {
      * The view project page title.
      */
     public static final String VIEW_PROJECT_TITLE = "View Project";
+
+    /**
+     * The path for the select project page.
+     */
+    public static final String SELECT_PROJECT_PATH = "view/selectProject.fxml";
+
+    /**
+     * The title for the select project page.
+     */
+    public static final String SELECT_PROJECT_TITLE = "Select Project";
 }

@@ -40,17 +40,26 @@ public class LandingPageCodeBehind {
             CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Unexpected Error: " + e.getMessage());
         }
     }
 
     @FXML
     void onViewProjectClick(ActionEvent event) {
         try {
-            ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.VIEW_PROJECT_PATH, this.mainPane, PageInformation.VIEW_PROJECT_TITLE);
 
+            SelectProjectCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.SELECT_PROJECT_PATH,
+                    this.mainPane,
+                    PageInformation.SELECT_PROJECT_TITLE
+            );
+
+            controller.setSession(
+                    this.landingViewModel.getSession(),
+                    this.landingViewModel.getServerService()
+            );
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Unexpected Error: " + e.getMessage());
         }
     }
 

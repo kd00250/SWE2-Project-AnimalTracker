@@ -152,7 +152,17 @@ public class DataStorage {
         tokenMap = new HashMap<>();
         expirationMap = new HashMap<>();
 
-        new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        users.add(new User("Bob", "1234", Role.SCIENTIST));
+        Animal defaultAnimal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
+
+        User defaultUser = new User("Bob", "1234", Role.SCIENTIST);
+        users.add(defaultUser);
+
+        ArrayList<User> projectUsers = new ArrayList<>();
+        projectUsers.add(defaultUser);
+
+        ArrayList<Animal> projectAnimals = new ArrayList<>();
+        projectAnimals.add(defaultAnimal);
+
+        new Project("Wildlife Migration Study", new ArrayList<Scientist>(), projectAnimals, projectUsers);
     }
 }
