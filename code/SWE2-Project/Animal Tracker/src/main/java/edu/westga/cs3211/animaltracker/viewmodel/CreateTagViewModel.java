@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
+import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
@@ -16,6 +17,10 @@ public class CreateTagViewModel {
     private ObjectProperty<AnimalClass> animalClass;
     private StringProperty tagId;
     private StringProperty description;
+    private StringProperty height;
+    private StringProperty length;
+    private StringProperty weight;
+    private StringProperty errorMessage;
 
     /**
      * Initialize a new instance of CreateTagViewModel.
@@ -52,6 +57,42 @@ public class CreateTagViewModel {
     }
 
     /**
+     * Height property.
+     *
+     * @return the height property
+     */
+    public StringProperty heightProperty() {
+        return this.height;
+    }
+
+    /**
+     * Length property.
+     *
+     * @return the length property
+     */
+    public StringProperty lengthProperty() {
+        return this.length;
+    }
+
+    /**
+     * Weight property.
+     *
+     * @return the weight property
+     */
+    public StringProperty weightProperty() {
+        return this.weight;
+    }
+
+    /**
+     * Error message property.
+     *
+     * @return the error message property
+     */
+    public StringProperty errorMessageProperty() {
+        return this.errorMessage;
+    }
+
+    /**
      * Generates a random six-digit id for tag creation.
      */
     public void generateTagId() {
@@ -67,6 +108,31 @@ public class CreateTagViewModel {
         this.animalClass.set(null);
         this.tagId.set(DEFAULT_TAG);
         this.description.set("");
+        this.height.set("");
+        this.length.set("");
+        this.weight.set("");
+        this.errorMessage.set("");
+    }
+
+    /**
+     * Makes an animal tag based off the input provided.
+     * If tag is unable to made, a null value is returned.
+     *
+     * @return an Animal
+     */
+    public Animal makeTagOrNull() {
+        try {
+            double heightValue = this.parseDoubleOrThrow(this.height.get(), "Height");
+            double weightValue = this.parseDoubleOrThrow(this.weight.get(), "Weight");
+            double lengthValue = this.parseDoubleOrThrow(this.length.get(), "Length");
+            int id = this.parseIntOrThrow(this.tagId.get());
+
+            return new Animal(this.animalClass.get(), heightValue, weightValue, lengthValue, id, this.description.get());
+
+        } catch (Exception e) {
+            this.errorMessage.set(e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -77,12 +143,35 @@ public class CreateTagViewModel {
     public BooleanBinding isSubmitInvalid() {
         return this.description.isEmpty()
                 .or(this.animalClass.isNull())
-                .or(this.tagId.isEqualTo(DEFAULT_TAG));
+                .or(this.tagId.isEqualTo(DEFAULT_TAG))
+                .or(this.height.isEmpty())
+                .or(this.length.isEmpty())
+                .or(this.weight.isEmpty());
+    }
+
+    private double parseDoubleOrThrow(String value, String fieldName) {
+        try {
+            return Double.parseDouble(value.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(fieldName + " must be a number.");
+        }
+    }
+
+    private int parseIntOrThrow(String value) {
+        try {
+            return Integer.parseInt(value.trim());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("ID" + " must be a whole number.");
+        }
     }
 
     private void buildProperties() {
         this.animalClass = new SimpleObjectProperty<>();
         this.tagId = new SimpleStringProperty(DEFAULT_TAG);
         this.description = new SimpleStringProperty("");
+        this.height = new SimpleStringProperty("");
+        this.length = new SimpleStringProperty("");
+        this.weight = new SimpleStringProperty("");
+        this.errorMessage = new SimpleStringProperty("");
     }
 }

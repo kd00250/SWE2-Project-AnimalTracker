@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateTagViewModel;
 import javafx.event.ActionEvent;
@@ -27,6 +28,18 @@ public class CreateTagCodeBehind {
 
     @FXML
     private Label tagId;
+
+    @FXML
+    private TextField heightTextField;
+
+    @FXML
+    private TextField lengthTextField;
+
+    @FXML
+    private TextField weightTextField;
+
+    @FXML
+    private Label errorLabel;
 
     private final CreateTagViewModel viewModel;
 
@@ -72,6 +85,12 @@ public class CreateTagCodeBehind {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Put Logic for when Submit is confirmed. Such as go to new landing page.
+            Animal animal = this.viewModel.makeTagOrNull();
+
+            if (animal != null) {
+                this.viewModel.clear();
+
+            }
         }
     }
 
@@ -92,7 +111,10 @@ public class CreateTagCodeBehind {
 
         this.tagId.textProperty().bind(this.viewModel.tagIdProperty());
         this.descriptionText.textProperty().bindBidirectional(this.viewModel.descriptionProperty());
-
+        this.heightTextField.textProperty().bindBidirectional(this.viewModel.heightProperty());
+        this.lengthTextField.textProperty().bindBidirectional(this.viewModel.lengthProperty());
+        this.weightTextField.textProperty().bindBidirectional(this.viewModel.weightProperty());
+        this.errorLabel.textProperty().bind(this.viewModel.errorMessageProperty());
         this.submitButton.disableProperty().bind(this.viewModel.isSubmitInvalid());
     }
 }
