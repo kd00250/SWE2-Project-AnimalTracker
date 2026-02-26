@@ -1,13 +1,11 @@
 package edu.westga.cs3211.animaltracker.model.ProjectModel;
 
-import edu.westga.cs3211.animaltracker.model.Animal;
-import edu.westga.cs3211.animaltracker.model.DataStorage;
-import edu.westga.cs3211.animaltracker.model.Project;
-import edu.westga.cs3211.animaltracker.model.Scientist;
+import edu.westga.cs3211.animaltracker.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -122,4 +120,59 @@ class TestConstructors {
         );
     }
 
+    @Test
+    void testConstructorWithNullUsers() {
+        List<Scientist> scientists = new ArrayList<>();
+        List<Animal> animals = new ArrayList<>();
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Project("Test Project", scientists, animals, null);
+        });
+    }
+
+    @Test
+    void testConstructorWithEmptyUsers() {
+        List<Scientist> scientists = new ArrayList<>();
+        List<Animal> animals = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
+        Project project = new Project("Test Project", scientists, animals, users);
+
+        assertNotNull(project.getUsers(), "checking users list is not null");
+        assertEquals(0, project.getUsers().size(), "checking users list is empty");
+    }
+
+    @Test
+    void testConstructorWithUsers() {
+        List<Scientist> scientists = new ArrayList<>();
+        List<Animal> animals = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+
+        User user1 = new User("user1", "password1", Role.SCIENTIST);
+        User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
+        users.add(user1);
+        users.add(user2);
+
+        Project project = new Project("Test Project", scientists, animals, users);
+
+        assertEquals(2, project.getUsers().size(), "checking users list size");
+        assertTrue(project.getUsers().contains(user1), "checking user1 in list");
+        assertTrue(project.getUsers().contains(user2), "checking user2 in list");
+    }
+
+    @Test
+    void testDefaultConstructorInitializesEmptyUsers() {
+        Project project = new Project();
+
+        assertNotNull(project.getUsers(), "checking users list is not null");
+        assertEquals(0, project.getUsers().size(), "checking users list is empty");
+    }
+
+    @Test
+    void testConstructorWithNameInitializesEmptyUsers() {
+        Project project = new Project("Test Project");
+
+        assertNotNull(project.getUsers(), "checking users list is not null");
+        assertEquals(0, project.getUsers().size(), "checking users list is empty");
+    }
 }
