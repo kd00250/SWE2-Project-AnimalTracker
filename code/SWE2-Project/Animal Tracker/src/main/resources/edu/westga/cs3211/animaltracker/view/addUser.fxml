@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -9,17 +10,17 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.AddUserCodeBehind">
    <children>
-      <Label layoutX="202.0" layoutY="14.0" text="Add User">
+      <Label layoutX="202.0" text="Add User">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
-      <Label layoutX="99.0" layoutY="108.0" text="Please Enter a Username and password">
+      <Label layoutX="93.0" layoutY="79.0" text="Please Enter a Username and password">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_RIGHT" layoutX="99.0" layoutY="176.0" prefHeight="147.0" prefWidth="155.0" spacing="50.0">
+      <VBox alignment="TOP_RIGHT" layoutX="99.0" layoutY="126.0" prefHeight="147.0" prefWidth="155.0" spacing="50.0">
          <children>
             <Label text="Username: ">
                <font>
@@ -31,14 +32,20 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label text="Role: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
-      <TextField fx:id="usernameTextField" layoutX="254.0" layoutY="176.0" promptText="ex: Bob" />
-      <TextField fx:id="passwordTextField" layoutX="255.0" layoutY="244.0" promptText="ex: clone33" />
+      <TextField fx:id="usernameTextField" layoutX="255.0" layoutY="126.0" promptText="ex: Bob" />
+      <TextField fx:id="passwordTextField" layoutX="255.0" layoutY="194.0" promptText="ex: clone33" />
       <Button fx:id="addUserButton" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" onAction="#addUser" prefHeight="46.0" prefWidth="106.0" text="Add User">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
+      <ComboBox fx:id="roleComboBox" layoutX="255.0" layoutY="262.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
