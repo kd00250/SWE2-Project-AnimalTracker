@@ -1,9 +1,9 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginRequest;
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
-import edu.westga.cs3211.animaltracker.model.login.service.LocalServer;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
+import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

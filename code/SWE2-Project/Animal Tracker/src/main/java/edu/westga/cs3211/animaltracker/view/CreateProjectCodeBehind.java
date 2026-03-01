@@ -1,5 +1,8 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+
+import java.io.IOException;
 
 /**
  * The CreateProject CodeBehind.
@@ -61,6 +66,7 @@ public class CreateProjectCodeBehind {
 
     private CreateProjectViewModel viewModel;
 
+
     /**
      * Instantiates a new CreateProjectCodeBehind.
      *
@@ -79,6 +85,21 @@ public class CreateProjectCodeBehind {
      * @param actionEvent the event
      */
     public void onBackButtonClick(ActionEvent actionEvent) {
+        try {
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.LANDING_PATH,
+                    this.backButton,
+                    PageInformation.LANDING_TITLE
+            );
+
+            controller.setSession(
+                    this.viewModel.getSession(),
+                    this.viewModel.getServerService()
+            );
+
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     //TODO Fix Documentation to how event will actually work
@@ -109,5 +130,14 @@ public class CreateProjectCodeBehind {
      * @param actionEvent the event
      */
     public void onCreateProjectClick(ActionEvent actionEvent) {
+    }
+
+    /**
+     * Sets the session for this page.
+     * @param session the users session
+     * @param server the server to be used
+     */
+    public void setSession(LoginResponse session, ServerService server) {
+        this.viewModel.setSession(session, server);
     }
 }

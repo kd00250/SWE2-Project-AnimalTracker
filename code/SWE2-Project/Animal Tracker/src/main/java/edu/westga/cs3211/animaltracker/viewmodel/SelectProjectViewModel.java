@@ -1,9 +1,9 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Project;
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.login.request.data.GetAllProjectsForUserRequest;
-import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -79,7 +79,7 @@ public class SelectProjectViewModel {
         }
 
         try {
-            GetAllProjectsForUserRequest request = new GetAllProjectsForUserRequest(this.authSession.getToken());
+            var request = new UserDataRequest(this.authSession.getToken());
 
             List<Project> userProjects = this.serverService.requestUserProjects(request);
 

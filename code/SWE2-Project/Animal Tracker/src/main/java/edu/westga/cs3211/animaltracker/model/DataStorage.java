@@ -2,10 +2,7 @@ package edu.westga.cs3211.animaltracker.model;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The data storage class.
@@ -105,6 +102,16 @@ public class DataStorage {
             return 1;
         }
         return Collections.max(projects.keySet()) + 1;
+    }
+
+    public static Collection<User>  getScientists() {
+        Collection<User> scientist = new ArrayList<>();
+        for (User user : getUsers()) {
+            if (user.getRole() == Role.SCIENTIST) {
+                scientist.add(user);
+            }
+        }
+        return scientist;
     }
 
     /**

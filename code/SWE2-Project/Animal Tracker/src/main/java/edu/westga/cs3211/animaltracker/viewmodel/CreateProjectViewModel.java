@@ -1,4 +1,6 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,6 +16,8 @@ public class CreateProjectViewModel {
 
     private StringProperty projectName;
     private StringProperty projectLocation;
+    private LoginResponse authSession;
+    private ServerService serverService;
 
     /**
      * Instantiates a new CreateProjectViewModel.
@@ -75,5 +79,18 @@ public class CreateProjectViewModel {
         }
 
         this.projectLocation.set(projectLocation);
+    }
+
+    public void setSession(LoginResponse session, ServerService server) {
+        this.authSession = session;
+        this.serverService = server;
+    }
+
+    public LoginResponse getSession() {
+        return this.authSession;
+    }
+
+    public ServerService getServerService() {
+        return this.serverService;
     }
 }
