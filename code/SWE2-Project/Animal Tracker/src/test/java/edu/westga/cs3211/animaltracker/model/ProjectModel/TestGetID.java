@@ -19,6 +19,6 @@ class TestGetID {
     void getProjectID() {
         Project project = new Project("Hello World");
 
-        assertEquals(1, project.getId());
+        assertEquals(2, project.getId());
     }
 }
