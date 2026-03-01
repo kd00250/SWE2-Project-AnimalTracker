@@ -14,6 +14,7 @@ import java.util.UUID;
  */
 public class DataStorage {
     private static ArrayList<Scientist> scientists;
+    private static ArrayList<User> users;
     private static HashMap<String, User> usernameMap;
     private static HashMap<String, User> tokenMap;
     private static HashMap<String, ZonedDateTime> expirationMap;
@@ -31,6 +32,29 @@ public class DataStorage {
      */
     public static ArrayList<Scientist> getScientists() {
         return scientists;
+    }
+
+    /**
+     * gets the users.
+     *
+     * @return the users
+     */
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * finds out if the username is available or not.
+     *
+     * @param username the desired username
+     * @return true or false if the username is already taken or not
+     */
+    public static Boolean isUsernameAvailable(String username) {
+        boolean result = true;
+        for (User user : getUsers()) {
+            result = !user.getUsername().equals(username);
+        }
+        return result;
     }
 
     /**
@@ -131,6 +155,7 @@ public class DataStorage {
      */
     public static void reset() {
         scientists = new ArrayList<>();
+        users = new ArrayList<>();
         animals = new HashMap<>();
         projects = new HashMap<>();
         usernameMap = new HashMap<>();
