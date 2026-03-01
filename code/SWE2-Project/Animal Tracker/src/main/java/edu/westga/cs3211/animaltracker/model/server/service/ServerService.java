@@ -5,6 +5,7 @@ import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.Collection;
@@ -44,5 +45,6 @@ public interface ServerService {
     List<Project> requestUserProjects(UserDataRequest request);
 
     Collection<User> requestAllScientist(UserDataRequest request);
+    void AddProject(AddProjectRequest request);
 
 }

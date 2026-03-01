@@ -9,6 +9,7 @@ class TestExpirationDateMap {
 
     @Test
     void testGetExpirationDateMap() {
+        DataStorage.reset();
         assertEquals(1, DataStorage.getExpirationDateMap().size());
     }
 }

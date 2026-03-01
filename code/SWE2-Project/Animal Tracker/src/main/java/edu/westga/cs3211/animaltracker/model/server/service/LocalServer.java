@@ -1,12 +1,10 @@
 package edu.westga.cs3211.animaltracker.model.server.service;
 
-import edu.westga.cs3211.animaltracker.model.DataStorage;
-import edu.westga.cs3211.animaltracker.model.Project;
-import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.ArrayList;
@@ -98,5 +96,32 @@ public class LocalServer implements ServerService {
         } else {
             throw new InvalidRequestException("Invalid role");
         }
+    }
+
+    @Override
+    public void AddProject(AddProjectRequest request) {
+        var scientist = getScientistFromUsername(request.getScientistUsernames());
+        var animals = this.getAnimalsFromId(request.getAnimalIds());
+        var project = new Project(request.getProjectName(), animals, scientist);
+    }
+    private Collection<Animal> getAnimalsFromId(Collection<Integer> ids) {
+        Collection<Animal> animals = new ArrayList<>();
+        for (Integer id : ids) {
+            var animal = DataStorage.getAnimalById(id);
+            if (animal != null) {
+                animals.add(animal);
+            }
+        }
+        return animals;
+    }
+    private Collection<User> getScientistFromUsername(Collection<String> usernames) {
+        Collection<User> scientists = new ArrayList<>();
+        for (String username : usernames) {
+            var scientist = DataStorage.getUserByUsername(username);
+            if (scientist != null && scientist.getRole() == Role.SCIENTIST) {
+                scientists.add(scientist);
+            }
+        }
+        return scientists;
     }
 }

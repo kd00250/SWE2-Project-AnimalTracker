@@ -1,6 +1,7 @@
 package edu.westga.cs3211.animaltracker.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,7 +28,6 @@ public class Project {
     public Project() {
         this("Test", new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
     }
-
     /**
      * Instantiates a new Project.
      *
@@ -43,6 +43,12 @@ public class Project {
         this(name, new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
     }
 
+    public Project(String name, Collection<Animal> animals, Collection<User> users) {
+        this.name = name;
+        this.scientists = new ArrayList<>();
+        this.animals = (List<Animal>) animals;
+        this.users = (List<User>) users;
+    }
     /**
      * Instantiates a new Project.
      *

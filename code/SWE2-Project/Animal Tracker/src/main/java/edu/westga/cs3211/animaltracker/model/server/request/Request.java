@@ -6,7 +6,7 @@ import java.util.Random;
  * The abstract request class.
  */
 public abstract class Request {
-    private long requestId;
+    private final long requestId;
 
     /**
      * Initializes a new request with a random id.

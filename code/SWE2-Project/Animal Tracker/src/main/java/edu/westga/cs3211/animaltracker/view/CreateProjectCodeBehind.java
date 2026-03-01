@@ -130,6 +130,7 @@ public class CreateProjectCodeBehind {
      * @param actionEvent the event
      */
     public void onCreateProjectClick(ActionEvent actionEvent) {
+
     }
 
     /**

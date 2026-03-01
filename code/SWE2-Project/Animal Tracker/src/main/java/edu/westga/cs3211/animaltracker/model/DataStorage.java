@@ -21,6 +21,13 @@ public class DataStorage {
         reset();
     }
 
+    public static void addProject(Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("project cannot be null");
+        }
+        projects.put(project.getId(), project);
+    }
+
     /**
      * gets the scientists.
      *
@@ -153,6 +160,13 @@ public class DataStorage {
         return tokenMap.containsKey(token);
     }
 
+    public static Animal getAnimalById(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("Animal ID cannot be negative.");
+        }
+        return animals.get(id);
+    }
+
     /**
      * resets the collects (to be used in testing purposes only).
      */
@@ -167,6 +181,7 @@ public class DataStorage {
         Animal defaultAnimal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
 
         User defaultUser = new User("Bob", "1234", Role.SCIENTIST);
+        DataStorage.generateTokenForUser(defaultUser);
         users.add(defaultUser);
 
         ArrayList<User> projectUsers = new ArrayList<>();
