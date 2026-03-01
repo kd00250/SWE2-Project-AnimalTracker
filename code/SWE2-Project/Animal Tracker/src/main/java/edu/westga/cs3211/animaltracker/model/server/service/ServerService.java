@@ -46,5 +46,6 @@ public interface ServerService {
 
     Collection<User> requestAllScientist(UserDataRequest request);
     void AddProject(AddProjectRequest request);
+    void deleteProject(int projectId);
 
 }

@@ -16,7 +16,6 @@ public class DataStorage {
     private static HashMap<String, ZonedDateTime> expirationMap;
     private static HashMap<Integer, Animal> animals;
     private static HashMap<Integer, Project> projects;
-
     static {
         reset();
     }
@@ -111,6 +110,9 @@ public class DataStorage {
         return Collections.max(projects.keySet()) + 1;
     }
 
+    public static void deleteProjectIfExist(int projectId) {
+        projects.remove(projectId);
+    }
 
     /**
      * generates the token for the user.

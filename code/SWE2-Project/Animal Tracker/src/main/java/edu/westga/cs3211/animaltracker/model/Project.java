@@ -43,11 +43,13 @@ public class Project {
         this(name, new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
     }
 
-    public Project(String name, Collection<Animal> animals, Collection<User> users) {
+    public Project(List<User> users, String name, List<Animal> animals) {
         this.name = name;
         this.scientists = new ArrayList<>();
-        this.animals = (List<Animal>) animals;
-        this.users = (List<User>) users;
+        this.animals = animals;
+        this.users = users;
+        this.id = DataStorage.getNextProjectId();
+        DataStorage.getProjects().put(this.getId(), this);
     }
     /**
      * Instantiates a new Project.

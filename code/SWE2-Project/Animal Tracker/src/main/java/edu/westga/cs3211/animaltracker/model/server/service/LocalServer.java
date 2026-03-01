@@ -102,10 +102,17 @@ public class LocalServer implements ServerService {
     public void AddProject(AddProjectRequest request) {
         var scientist = getScientistFromUsername(request.getScientistUsernames());
         var animals = this.getAnimalsFromId(request.getAnimalIds());
-        var project = new Project(request.getProjectName(), animals, scientist);
+        var project = new Project(scientist, request.getProjectName() , animals);
+        DataStorage.addProject(project);
     }
-    private Collection<Animal> getAnimalsFromId(Collection<Integer> ids) {
-        Collection<Animal> animals = new ArrayList<>();
+
+    @Override
+    public void deleteProject(int projectId) {
+        DataStorage.deleteProjectIfExist(projectId);
+    }
+
+    private List<Animal> getAnimalsFromId(Collection<Integer> ids) {
+        List<Animal> animals = new ArrayList<>();
         for (Integer id : ids) {
             var animal = DataStorage.getAnimalById(id);
             if (animal != null) {
@@ -114,8 +121,8 @@ public class LocalServer implements ServerService {
         }
         return animals;
     }
-    private Collection<User> getScientistFromUsername(Collection<String> usernames) {
-        Collection<User> scientists = new ArrayList<>();
+    private List<User> getScientistFromUsername(Collection<String> usernames) {
+        List<User> scientists = new ArrayList<>();
         for (String username : usernames) {
             var scientist = DataStorage.getUserByUsername(username);
             if (scientist != null && scientist.getRole() == Role.SCIENTIST) {
