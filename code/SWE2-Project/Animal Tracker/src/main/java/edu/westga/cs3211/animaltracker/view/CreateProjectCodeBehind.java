@@ -1,12 +1,10 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 /**
  * The CreateProject CodeBehind.
@@ -59,16 +57,23 @@ public class CreateProjectCodeBehind {
     @FXML
     private Button createProjectButton;
 
-    private CreateProjectViewModel viewModel;
+    private CreateProjectViewModel vm;
 
-    /**
-     * Instantiates a new CreateProjectCodeBehind.
-     *
-     * @pre none
-     * @post none
-     */
-    public CreateProjectCodeBehind() {
-        this.viewModel = new CreateProjectViewModel();
+    private void setUpBindings() {
+        this.vm = new CreateProjectViewModel();
+
+    }
+
+    private void displayErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void initialize() {
+        this.setUpBindings();
+        //this.setUpControls();
     }
 
     //TODO Fix Documentation to how event will actually work

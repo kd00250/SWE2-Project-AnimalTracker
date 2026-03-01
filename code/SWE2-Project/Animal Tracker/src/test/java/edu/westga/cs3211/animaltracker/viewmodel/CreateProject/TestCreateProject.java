@@ -35,5 +35,7 @@ class TestCreateProject {
         users.add(user);
 
         vm.createProject("Pokemon", users);
+        assertEquals(1, DataStorage.getProjects().get(2).getUsers().size());
+        assertEquals(user, DataStorage.getProjects().get(2).getUsers().getFirst());
     }
 }
