@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * The view project data code behind
+ * The view project data code behind.
  */
 public class ViewProjectDataCodeBehind {
 

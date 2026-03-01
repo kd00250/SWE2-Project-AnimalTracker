@@ -1,4 +1,7 @@
-package edu.westga.cs3211.animaltracker.model.login.request;
+package edu.westga.cs3211.animaltracker.model.login.request.auth;
+
+import edu.westga.cs3211.animaltracker.model.login.request.InvalidRequestException;
+import edu.westga.cs3211.animaltracker.model.login.request.Request;
 
 /**
  * The login request class.
@@ -16,6 +19,22 @@ public final class LoginRequest extends Request {
     public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    /**
+     * Gets the username.
+     * @return the username
+     */
+    public String getUsername() {
+        return this.username;
+    }
+
+    /**
+     * Gets the password.
+     * @return the password
+     */
+    public String getPassword() {
+        return this.password;
     }
 
     @Override

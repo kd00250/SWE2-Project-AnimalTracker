@@ -1,6 +1,6 @@
-package edu.westga.cs3211.animaltracker.model.login.request.loginresponse;
+package edu.westga.cs3211.animaltracker.model.login.request.auth.loginrequest.loginresponse;
 
-import edu.westga.cs3211.animaltracker.model.login.request.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

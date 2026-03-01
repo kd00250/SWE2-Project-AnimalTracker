@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The view swapper class.
+ */
 public final class ViewSwapper {
 
     /**
@@ -18,6 +21,7 @@ public final class ViewSwapper {
      * @param node the node
      * @param title the page title
      * @return the controller of the fxml page that was loaded.
+     * @throws IOException if path cannot be found
      */
     public static <T> T loadPageFromStage(String fxmlPath, Node node, String title) throws IOException {
         if (fxmlPath == null) {

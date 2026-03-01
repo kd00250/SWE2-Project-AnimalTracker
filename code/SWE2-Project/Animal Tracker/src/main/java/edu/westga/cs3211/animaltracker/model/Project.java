@@ -12,6 +12,7 @@ public class Project {
     private String name;
     private List<Scientist> scientists;
     private List<Animal> animals;
+    private List<User> users;
     private int id;
 
     /**
@@ -20,10 +21,11 @@ public class Project {
      * @pre none
      * @post getName().equals(name) &&
      *       getScientists().equals(scientists) &&
-     *       getAnimals().equals(animals)
+     *       getAnimals().equals(animals) &&
+     *       getUsers().equals(users)
      */
     public Project() {
-        this("Test", new ArrayList<Scientist>(), new ArrayList<Animal>());
+        this("Test", new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
     }
 
     /**
@@ -32,12 +34,13 @@ public class Project {
      * @pre name != null && !name.isBlank()
      * @post getName().equals(name) &&
      *       getScientists().equals(scientists) &&
-     *       getAnimals().equals(animals)
+     *       getAnimals().equals(animals) &&
+     *       getUsers().equals(users)
      *
      * @param name the Name of the Project
      */
     public Project(String name) {
-        this(name, new ArrayList<Scientist>(), new ArrayList<Animal>());
+        this(name, new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
     }
 
     /**
@@ -47,13 +50,14 @@ public class Project {
      *      scientist != null
      * @post getName().equals(name) &&
      *       getScientists().equals(scientists) &&
-     *       getAnimals().equals(animals)
+     *       getAnimals().equals(animals) &&
+     *       getUsers().equals(users)
      *
      * @param name the Name of the Project
      * @param scientists the Scientists
      */
     public Project(String name, List<Scientist> scientists) {
-        this(name, scientists, new ArrayList<Animal>());
+        this(name, scientists, new ArrayList<Animal>(), new ArrayList<User>());
     }
 
     /**
@@ -64,13 +68,35 @@ public class Project {
      *      animals != null
      * @post getName().equals(name) &&
      *       getScientists().equals(scientists) &&
-     *       getAnimals().equals(animals)
+     *       getAnimals().equals(animals) &&
+     *       getUsers().equals(users)
      *
      * @param name the Name of the Project
      * @param scientists the Scientists
      * @param animals the Animals
      */
     public Project(String name, List<Scientist> scientists, List<Animal> animals) {
+        this(name, scientists, animals, new ArrayList<User>());
+    }
+
+    /**
+     * Instantiates a new Project.
+     *
+     * @pre name != null && !name.isBlank() &&
+     *      scientist != null &&
+     *      animals != null &&
+     *      users != null
+     * @post getName().equals(name) &&
+     *       getScientists().equals(scientists) &&
+     *       getAnimals().equals(animals) &&
+     *       getUsers().equals(users)
+     *
+     * @param name the Name of the Project
+     * @param scientists the Scientists
+     * @param animals the Animals
+     * @param users the Users
+     */
+    public Project(String name, List<Scientist> scientists, List<Animal> animals, List<User> users) {
         if (name == null) {
             throw new IllegalArgumentException("name cannot be null");
         }
@@ -83,9 +109,13 @@ public class Project {
         if (animals == null) {
             throw new IllegalArgumentException("animals cannot be null");
         }
+        if (users == null) {
+            throw new IllegalArgumentException("users cannot be null");
+        }
         this.name = name;
         this.scientists = scientists;
         this.animals = animals;
+        this.users = users;
         this.id = DataStorage.getNextProjectId();
         DataStorage.getProjects().put(this.getId(), this);
     }
@@ -112,6 +142,14 @@ public class Project {
      */
     public List<Scientist> getScientists() {
         return this.scientists;
+    }
+
+    /**
+     * Gets the List of Users.
+     * @return the List of Users
+     */
+    public List<User> getUsers() {
+        return this.users;
     }
 
     /**
@@ -205,6 +243,55 @@ public class Project {
             throw new IllegalArgumentException("animalClass cannot be null");
         }
         return this.animals.stream().filter(animal -> animal.getAnimalClass().equals(animalClass)).toList();
+    }
+
+    /**
+     * Adds a User to the Project.
+     *
+     * @pre user != null
+     * @post users.size() = users.size()@prev + 1
+     *
+     * @param user the User
+     */
+    public void addUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("user cannot be null");
+        }
+        if (this.containsUser(user)) {
+            throw new IllegalArgumentException("user already exists");
+        }
+        this.users.add(user);
+    }
+
+    /**
+     * Checks if the User is in the List.
+     *
+     * @pre none
+     * @post none
+     *
+     * @param user the User
+     * @return true if user is in the List, false otherwise.
+     */
+    public boolean containsUser(User user) {
+        return this.users.contains(user);
+    }
+
+    /**
+     * Removes a User from the Project.
+     *
+     * @pre user != null
+     * @post users.size() = users.size()@prev - 1 if user was in the list
+     *
+     * @param user the User
+     */
+    public void removeUser(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("user cannot be null");
+        }
+        if (!this.containsUser(user)) {
+            throw new IllegalArgumentException("user does not exist in project");
+        }
+        this.users.remove(user);
     }
 
     /**

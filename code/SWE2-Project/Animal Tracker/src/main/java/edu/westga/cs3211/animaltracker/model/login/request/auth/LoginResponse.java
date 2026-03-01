@@ -1,4 +1,6 @@
-package edu.westga.cs3211.animaltracker.model.login.request;
+package edu.westga.cs3211.animaltracker.model.login.request.auth;
+
+import edu.westga.cs3211.animaltracker.model.login.request.Response;
 
 import java.time.ZonedDateTime;
 
@@ -50,6 +52,10 @@ public final class LoginResponse extends Response {
         return this.timeout;
     }
 
+    /**
+     * Gets the creation time for this response.
+     * @return the expiration time
+     */
     public ZonedDateTime getCreationTime() {
         return this.creationTime;
     }

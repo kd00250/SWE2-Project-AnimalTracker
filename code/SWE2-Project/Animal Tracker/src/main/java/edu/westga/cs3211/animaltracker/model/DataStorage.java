@@ -13,7 +13,6 @@ import java.util.UUID;
  * This class is for testing purpose only and is taking the place of a sever storing information
  */
 public class DataStorage {
-    private static ArrayList<Scientist> scientists;
     private static ArrayList<User> users;
     private static HashMap<String, User> usernameMap;
     private static HashMap<String, User> tokenMap;
@@ -30,8 +29,8 @@ public class DataStorage {
      *
      * @return the scientists
      */
-    public static ArrayList<Scientist> getScientists() {
-        return scientists;
+    public static ArrayList<User> getUsers() {
+        return users;
     }
 
     /**
@@ -119,6 +118,7 @@ public class DataStorage {
 
     /**
      * generates the token for the user.
+     *
      * @param user the user
      * @return the token for the user
      */
@@ -134,6 +134,7 @@ public class DataStorage {
 
     /**
      * gets user by username.
+     *
      * @param username the username.
      * @return the user
      */
@@ -143,6 +144,7 @@ public class DataStorage {
 
     /**
      * gets the scientist by token.
+     *
      * @param token the token
      * @return the user
      */
@@ -151,10 +153,21 @@ public class DataStorage {
     }
 
     /**
+     * Checks if a given token exist in the storage.
+     * @param token the token
+     * @return true if token exist, otherwise false
+     */
+    public static boolean tokenExist(String token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token cannot be null.");
+        }
+        return tokenMap.containsKey(token);
+    }
+
+    /**
      * resets the collects (to be used in testing purposes only).
      */
     public static void reset() {
-        scientists = new ArrayList<>();
         users = new ArrayList<>();
         animals = new HashMap<>();
         projects = new HashMap<>();
@@ -162,6 +175,17 @@ public class DataStorage {
         tokenMap = new HashMap<>();
         expirationMap = new HashMap<>();
 
-        new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
+        Animal defaultAnimal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
+
+        User defaultUser = new User("Bob", "1234", Role.SCIENTIST);
+        users.add(defaultUser);
+
+        ArrayList<User> projectUsers = new ArrayList<>();
+        projectUsers.add(defaultUser);
+
+        ArrayList<Animal> projectAnimals = new ArrayList<>();
+        projectAnimals.add(defaultAnimal);
+
+        new Project("Wildlife Migration Study", new ArrayList<Scientist>(), projectAnimals, projectUsers);
     }
 }

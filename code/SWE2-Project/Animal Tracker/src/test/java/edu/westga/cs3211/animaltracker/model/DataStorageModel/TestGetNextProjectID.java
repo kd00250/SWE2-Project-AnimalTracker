@@ -16,13 +16,13 @@ class TestGetNextProjectID {
 
     @Test
     void testGetNextProjectIDEmpty() {
-        assertEquals(1, DataStorage.getNextProjectId());
+        assertEquals(2, DataStorage.getNextProjectId());
     }
 
     @Test
     void testGetNextAnimalIDNotEmpty() {
         Project project = new Project("Whales");
-        assertEquals(2, DataStorage.getNextProjectId());
-        assertEquals(DataStorage.getProjects().get(1), project);
+        assertEquals(3, DataStorage.getNextProjectId());
+        assertEquals(DataStorage.getProjects().get(2), project);
     }
 }
