@@ -34,15 +34,6 @@ public class DataStorage {
     }
 
     /**
-     * gets the users.
-     *
-     * @return the users
-     */
-    public static ArrayList<User> getUsers() {
-        return users;
-    }
-
-    /**
      * finds out if the username is available or not.
      *
      * @param username the desired username
