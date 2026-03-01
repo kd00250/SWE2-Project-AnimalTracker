@@ -46,15 +46,20 @@ public class LoginCodeBehind {
     void onLoginClick(ActionEvent event) {
         try {
             this.viewModel.processLoginRequest();
-        } catch (InvalidRequestException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Invalid Login Attempt");
-            alert.showAndWait();
+            if (this.viewModel.isLoginValid()) {
+                this.processCorrectLogin();
+            } else {
+                this.displayLoginError("Invalid username or password");
+            }
+        } catch (Exception e) {
+            this.displayLoginError("Missing credentials");
         }
 
-        if (this.viewModel.isLoginValid()) {
-            this.processCorrectLogin();
-        }
+    }
+    private void displayLoginError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     private void processCorrectLogin() {
@@ -62,7 +67,7 @@ public class LoginCodeBehind {
             LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.LANDING_PATH, this.mainPane, PageInformation.LANDING_TITLE);
             controller.setSession(this.viewModel.getLoginResponse(), this.viewModel.getServerService());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error processing login request");
         }
     }
 

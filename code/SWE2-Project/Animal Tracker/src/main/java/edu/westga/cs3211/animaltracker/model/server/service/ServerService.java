@@ -2,10 +2,12 @@ package edu.westga.cs3211.animaltracker.model.server.service;
 
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.Role;
+import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -40,5 +42,7 @@ public interface ServerService {
      * @return a list of projects associated with the user
      */
     List<Project> requestUserProjects(UserDataRequest request);
+
+    Collection<User> requestAllScientist(UserDataRequest request);
 
 }

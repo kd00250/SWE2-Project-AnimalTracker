@@ -4,12 +4,16 @@ import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import static edu.westga.cs3211.animaltracker.model.DataStorage.getUsers;
 
 /**
  * The local login auth class.
@@ -78,5 +82,21 @@ public class LocalServer implements ServerService {
             }
         }
         return userProjects;
+    }
+
+    @Override
+    public Collection<User> requestAllScientist(UserDataRequest request) {
+        var role = this.requestUserRole(request);
+        if (role == Role.SCIENTIST || role == Role.ADMIN) {
+            Collection<User> scientist = new ArrayList<>();
+            for (User user : getUsers()) {
+                if (user.getRole() == Role.SCIENTIST) {
+                    scientist.add(user);
+                }
+            }
+            return scientist;
+        } else {
+            throw new InvalidRequestException("Invalid role");
+        }
     }
 }

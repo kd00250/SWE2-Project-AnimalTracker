@@ -104,15 +104,6 @@ public class DataStorage {
         return Collections.max(projects.keySet()) + 1;
     }
 
-    public static Collection<User>  getScientists() {
-        Collection<User> scientist = new ArrayList<>();
-        for (User user : getUsers()) {
-            if (user.getRole() == Role.SCIENTIST) {
-                scientist.add(user);
-            }
-        }
-        return scientist;
-    }
 
     /**
      * generates the token for the user.
