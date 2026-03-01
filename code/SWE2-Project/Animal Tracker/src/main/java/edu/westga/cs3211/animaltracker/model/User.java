@@ -60,4 +60,9 @@ public class User {
     public Role getRole() {
         return this.role;
     }
+
+    @Override
+    public String toString() {
+        return this.username;
+    }
 }
