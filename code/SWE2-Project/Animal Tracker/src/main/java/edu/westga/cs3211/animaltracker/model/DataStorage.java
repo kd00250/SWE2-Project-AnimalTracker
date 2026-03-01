@@ -34,6 +34,29 @@ public class DataStorage {
     }
 
     /**
+     * gets the users.
+     *
+     * @return the users
+     */
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * finds out if the username is available or not.
+     *
+     * @param username the desired username
+     * @return true or false if the username is already taken or not
+     */
+    public static Boolean isUsernameAvailable(String username) {
+        boolean result = true;
+        for (User user : getUsers()) {
+            result = !user.getUsername().equals(username);
+        }
+        return result;
+    }
+
+    /**
      * Gets the animals.
      *
      * @return the animals

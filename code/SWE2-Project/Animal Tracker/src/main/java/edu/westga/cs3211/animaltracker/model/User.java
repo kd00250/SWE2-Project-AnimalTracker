@@ -1,7 +1,7 @@
 package edu.westga.cs3211.animaltracker.model;
 
 /**
- * The Scientist Class.
+ * The User Class.
  * @author mrocker1
  */
 public class User {
@@ -11,7 +11,7 @@ public class User {
     private Role role;
 
     /**
-     * Instantiates a new Scientist.
+     * Instantiates a new User.
      * @pre username != null && !username.isBlank() &&
      *      password != null && !password.isBlank()
      * @param username the Username
@@ -38,7 +38,7 @@ public class User {
     }
 
     /**
-     * Gets the Scientist Name.
+     * Gets the User Name.
      * @return the Scientist Name
      */
     public String getUsername() {
