@@ -18,12 +18,6 @@ import java.util.ResourceBundle;
 public class ViewProjectDataCodeBehind {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private ComboBox<?> animalClassComboBox;
 
     @FXML
@@ -45,6 +39,15 @@ public class ViewProjectDataCodeBehind {
     private ComboBox<?> subjectComboBox;
 
     @FXML
+    private Button backButton;
+
+    @FXML
+    private Button createTagButton;
+
+    @FXML
+    private Button getInformationButton;
+
+    @FXML
     private Label tagIDLabel;
 
     @FXML
@@ -54,8 +57,25 @@ public class ViewProjectDataCodeBehind {
     private Label weightLabel;
 
     @FXML
-    void visualize(ActionEvent event) {
+    void onBackButtonClick(ActionEvent event) {
 
+    }
+
+    @FXML
+    void onCreateTagButtonClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onGetInformationButtonClick(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void visualize(ActionEvent event) {
+        //Implementation coming in future sprint :)
+        //The map visualization of the data (a nice to have)
     }
 
     @FXML

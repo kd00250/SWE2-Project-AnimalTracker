@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.ViewProjectDataCodeBehind">
    <children>
-      <Label fx:id="projectNameLabel" layoutX="284.0" layoutY="14.0" prefHeight="70.0" prefWidth="310.0" text="Project Name">
+      <Label fx:id="projectNameLabel" layoutX="276.0" layoutY="14.0" prefHeight="70.0" prefWidth="324.0">
          <font>
             <Font size="48.0" />
          </font>
@@ -34,12 +34,12 @@
             </Label>
          </children>
       </VBox>
-      <Label fx:id="heightLabel" layoutX="256.0" layoutY="203.0" text="Label">
+      <Label fx:id="heightLabel" layoutX="256.0" layoutY="203.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="weightLabel" layoutX="259.0" layoutY="288.0" text="Label">
+      <Label fx:id="weightLabel" layoutX="259.0" layoutY="288.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -65,12 +65,12 @@
          </children>
       </VBox>
       <Label layoutX="-282.0" layoutY="-45.0" text="Label" />
-      <Label fx:id="animalLabel" layoutX="672.0" layoutY="202.0" prefHeight="35.0" prefWidth="73.0" text="Label">
+      <Label fx:id="animalLabel" layoutX="672.0" layoutY="202.0" prefHeight="35.0" prefWidth="73.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lengthLabel" layoutX="671.0" layoutY="288.0" prefHeight="35.0" prefWidth="56.0" text="Label">
+      <Label fx:id="lengthLabel" layoutX="671.0" layoutY="288.0" prefHeight="35.0" prefWidth="56.0">
          <font>
             <Font size="24.0" />
          </font>
@@ -97,12 +97,19 @@
          </children>
       </VBox>
       <TextArea fx:id="descriptionTextArea" editable="false" layoutX="259.0" layoutY="494.0" prefHeight="86.0" prefWidth="324.0" />
-      <Label fx:id="tagIDLabel" layoutX="256.0" layoutY="405.0" text="Label">
+      <Label fx:id="tagIDLabel" layoutX="256.0" layoutY="405.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Button fx:id="visualizeDataButton" layoutX="634.0" layoutY="511.0" mnemonicParsing="false" onAction="#visualize" prefHeight="51.0" prefWidth="202.0" text="Visualize Data">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="createTagButton" layoutX="23.0" layoutY="28.0" mnemonicParsing="false" onAction="#onCreateTagButtonClick" prefHeight="35.0" prefWidth="81.0" text="Create Tag" />
+      <Button fx:id="backButton" layoutX="770.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="82.0" text="Back" />
+      <Button fx:id="getInformationButton" layoutX="630.0" layoutY="441.0" mnemonicParsing="false" onAction="#onGetInformationButtonClick" prefHeight="51.0" prefWidth="202.0" text="Get Information">
          <font>
             <Font size="24.0" />
          </font>
