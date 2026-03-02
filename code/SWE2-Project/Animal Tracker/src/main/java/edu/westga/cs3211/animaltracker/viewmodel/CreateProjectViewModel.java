@@ -118,6 +118,15 @@ public class CreateProjectViewModel {
     }
 
     /**
+     * removes a scientist from a project.
+     *
+     * @param user to remove from the project
+     */
+    public void removeScientistFromProject(User user) {
+        this.addedScientist.remove(user);
+    }
+
+    /**
      * creates a new project based on the information entered.
      *
      * @param name the name

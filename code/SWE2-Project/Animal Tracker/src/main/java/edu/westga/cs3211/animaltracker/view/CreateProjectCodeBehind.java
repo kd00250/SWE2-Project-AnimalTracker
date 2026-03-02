@@ -1,10 +1,13 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.util.ArrayList;
 
 /**
  * The CreateProject CodeBehind.
@@ -37,9 +40,8 @@ public class CreateProjectCodeBehind {
     @FXML
     private Label scientistToAddLabel;
 
-    //TODO Check to make sure that it will be Scientist/Correct Object
     @FXML
-    private ListView<String> scientistToAddListView;
+    private ListView<User> scientistToAddListView;
 
     @FXML
     private Button removeScientistToAddButton;
@@ -47,9 +49,8 @@ public class CreateProjectCodeBehind {
     @FXML
     private Label availableScientistLabel;
 
-    //TODO Check to make sure that it will be Scientist/Correct Object
     @FXML
-    private ListView<String> availableScientistToAddListView;
+    private ListView<User> availableScientistToAddListView;
 
     @FXML
     private Button addScientistToProjectButton;
@@ -61,7 +62,19 @@ public class CreateProjectCodeBehind {
 
     private void setUpBindings() {
         this.vm = new CreateProjectViewModel();
+        this.vm.getProjectNameProperty().bind(this.projectNameTextField.textProperty());
+        this.vm.getProjectLocationProperty().bind(this.projectLocationTextField.textProperty());
+        this.createProjectButton.disableProperty().bind(this.projectLocationTextField.textProperty().isEmpty().or(this.projectNameTextField.textProperty().isEmpty()));
+        this.scientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.availableScientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.removeScientistToAddButton.disableProperty().bind(this.scientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
+        this.addScientistToProjectButton.disableProperty().bind(this.availableScientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
+    }
 
+    private void displayErrorPopup() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Project: " + this.vm.getProjectNameProperty().get() + " has been successfully created");
+        alert.showAndWait();
     }
 
     private void displayErrorPopup(String message) {
@@ -70,49 +83,47 @@ public class CreateProjectCodeBehind {
         alert.showAndWait();
     }
 
+    void onBackButtonClick(ActionEvent actionEvent) {
+    }
+
+    //TODO Fix Documentation to how event will actually work
+
+    void onAddScientistToProjectClick(ActionEvent actionEvent) {
+        this.addScientistToProjectButton.setOnAction(e -> {
+            User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                try {
+                    this.vm.addScientistToProject(selectedUser);
+                } catch (IllegalArgumentException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                    alert.showAndWait();
+                }
+            }
+        });
+    }
+
+    void onRemoveScientistToAddClick(ActionEvent actionEvent) {
+        this.removeScientistToAddButton.setOnAction(e -> {
+            User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
+            if (selectedUser != null) {
+                try {
+                    this.vm.removeScientistFromProject(selectedUser);
+                } catch (IllegalArgumentException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                    alert.showAndWait();
+                }
+            }
+        });
+    }
+
+    void onCreateProjectClick(ActionEvent actionEvent) {
+        String name = this.vm.getProjectNameProperty().get();
+        ArrayList<User> scientist = this.vm.getAddedScientist();
+        this.vm.createProject(name, scientist);
+    }
+
     @FXML
     void initialize() {
         this.setUpBindings();
-        //this.setUpControls();
-    }
-
-    //TODO Fix Documentation to how event will actually work
-
-    /**
-     * Goes back to Landing Page.
-     *
-     * @param actionEvent the event
-     */
-    public void onBackButtonClick(ActionEvent actionEvent) {
-    }
-
-    //TODO Fix Documentation to how event will actually work
-
-    /**
-     * Handles when the Add Scientist button is clicked.
-     *
-     * @param actionEvent the event
-     */
-    public void onAddScientistToProjectClick(ActionEvent actionEvent) {
-    }
-
-    //TODO Fix Documentation to how event will actually work
-
-    /**
-     * Handles when the Remove Scientist button is clicked.
-     *
-     * @param actionEvent the event
-     */
-    public void onRemoveScientistToAddClick(ActionEvent actionEvent) {
-    }
-
-    //TODO Fix Documentation to how event will actually work
-
-    /**
-     * Handles when the Create Project button is clicked.
-     *
-     * @param actionEvent the event
-     */
-    public void onCreateProjectClick(ActionEvent actionEvent) {
     }
 }
