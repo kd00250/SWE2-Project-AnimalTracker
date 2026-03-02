@@ -1,12 +1,14 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -60,18 +62,19 @@ public class CreateProjectCodeBehind {
 
     private CreateProjectViewModel vm;
 
-    private void setUpBindings() {
+    void setUpBindings() {
         this.vm = new CreateProjectViewModel();
         this.vm.getProjectNameProperty().bind(this.projectNameTextField.textProperty());
         this.vm.getProjectLocationProperty().bind(this.projectLocationTextField.textProperty());
         this.createProjectButton.disableProperty().bind(this.projectLocationTextField.textProperty().isEmpty().or(this.projectNameTextField.textProperty().isEmpty()));
+        this.availableScientistToAddListView.getItems().addAll(this.vm.getAvailableScientists());
         this.scientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.availableScientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.removeScientistToAddButton.disableProperty().bind(this.scientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
         this.addScientistToProjectButton.disableProperty().bind(this.availableScientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
     }
 
-    private void displayErrorPopup() {
+    private void displaySuccessPopup() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Project: " + this.vm.getProjectNameProperty().get() + " has been successfully created");
         alert.showAndWait();
@@ -83,17 +86,35 @@ public class CreateProjectCodeBehind {
         alert.showAndWait();
     }
 
+    @FXML
     void onBackButtonClick(ActionEvent actionEvent) {
+        try {
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.LANDING_PATH,
+                    this.backButton,
+                    PageInformation.LANDING_TITLE
+            );
+
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService()
+            );
+
+        } catch (IOException e) {
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+        }
     }
 
-    //TODO Fix Documentation to how event will actually work
+    //Fix Documentation to how event will actually work
 
+    @FXML
     void onAddScientistToProjectClick(ActionEvent actionEvent) {
         this.addScientistToProjectButton.setOnAction(e -> {
             User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
             if (selectedUser != null) {
                 try {
                     this.vm.addScientistToProject(selectedUser);
+                    this.scientistToAddListView.getItems().add(selectedUser);
                 } catch (IllegalArgumentException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     alert.showAndWait();
@@ -102,12 +123,14 @@ public class CreateProjectCodeBehind {
         });
     }
 
+    @FXML
     void onRemoveScientistToAddClick(ActionEvent actionEvent) {
         this.removeScientistToAddButton.setOnAction(e -> {
             User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
             if (selectedUser != null) {
                 try {
                     this.vm.removeScientistFromProject(selectedUser);
+                    this.scientistToAddListView.getItems().remove(selectedUser);
                 } catch (IllegalArgumentException ex) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
                     alert.showAndWait();
@@ -116,10 +139,12 @@ public class CreateProjectCodeBehind {
         });
     }
 
+    @FXML
     void onCreateProjectClick(ActionEvent actionEvent) {
         String name = this.vm.getProjectNameProperty().get();
         ArrayList<User> scientist = this.vm.getAddedScientist();
         this.vm.createProject(name, scientist);
+        this.displaySuccessPopup();
     }
 
     @FXML
