@@ -40,7 +40,7 @@ class TestConstructor {
     }
 
     @Test
-    void testValidScientist() {
+    void testValidUser() {
         var user = new User("John Doe", "123456789", Role.ADMIN);
 
         assertAll(
