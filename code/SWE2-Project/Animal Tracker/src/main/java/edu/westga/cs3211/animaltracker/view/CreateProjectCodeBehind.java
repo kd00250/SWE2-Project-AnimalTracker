@@ -1,6 +1,8 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
@@ -74,6 +76,16 @@ public class CreateProjectCodeBehind {
         this.addScientistToProjectButton.disableProperty().bind(this.availableScientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
     }
 
+    private void setUpListeners() {
+        this.projectNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.projectNameWarningLabel.setVisible(newValue.isBlank());
+        });
+
+        this.projectLocationTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            this.projectLocationWarningLabel.setVisible(newValue.isBlank());
+        });
+    }
+
     private void displaySuccessPopup() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Project: " + this.vm.getProjectNameProperty().get() + " has been successfully created");
@@ -84,6 +96,16 @@ public class CreateProjectCodeBehind {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        this.vm.setSession(session, server);
     }
 
     @FXML
@@ -150,5 +172,6 @@ public class CreateProjectCodeBehind {
     @FXML
     void initialize() {
         this.setUpBindings();
+        this.setUpListeners();
     }
 }

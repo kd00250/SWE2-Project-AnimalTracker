@@ -39,6 +39,10 @@ public class LandingPageCodeBehind {
         try {
             CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
 
+            controller.setSession(
+                    this.landingViewModel.getSession(),
+                    this.landingViewModel.getServerService()
+            );
         } catch (IOException e) {
             System.err.println("Unexpected Error: " + e.getMessage());
         }
