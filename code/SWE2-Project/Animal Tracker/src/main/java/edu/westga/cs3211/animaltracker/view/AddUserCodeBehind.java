@@ -3,6 +3,7 @@ package edu.westga.cs3211.animaltracker.view;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
+import java.io.IOException;
+
 /**
  * the add user code behind class.
  */
@@ -19,6 +22,9 @@ public class AddUserCodeBehind {
 
     @FXML
     private Button addUserButton;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private TextField passwordTextField;
@@ -38,26 +44,45 @@ public class AddUserCodeBehind {
     void addUser(ActionEvent event) {
         try {
             this.vm.createNewUser();
+            this.displaySuccessPopup();
         } catch (IllegalArgumentException exception) {
             this.displayErrorPopup(exception.getMessage());
+        }
+    }
+
+    @FXML
+    void onBackButtonClick(ActionEvent event) {
+        try {
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.LANDING_PATH,
+                    this.backButton,
+                    PageInformation.LANDING_TITLE
+            );
+
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService()
+            );
+
+        } catch (IOException e) {
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
     }
 
     private void setUpControls() {
         this.roleComboBox.getItems().addAll(Role.values());
         this.roleComboBox.setValue(Role.values()[0]);
+        this.addUserButton.disableProperty().bind(this.usernameTextField.textProperty().isEmpty().or(this.passwordTextField.textProperty().isEmpty()));
         this.usernameTextField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.startsWith(" ")) {
                 this.usernameTextField.setText(oldVal);
             }
-            this.addUserButton.setDisable(newVal.isBlank() || this.passwordTextField.getText().isBlank());
         });
 
         this.passwordTextField.textProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.startsWith(" ")) {
                 this.passwordTextField.setText(oldVal);
             }
-            this.addUserButton.setDisable(newVal.isBlank() || this.usernameTextField.getText().isBlank());
         });
 
     }
@@ -82,6 +107,12 @@ public class AddUserCodeBehind {
     private void displayErrorPopup(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void displaySuccessPopup() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Username: " + this.vm.getUsername().get() + " Password: " + this.vm.getPassword().get() + " and Role: " + this.vm.getRole().get() + " user has been successfully created");
         alert.showAndWait();
     }
 
