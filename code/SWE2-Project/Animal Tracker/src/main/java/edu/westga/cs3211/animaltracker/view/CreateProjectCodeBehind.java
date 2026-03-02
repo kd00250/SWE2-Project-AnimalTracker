@@ -4,7 +4,6 @@ import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
-import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateProjectViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,16 +20,10 @@ import java.util.ArrayList;
 public class CreateProjectCodeBehind {
 
     @FXML
-    private Label projectNameLabel;
-
-    @FXML
     private TextField projectNameTextField;
 
     @FXML
     private Label projectNameWarningLabel;
-
-    @FXML
-    private Label projectLocationLabel;
 
     @FXML
     private TextField projectLocationTextField;
@@ -42,16 +35,10 @@ public class CreateProjectCodeBehind {
     private Button backButton;
 
     @FXML
-    private Label scientistToAddLabel;
-
-    @FXML
     private ListView<User> scientistToAddListView;
 
     @FXML
     private Button removeScientistToAddButton;
-
-    @FXML
-    private Label availableScientistLabel;
 
     @FXML
     private ListView<User> availableScientistToAddListView;
@@ -78,11 +65,21 @@ public class CreateProjectCodeBehind {
 
     private void setUpListeners() {
         this.projectNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.projectNameWarningLabel.setVisible(newValue.isBlank());
+            if (newValue.isBlank()) {
+                this.projectNameWarningLabel.setText("Invalid: Project Name cannot be blank");
+                this.projectNameWarningLabel.setVisible(true);
+            } else {
+                this.projectNameWarningLabel.setVisible(false);
+            }
         });
 
         this.projectLocationTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            this.projectLocationWarningLabel.setVisible(newValue.isBlank());
+            if (newValue.isBlank()) {
+                this.projectLocationWarningLabel.setText("Invalid: Project Location cannot be blank");
+                this.projectLocationWarningLabel.setVisible(true);
+            } else {
+                this.projectLocationWarningLabel.setVisible(false);
+            }
         });
     }
 

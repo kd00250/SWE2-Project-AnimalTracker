@@ -149,7 +149,7 @@ public class CreateProjectViewModel {
     public void createProject(String name, ArrayList<User> users) {
         ArrayList<Scientist> dummyList = new ArrayList<>();
         ArrayList<Animal> emptyList = new ArrayList<>();
-        Project project = new Project(name, dummyList, emptyList, users);
+        new Project(name, dummyList, emptyList, users);
     }
 
     /**

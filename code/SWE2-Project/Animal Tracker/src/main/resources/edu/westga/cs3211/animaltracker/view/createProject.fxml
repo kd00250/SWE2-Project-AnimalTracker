@@ -14,8 +14,8 @@
         <TextField fx:id="projectLocationTextField" layoutX="48.0" layoutY="239.0" />
         <Label fx:id="projectNameLabel" layoutX="48.0" layoutY="142.0" text="Project Name" />
         <Label fx:id="projectLocationLabel" layoutX="48.0" layoutY="222.0" text="Project Location" />
-        <Label fx:id="projectNameWarningLabel" layoutX="48.0" layoutY="184.0" text="Invalid Name!" textFill="RED" />
-        <Label fx:id="projectLocationWarningLabel" layoutX="48.0" layoutY="264.0" text="Invalid Location!" textFill="RED" />
+        <Label fx:id="projectNameWarningLabel" layoutX="48.0" layoutY="184.0" textFill="RED" />
+        <Label fx:id="projectLocationWarningLabel" layoutX="48.0" layoutY="264.0" textFill="RED" />
         <ListView fx:id="availableScientistToAddListView" layoutX="579.0" layoutY="150.0" prefHeight="200.0" prefWidth="149.0" />
         <ListView fx:id="scientistToAddListView" layoutX="412.0" layoutY="150.0" prefHeight="200.0" prefWidth="149.0" />
         <Label fx:id="scientistToAddLabel" layoutX="444.0" layoutY="133.0" text="Scientist to Add" />
