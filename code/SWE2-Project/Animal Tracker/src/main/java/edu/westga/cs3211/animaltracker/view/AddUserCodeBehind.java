@@ -1,6 +1,8 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.Role;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,6 +60,16 @@ public class AddUserCodeBehind {
             this.addUserButton.setDisable(newVal.isBlank() || this.usernameTextField.getText().isBlank());
         });
 
+    }
+
+    void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        this.vm.setSession(session, server);
     }
 
     private void setUpBindings() {

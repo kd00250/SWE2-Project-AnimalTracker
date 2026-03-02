@@ -169,7 +169,9 @@ public class DataStorage {
         Animal defaultAnimal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
 
         User defaultUser = new User("Bob", "1234", Role.SCIENTIST);
+        User defaultUserAdmin = new User("Billy", "6767", Role.ADMIN);
         users.add(defaultUser);
+        users.add(defaultUserAdmin);
 
         ArrayList<User> projectUsers = new ArrayList<>();
         projectUsers.add(defaultUser);
