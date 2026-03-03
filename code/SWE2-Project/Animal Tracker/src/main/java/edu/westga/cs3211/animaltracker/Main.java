@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker;
 
 import java.io.IOException;
 
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,8 +17,7 @@ import javafx.scene.layout.Pane;
  */
 public class Main extends Application {
 
-    private static final String WINDOW_TITLE = "Greetings";
-    private static final String GUI_FXML = "view/login.fxml";
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -26,7 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(root);
 
             primaryStage.setScene(scene);
-            primaryStage.setTitle(WINDOW_TITLE);
+            primaryStage.setTitle(PageInformation.LOGIN_TITLE);
             primaryStage.show();
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -35,7 +35,7 @@ public class Main extends Application {
 
     private Pane loadGui() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource(GUI_FXML));
+        loader.setLocation(this.getClass().getResource(PageInformation.LOGIN_PATH));
         return loader.load();
     }
 

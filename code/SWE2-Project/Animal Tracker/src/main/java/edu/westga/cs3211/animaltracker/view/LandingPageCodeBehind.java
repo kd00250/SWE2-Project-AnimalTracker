@@ -46,6 +46,15 @@ public class LandingPageCodeBehind {
     }
 
     @FXML
+    void onLogoutClick(ActionEvent event) {
+        try {
+            ViewSwapper.loadPageFromStage(PageInformation.LOGIN_PATH, this.mainPane, PageInformation.LOGIN_TITLE);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to logout");
+        }
+    }
+
+    @FXML
     void onViewProjectClick(ActionEvent event) {
         try {
 

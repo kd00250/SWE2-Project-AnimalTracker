@@ -43,4 +43,7 @@ public final class PageInformation {
      * The title for the select project page.
      */
     public static final String SELECT_PROJECT_TITLE = "Select Project";
+
+    public static final String LOGIN_PATH = "view/login.fxml";
+    public static final String LOGIN_TITLE = "Login";
 }
