@@ -45,6 +45,8 @@ public class AddUserCodeBehind {
         try {
             this.vm.createNewUser();
             this.displaySuccessPopup();
+            this.usernameTextField.clear();
+            this.passwordTextField.clear();
         } catch (IllegalArgumentException exception) {
             this.displayErrorPopup(exception.getMessage());
         }
