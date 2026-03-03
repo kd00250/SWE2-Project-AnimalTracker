@@ -44,15 +44,10 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <ComboBox fx:id="animalClassComboBox" layoutX="256.0" layoutY="125.0" prefWidth="150.0" />
+      <ComboBox fx:id="animalClassComboBox" layoutX="256.0" layoutY="125.0" onAction="#onAnimalClassChange" prefWidth="150.0" />
       <VBox alignment="TOP_RIGHT" layoutX="489.0" layoutY="117.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
          <children>
             <Label text="Subject : ">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Label text="Animal Name: ">
                <font>
                   <Font size="24.0" />
                </font>
@@ -65,17 +60,12 @@
          </children>
       </VBox>
       <Label layoutX="-282.0" layoutY="-45.0" text="Label" />
-      <Label fx:id="animalLabel" layoutX="672.0" layoutY="202.0" prefHeight="35.0" prefWidth="73.0">
+      <Label fx:id="lengthLabel" layoutX="671.0" layoutY="203.0" prefHeight="35.0" prefWidth="56.0">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="lengthLabel" layoutX="671.0" layoutY="288.0" prefHeight="35.0" prefWidth="56.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="subjectComboBox" layoutX="672.0" layoutY="125.0" prefWidth="150.0" />
+      <ComboBox fx:id="subjectComboBox" layoutX="672.0" layoutY="125.0" onAction="#onSubjectChange" prefWidth="150.0" />
       <VBox layoutX="-170.0" layoutY="288.0" prefHeight="200.0" prefWidth="100.0" />
       <Label layoutX="373.0" layoutY="351.0" text="Tag Info">
          <font>
@@ -107,12 +97,11 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="createTagButton" layoutX="23.0" layoutY="28.0" mnemonicParsing="false" onAction="#onCreateTagButtonClick" prefHeight="35.0" prefWidth="81.0" text="Create Tag" />
-      <Button fx:id="backButton" layoutX="770.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="82.0" text="Back" />
-      <Button fx:id="getInformationButton" layoutX="630.0" layoutY="441.0" mnemonicParsing="false" onAction="#onGetInformationButtonClick" prefHeight="51.0" prefWidth="202.0" text="Get Information">
+      <Button fx:id="createTagButton" layoutX="634.0" layoutY="423.0" mnemonicParsing="false" onAction="#onCreateTagButtonClick" prefHeight="51.0" prefWidth="202.0" text="Create Tag">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
+      <Button fx:id="backButton" layoutX="770.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="82.0" text="Back" />
    </children>
 </AnchorPane>

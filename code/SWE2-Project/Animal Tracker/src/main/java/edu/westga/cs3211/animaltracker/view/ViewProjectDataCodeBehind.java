@@ -1,16 +1,17 @@
 package edu.westga.cs3211.animaltracker.view;
+
+import edu.westga.cs3211.animaltracker.model.Animal;
+import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.Project;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
+import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
-/**
- * The View Project Data Code Behind.
- */
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 /**
  * The view project data code behind.
@@ -18,10 +19,7 @@ import java.util.ResourceBundle;
 public class ViewProjectDataCodeBehind {
 
     @FXML
-    private ComboBox<?> animalClassComboBox;
-
-    @FXML
-    private Label animalLabel;
+    private ComboBox<AnimalClass> animalClassComboBox;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -36,16 +34,13 @@ public class ViewProjectDataCodeBehind {
     private Label projectNameLabel;
 
     @FXML
-    private ComboBox<?> subjectComboBox;
+    private ComboBox<Animal> subjectComboBox;
 
     @FXML
     private Button backButton;
 
     @FXML
     private Button createTagButton;
-
-    @FXML
-    private Button getInformationButton;
 
     @FXML
     private Label tagIDLabel;
@@ -56,32 +51,88 @@ public class ViewProjectDataCodeBehind {
     @FXML
     private Label weightLabel;
 
+    private ViewProjectDataViewModel vm;
+
     @FXML
     void onBackButtonClick(ActionEvent event) {
+        try {
+            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.LANDING_PATH,
+                    this.backButton,
+                    PageInformation.LANDING_TITLE
+            );
 
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService()
+            );
+
+        } catch (IOException e) {
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+        }
     }
 
     @FXML
     void onCreateTagButtonClick(ActionEvent event) {
-
+        //Jake pass in the create tag page
     }
 
     @FXML
-    void onGetInformationButtonClick(ActionEvent event) {
-
+    void onAnimalClassChange(ActionEvent event) {
+        this.subjectComboBox.getItems().addAll(this.vm.getAnimalsByType(this.vm.getAnimalClassProperty().get()));
     }
 
+    @FXML
+    void onSubjectChange(ActionEvent event) {
+        this.vm.setAnimalStats(this.subjectComboBox.getSelectionModel().getSelectedItem());
+    }
 
     @FXML
     void visualize(ActionEvent event) {
         //Implementation coming in future sprint :)
-        //The map visualization of the data (a nice to have)
+        //The map visualization of the data (a nice to have (said in the sprint planning :) )
     }
 
-    @FXML
-    void initialize() {
-
+    private void displayErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+
+    void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        this.vm.setSession(session, server);
+    }
+
+    void setProject(Project project) {
+        this.vm = new ViewProjectDataViewModel();
+        this.vm.setProject(project);
+        this.setUpBindings();
+    }
+
+    private void setUpBindings() {
+        this.vm.getAnimalClassProperty().bind(this.animalClassComboBox.valueProperty());
+        this.animalClassComboBox.getItems().addAll(AnimalClass.values());
+        this.animalClassComboBox.setValue(AnimalClass.values()[0]);
+        this.vm.getAnimalProperty().bind(this.subjectComboBox.valueProperty());
+        this.heightLabel.textProperty().bind(this.vm.getHeightProperty().asString());
+        this.weightLabel.textProperty().bind(this.vm.getWeightProperty().asString());
+        this.lengthLabel.textProperty().bind(this.vm.getLengthProperty().asString());
+        this.tagIDLabel.textProperty().bind(this.vm.getTagIDProperty().asString());
+        this.descriptionTextArea.textProperty().bind(this.vm.getDescriptionProperty());
+        this.projectNameLabel.textProperty().bind(this.vm.getProjectNameProperty());
+    }
+
+//    @FXML
+//    void initialize() {
+//        this.setUpBindings();
+//
+//    }
 
 }
 
