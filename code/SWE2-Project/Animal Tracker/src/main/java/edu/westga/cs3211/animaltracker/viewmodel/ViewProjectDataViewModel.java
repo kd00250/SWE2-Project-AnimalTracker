@@ -132,6 +132,17 @@ public class ViewProjectDataViewModel {
     }
 
     /**
+     * clears the animal stats.
+     */
+    public void clearAnimalStats() {
+        this.height.set(0.0);
+        this.weight.set(0.0);
+        this.length.set(0.0);
+        this.tagID.set(0);
+        this.description.set("");
+    }
+
+    /**
      * sets the animals stats.
      *
      * @param animal the animal to get the stats from

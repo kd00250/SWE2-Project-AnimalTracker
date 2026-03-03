@@ -124,4 +124,9 @@ public class Animal {
     public int getId() {
         return this.id;
     }
+
+    @Override
+    public String toString() {
+        return "animal " + this.getId();
+    }
 }

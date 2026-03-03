@@ -56,10 +56,10 @@ public class ViewProjectDataCodeBehind {
     @FXML
     void onBackButtonClick(ActionEvent event) {
         try {
-            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
-                    PageInformation.LANDING_PATH,
+            SelectProjectCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.SELECT_PROJECT_PATH,
                     this.backButton,
-                    PageInformation.LANDING_TITLE
+                    PageInformation.SELECT_PROJECT_TITLE
             );
 
             controller.setSession(
@@ -79,12 +79,16 @@ public class ViewProjectDataCodeBehind {
 
     @FXML
     void onAnimalClassChange(ActionEvent event) {
+        this.subjectComboBox.getItems().clear();
+        this.vm.clearAnimalStats();
         this.subjectComboBox.getItems().addAll(this.vm.getAnimalsByType(this.vm.getAnimalClassProperty().get()));
     }
 
     @FXML
     void onSubjectChange(ActionEvent event) {
-        this.vm.setAnimalStats(this.subjectComboBox.getSelectionModel().getSelectedItem());
+        if (!this.subjectComboBox.getItems().isEmpty()) {
+            this.vm.setAnimalStats(this.subjectComboBox.getSelectionModel().getSelectedItem());
+        }
     }
 
     @FXML
@@ -118,7 +122,6 @@ public class ViewProjectDataCodeBehind {
     private void setUpBindings() {
         this.vm.getAnimalClassProperty().bind(this.animalClassComboBox.valueProperty());
         this.animalClassComboBox.getItems().addAll(AnimalClass.values());
-        this.animalClassComboBox.setValue(AnimalClass.values()[0]);
         this.vm.getAnimalProperty().bind(this.subjectComboBox.valueProperty());
         this.heightLabel.textProperty().bind(this.vm.getHeightProperty().asString());
         this.weightLabel.textProperty().bind(this.vm.getWeightProperty().asString());
@@ -127,12 +130,5 @@ public class ViewProjectDataCodeBehind {
         this.descriptionTextArea.textProperty().bind(this.vm.getDescriptionProperty());
         this.projectNameLabel.textProperty().bind(this.vm.getProjectNameProperty());
     }
-
-//    @FXML
-//    void initialize() {
-//        this.setUpBindings();
-//
-//    }
-
 }
 
