@@ -18,6 +18,14 @@ public class LandingPageViewModel {
      * @param server the server
      */
     public void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("session cannot be null");
+        }
+
+        if (server == null) {
+            throw new IllegalArgumentException("server cannot be null");
+        }
+
         this.authSession = session;
         this.serverService = server;
     }

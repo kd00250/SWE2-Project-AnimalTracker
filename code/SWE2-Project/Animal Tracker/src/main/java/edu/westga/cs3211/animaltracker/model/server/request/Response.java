@@ -18,6 +18,15 @@ public abstract class Response {
     }
 
     /**
+     * Default constructor to test with seeded rng.
+     *
+     * @param random the random number generator
+     */
+    public Response(Random random) {
+        this.responseId = random.nextLong();
+    }
+
+    /**
      * Initializes a responseId with a randomized id.
      */
     public Response() {

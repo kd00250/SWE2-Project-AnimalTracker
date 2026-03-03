@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.model.server.request.request;
+package edu.westga.cs3211.animaltracker.model.server.request;
 
 import java.util.Random;
 
