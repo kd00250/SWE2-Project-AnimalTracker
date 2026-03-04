@@ -35,6 +35,13 @@ public class CreateTagViewModel {
         this.buildProperties();
     }
 
+    /**
+     * Sets the session for this view model.
+     *
+     * @param session              the user's session
+     * @param server               the server service
+     * @param viewProjectViewModel the viewProjectViewModel for the session.
+     */
     public void setSession(LoginResponse session, ServerService server, ViewProjectDataViewModel viewProjectViewModel) {
         this.authSession = session;
         this.serverService = server;
@@ -124,6 +131,15 @@ public class CreateTagViewModel {
     }
 
     /**
+     * ViewProjectViewModel.
+     *
+     * @return the viewProjectViewModel
+     */
+    public ViewProjectDataViewModel getViewProjectViewModel() {
+        return this.viewProjectViewModel;
+    }
+
+    /**
      * Generates a random six-digit id for tag creation.
      */
     public void generateTagId() {
@@ -149,9 +165,9 @@ public class CreateTagViewModel {
      * Makes an animal tag based off the input provided.
      * If tag is unable to made, a null value is returned.
      *
-     *
+     * @return a true or false value depending on if the tag was made
      */
-    public void makeTag() {
+    public boolean makeTag() {
         try {
             double heightValue = this.parseDoubleOrThrow(this.height.get(), "Height");
             double weightValue = this.parseDoubleOrThrow(this.weight.get(), "Weight");
@@ -159,9 +175,11 @@ public class CreateTagViewModel {
             int id = this.parseIntOrThrow(this.tagId.get());
             Animal animal = new Animal(this.animalClass.get(), heightValue, weightValue, lengthValue, id, this.description.get());
             this.viewProjectViewModel.getProjectProperty().get().addAnimal(animal);
+            return true;
 
         } catch (Exception e) {
             this.errorMessage.set(e.getMessage());
+            return false;
         }
     }
 
@@ -177,6 +195,13 @@ public class CreateTagViewModel {
                 .or(this.height.isEmpty())
                 .or(this.length.isEmpty())
                 .or(this.weight.isEmpty());
+    }
+
+    /**
+     * Resets the tag id.
+     */
+    public void resetTagID() {
+        this.tagId.set(DEFAULT_TAG);
     }
 
     private double parseDoubleOrThrow(String value, String fieldName) {

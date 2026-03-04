@@ -3,12 +3,14 @@ package edu.westga.cs3211.animaltracker.view;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateTagViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -43,6 +45,9 @@ public class CreateTagCodeBehind {
     @FXML
     private Label errorLabel;
 
+    @FXML
+    private Button backButton;
+
     private final CreateTagViewModel viewModel;
 
     /**
@@ -53,16 +58,16 @@ public class CreateTagCodeBehind {
     }
 
     /**
-     * Called when the cancel button is clicked.
+     * Called when the clear button is clicked.
      *
      * @param event the event
      */
     @FXML
-    public void onCancelClick(ActionEvent event) {
+    public void onClearClick(ActionEvent event) {
         var confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Cancel");
-        confirmationAlert.setHeaderText("Are you sure you want to cancel?");
-        confirmationAlert.setContentText("Are you sure you want to cancel?");
+        confirmationAlert.setTitle("Clear");
+        confirmationAlert.setHeaderText("Are you sure you want to clear?");
+        confirmationAlert.setContentText("Are you sure you want to clear?");
         Optional<ButtonType> result = confirmationAlert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.CANCEL) {
@@ -86,13 +91,32 @@ public class CreateTagCodeBehind {
         Optional<ButtonType> result = confirmationAlert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Put Logic for when Submit is confirmed. Such as go to new landing page.
-            this.viewModel.makeTag();
-
-            if (animal != null) {
-                this.viewModel.clear();
-
+            boolean hasMadeTag = this.viewModel.makeTag();
+            if (hasMadeTag) {
+                this.displayConfirmationPopup("A new tag with id: " + this.viewModel.tagIdProperty().get() + " has been successfully created");
+                this.viewModel.resetTagID();
             }
+
+        }
+    }
+
+    /**
+     * Called when submit button is clicked.
+     *
+     * @param event the event
+     */
+    @FXML
+    public void onBackClick(ActionEvent event) {
+        try {
+            ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.VIEW_PROJECT_PATH,
+                    this.backButton,
+                    PageInformation.VIEW_PROJECT_TITLE
+            );
+            controller.setProject(this.viewModel.getViewProjectViewModel().getProjectProperty().get());
+            controller.setSession(this.viewModel.getSession(), this.viewModel.getServerService());
+        } catch (IOException e) {
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
     }
 
@@ -100,10 +124,11 @@ public class CreateTagCodeBehind {
      * Sets the session for this page.
      * Should be called after loading this view to pass authentication data.
      *
-     * @param session the user's session
-     * @param server the server to be used
-     * @pre session != null && server != null
-     * @post session is set and projects are loaded
+     * @param session              the user's session
+     * @param server               the server to be used
+     * @param viewProjectViewModel the view model to be used
+     * @pre session != null && server != null && viewProjectViewModel != null
+     * @post session is set and projects are loaded with viewModel being set
      */
     public void setSession(LoginResponse session, ServerService server, ViewProjectDataViewModel viewProjectViewModel) {
         if (session == null) {
@@ -126,6 +151,19 @@ public class CreateTagCodeBehind {
     @FXML
     public void onGenerateIdClick(ActionEvent event) {
         this.viewModel.generateTagId();
+    }
+
+    private void displayErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void displayConfirmationPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(message);
+        alert.showAndWait();
+
     }
 
     @FXML
