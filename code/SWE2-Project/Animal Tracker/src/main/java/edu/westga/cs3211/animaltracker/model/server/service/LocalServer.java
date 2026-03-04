@@ -102,7 +102,7 @@ public class LocalServer implements ServerService {
     public void AddProject(AddProjectRequest request) {
         var scientist = getScientistFromUsername(request.getScientistUsernames());
         var animals = this.getAnimalsFromId(request.getAnimalIds());
-        var project = new Project(scientist, request.getProjectName() , animals);
+        var project = new Project(scientist, request.getProjectName(), animals);
         DataStorage.addProject(project);
     }
 
@@ -121,6 +121,7 @@ public class LocalServer implements ServerService {
         }
         return animals;
     }
+
     private List<User> getScientistFromUsername(Collection<String> usernames) {
         List<User> scientists = new ArrayList<>();
         for (String username : usernames) {

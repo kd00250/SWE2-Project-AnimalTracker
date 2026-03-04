@@ -16,6 +16,7 @@ public class DataStorage {
     private static HashMap<String, ZonedDateTime> expirationMap;
     private static HashMap<Integer, Animal> animals;
     private static HashMap<Integer, Project> projects;
+
     static {
         reset();
     }
@@ -86,6 +87,14 @@ public class DataStorage {
         return expirationMap;
     }
 
+    public static HashMap<String, User> getTokenMap() {
+        return tokenMap;
+    }
+
+    public static HashMap<String, ZonedDateTime> getExpirationMap() {
+        return expirationMap;
+    }
+
     /**
      * gets the next highest animal id.
      *
@@ -152,6 +161,7 @@ public class DataStorage {
 
     /**
      * Checks if a given token exist in the storage.
+     *
      * @param token the token
      * @return true if token exist, otherwise false
      */

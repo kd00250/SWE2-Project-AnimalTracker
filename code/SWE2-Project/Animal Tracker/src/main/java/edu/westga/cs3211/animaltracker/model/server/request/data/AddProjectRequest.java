@@ -17,27 +17,30 @@ public class AddProjectRequest extends Request {
     }
 
     public String getProjectName() {
-        return projectName;
+        return this.projectName;
     }
 
     public Collection<String> getScientistUsernames() {
-        return scientistUsernames;
+        return this.scientistUsernames;
     }
 
     public Collection<Integer> getAnimalIds() {
-        return animalIds;
+        return this.animalIds;
     }
 
     @Override
     public void validateRequest() {
-        if (scientistUsernames.isEmpty()) {
-            throw new InvalidRequestException("There must be at least one scientist");
+        if (this.projectName == null) {
+            throw new InvalidRequestException("projectName is null");
         }
-        if (projectName == null) {
-            throw new InvalidRequestException("projectName has to be set");
+        if (this.projectName.isEmpty()) {
+            throw new InvalidRequestException("projectName is empty");
         }
-        if (projectName.isEmpty()) {
-            throw new InvalidRequestException("projectName has to be set");
+        if (this.scientistUsernames == null) {
+            throw new InvalidRequestException("scientistUsernames is null");
+        }
+        if (this.animalIds == null) {
+            throw new InvalidRequestException("animalIds is null");
         }
 
     }
