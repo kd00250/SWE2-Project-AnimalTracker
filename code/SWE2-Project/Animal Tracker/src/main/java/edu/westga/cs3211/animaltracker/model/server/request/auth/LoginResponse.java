@@ -34,6 +34,12 @@ public final class LoginResponse extends Response {
         this.creationTime = ZonedDateTime.now();
     }
 
+    /**
+     * Instantiates a new login response.
+     * @param loginToken the login token
+     * @param timeout the users timeout
+     * @param creationTime the creation time of this request
+     */
     public LoginResponse(String loginToken, int timeout, ZonedDateTime creationTime) {
         this(loginToken, timeout);
         if (creationTime == null) {

@@ -6,9 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-/**
- * The View Project Data Code Behind.
- */
 import java.net.URL;
 import java.util.ResourceBundle;
 

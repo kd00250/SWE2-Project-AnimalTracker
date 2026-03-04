@@ -44,8 +44,23 @@ public interface ServerService {
      */
     List<Project> requestUserProjects(UserDataRequest request);
 
+    /**
+     * Request all scientist in the system as long as user is a scientist or admin.
+     * @param request the request
+     * @return the scientist in the system
+     */
     Collection<User> requestAllScientist(UserDataRequest request);
+
+    /**
+     * Adds a new project to the server.
+     * @param request the request
+     */
     void AddProject(AddProjectRequest request);
+
+    /**
+     * Deletes a project from the server.
+     * @param projectId the project id
+     */
     void deleteProject(int projectId);
 
 }

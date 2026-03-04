@@ -17,8 +17,6 @@ import javafx.scene.layout.Pane;
  */
 public class Main extends Application {
 
-
-
     @Override
     public void start(Stage primaryStage) {
         try {

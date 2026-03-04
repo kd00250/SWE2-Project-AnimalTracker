@@ -21,6 +21,10 @@ public class DataStorage {
         reset();
     }
 
+    /**
+     * Adds a new project to the database.
+     * @param project the project
+     */
     public static void addProject(Project project) {
         if (project == null) {
             throw new IllegalArgumentException("project cannot be null");
@@ -87,10 +91,18 @@ public class DataStorage {
         return expirationMap;
     }
 
+    /**
+     * Gets the token map, used in testing.
+     * @return the token map
+     */
     public static HashMap<String, User> getTokenMap() {
         return tokenMap;
     }
 
+    /**
+     * Gets the expiration map.
+     * @return the expiration map
+     */
     public static HashMap<String, ZonedDateTime> getExpirationMap() {
         return expirationMap;
     }
@@ -119,6 +131,10 @@ public class DataStorage {
         return Collections.max(projects.keySet()) + 1;
     }
 
+    /**
+     * Deletes a project using its id from the database.
+     * @param projectId the projects id
+     */
     public static void deleteProjectIfExist(int projectId) {
         projects.remove(projectId);
     }
@@ -172,6 +188,11 @@ public class DataStorage {
         return tokenMap.containsKey(token);
     }
 
+    /**
+     * Gets animals in this database by their id.
+     * @param id the animals id
+     * @return the animal
+     */
     public static Animal getAnimalById(int id) {
         if (id < 0) {
             throw new IllegalArgumentException("Animal ID cannot be negative.");

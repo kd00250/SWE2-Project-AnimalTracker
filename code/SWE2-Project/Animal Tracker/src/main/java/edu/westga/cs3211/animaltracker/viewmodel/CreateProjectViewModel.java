@@ -81,15 +81,28 @@ public class CreateProjectViewModel {
         this.projectLocation.set(projectLocation);
     }
 
+    /**
+     * Sets the current session for this view model.
+     * @param session the users session
+     * @param server the server
+     */
     public void setSession(LoginResponse session, ServerService server) {
         this.authSession = session;
         this.serverService = server;
     }
 
+    /**
+     * Gets the users session.
+     * @return the session
+     */
     public LoginResponse getSession() {
         return this.authSession;
     }
 
+    /**
+     * Gets the server session.
+     * @return the server
+     */
     public ServerService getServerService() {
         return this.serverService;
     }
