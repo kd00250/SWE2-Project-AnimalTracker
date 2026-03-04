@@ -84,6 +84,9 @@ public class LocalServer implements ServerService {
 
     @Override
     public Collection<User> requestAllScientist(UserDataRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
         var role = this.requestUserRole(request);
         if (role == Role.SCIENTIST || role == Role.ADMIN) {
             Collection<User> scientist = new ArrayList<>();
@@ -100,7 +103,10 @@ public class LocalServer implements ServerService {
 
     @Override
     public void AddProject(AddProjectRequest request) {
-        var scientist = getScientistFromUsername(request.getScientistUsernames());
+        if (request == null) {
+            throw new IllegalArgumentException("Request cannot be null");
+        }
+        var scientist = this.getScientistFromUsername(request.getScientistUsernames());
         var animals = this.getAnimalsFromId(request.getAnimalIds());
         var project = new Project(scientist, request.getProjectName(), animals);
         DataStorage.addProject(project);
@@ -115,9 +121,8 @@ public class LocalServer implements ServerService {
         List<Animal> animals = new ArrayList<>();
         for (Integer id : ids) {
             var animal = DataStorage.getAnimalById(id);
-            if (animal != null) {
-                animals.add(animal);
-            }
+            animals.add(animal);
+
         }
         return animals;
     }
@@ -126,7 +131,7 @@ public class LocalServer implements ServerService {
         List<User> scientists = new ArrayList<>();
         for (String username : usernames) {
             var scientist = DataStorage.getUserByUsername(username);
-            if (scientist != null && scientist.getRole() == Role.SCIENTIST) {
+            if (scientist.getRole() == Role.SCIENTIST) {
                 scientists.add(scientist);
             }
         }
