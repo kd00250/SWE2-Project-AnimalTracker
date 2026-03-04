@@ -19,7 +19,7 @@
                <children>
                   <Button fx:id="createProjectButton" mnemonicParsing="false" onAction="#onCreateProjectClick" prefHeight="61.0" prefWidth="248.0" text="Create Project" />
                   <Button fx:id="viewProjectButton" mnemonicParsing="false" onAction="#onViewProjectClick" prefHeight="61.0" prefWidth="248.0" text="View Project" />
-                  <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
+                  <Button fx:id="addUserButton" mnemonicParsing="false" onAction="#onAddUserButtonClick" prefHeight="61.0" prefWidth="248.0" text="Add User" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="61.0" prefWidth="248.0" text="Button" />
                </children>

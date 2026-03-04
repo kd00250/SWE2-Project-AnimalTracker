@@ -47,5 +47,6 @@
          </font>
       </Button>
       <ComboBox fx:id="roleComboBox" layoutX="255.0" layoutY="262.0" prefWidth="150.0" />
+      <Button fx:id="backButton" layoutX="508.0" layoutY="23.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="26.0" prefWidth="54.0" text="Back" />
    </children>
 </AnchorPane>

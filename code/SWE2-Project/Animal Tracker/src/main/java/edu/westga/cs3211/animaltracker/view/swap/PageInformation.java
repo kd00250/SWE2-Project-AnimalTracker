@@ -25,6 +25,16 @@ public final class PageInformation {
     public static final String CREATE_PROJECT_TITLE = "Create Project";
 
     /**
+     * The add user page path.
+     */
+    public static final String ADD_USER_PATH = "view/addUser.fxml";
+
+    /**
+     * The title for the add user page.
+     */
+    public static final String ADD_USER_TITLE = "Add User";
+
+    /**
      * The path for the view project page.
      */
     public static final String VIEW_PROJECT_PATH = "view/viewProjectData.fxml";

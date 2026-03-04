@@ -3,6 +3,8 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -12,6 +14,8 @@ import javafx.beans.property.StringProperty;
  * the add user view model.
  */
 public class AddUserViewModel {
+    private LoginResponse authSession;
+    private ServerService serverService;
     private StringProperty username;
     private StringProperty password;
     private ObjectProperty<Role> role;
@@ -23,6 +27,17 @@ public class AddUserViewModel {
         this.username = new SimpleStringProperty("");
         this.password = new SimpleStringProperty("");
         this.role = new SimpleObjectProperty<>();
+    }
+
+    /**
+     * Sets the session for this view model.
+     *
+     * @param session the user's session
+     * @param server the server service
+     */
+    public void setSession(LoginResponse session, ServerService server) {
+        this.authSession = session;
+        this.serverService = server;
     }
 
     /**
@@ -50,6 +65,24 @@ public class AddUserViewModel {
      */
     public ObjectProperty<Role> getRole() {
         return this.role;
+    }
+
+    /**
+     * Gets the session information.
+     *
+     * @return the session
+     */
+    public LoginResponse getSession() {
+        return this.authSession;
+    }
+
+    /**
+     * Gets the server service.
+     *
+     * @return the server service
+     */
+    public ServerService getServerService() {
+        return this.serverService;
     }
 
     private boolean isUsernameValid() {
