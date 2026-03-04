@@ -1,8 +1,10 @@
 package edu.westga.cs3211.animaltracker.view;
 
-import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateTagViewModel;
+import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -85,13 +87,35 @@ public class CreateTagCodeBehind {
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             // Put Logic for when Submit is confirmed. Such as go to new landing page.
-            Animal animal = this.viewModel.makeTagOrNull();
+            this.viewModel.makeTag();
 
             if (animal != null) {
                 this.viewModel.clear();
 
             }
         }
+    }
+
+    /**
+     * Sets the session for this page.
+     * Should be called after loading this view to pass authentication data.
+     *
+     * @param session the user's session
+     * @param server the server to be used
+     * @pre session != null && server != null
+     * @post session is set and projects are loaded
+     */
+    public void setSession(LoginResponse session, ServerService server, ViewProjectDataViewModel viewProjectViewModel) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        if (viewProjectViewModel == null) {
+            throw new IllegalArgumentException("View model cannot be null");
+        }
+        this.viewModel.setSession(session, server, viewProjectViewModel);
     }
 
     /**

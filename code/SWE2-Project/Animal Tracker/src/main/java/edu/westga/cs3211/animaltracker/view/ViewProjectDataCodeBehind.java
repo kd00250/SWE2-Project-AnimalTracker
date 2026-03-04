@@ -75,6 +75,22 @@ public class ViewProjectDataCodeBehind {
     @FXML
     void onCreateTagButtonClick(ActionEvent event) {
         //Jake pass in the create tag page
+        try {
+            CreateTagCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.CREATE_TAG_PATH,
+                    this.createTagButton,
+                    PageInformation.CREATE_TAG_TITLE
+            );
+
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService(),
+                    this.vm
+            );
+
+        } catch (IOException e) {
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+        }
     }
 
     @FXML
