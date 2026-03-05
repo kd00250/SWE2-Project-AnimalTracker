@@ -62,7 +62,9 @@ public final class PageInformation {
      * The login pages title.
      */
     public static final String LOGIN_TITLE = "Login";
-     * The path for the create tag page.
+
+    /**
+     * The create tag path.
      */
     public static final String CREATE_TAG_PATH = "view/CreateTagPage.fxml";
 

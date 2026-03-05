@@ -1,8 +1,8 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateTagViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
