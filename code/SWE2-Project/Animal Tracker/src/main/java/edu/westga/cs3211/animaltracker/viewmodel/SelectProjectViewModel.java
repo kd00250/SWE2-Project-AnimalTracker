@@ -40,7 +40,6 @@ public class SelectProjectViewModel {
     public void setSession(LoginResponse session, ServerService server) {
         this.authSession = session;
         this.serverService = server;
-        this.loadProjects();
     }
 
     /**
@@ -74,20 +73,11 @@ public class SelectProjectViewModel {
      * Loads all projects for the logged-in user using the server service.
      */
     public void loadProjects() {
-        if (this.authSession == null || this.serverService == null) {
-            return;
-        }
+        var request = new UserDataRequest(this.authSession.getToken());
 
-        try {
-            var request = new UserDataRequest(this.authSession.getToken());
+        List<Project> userProjects = this.serverService.requestUserProjects(request);
 
-            List<Project> userProjects = this.serverService.requestUserProjects(request);
-
-            this.projects.setAll(userProjects);
-        } catch (Exception e) {
-            this.projects.clear();
-            System.err.println("Unexpected Error: " + e.getMessage());
-        }
+        this.projects.setAll(userProjects);
     }
 
     /**
@@ -107,26 +97,11 @@ public class SelectProjectViewModel {
         if (project == null) {
             return false;
         }
+        edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
 
-        try {
-            edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
+        this.refreshProjects();
 
-            this.refreshProjects();
-
-            return true;
-        } catch (Exception e) {
-            System.err.println("Unexpected Error: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Checks if a project is currently selected.
-     *
-     * @return true if a project is selected, false otherwise
-     */
-    public boolean hasSelectedProject() {
-        return this.selectedProject.get() != null;
+        return true;
     }
 
     /**
