@@ -225,6 +225,13 @@ public class SelectProjectCodeBehind {
     }
 
     /**
+     * Refreshes the projects that the user is tied to.
+     */
+    public void refreshProjects() {
+        this.viewModel.refreshProjects();
+    }
+
+    /**
      * Shows a success alert to the user.
      *
      * @param message the success message
