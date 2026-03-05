@@ -2,7 +2,11 @@ package edu.westga.cs3211.animaltracker.viewmodel.CreateTag;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.Project;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.LocalServer;
 import edu.westga.cs3211.animaltracker.viewmodel.CreateTagViewModel;
+import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,6 +22,14 @@ public class TestCreateTagViewModel {
     @BeforeEach
     void setUp() {
         this.viewModel = new CreateTagViewModel();
+        ViewProjectDataViewModel viewProjectViewModel = new ViewProjectDataViewModel();
+
+        Project project = new Project("Test Project");
+        viewProjectViewModel.setProject(project);
+
+        LoginResponse session = new LoginResponse("validToken", 100);
+        LocalServer localServer = new LocalServer();
+        this.viewModel.setSession(session, localServer, viewProjectViewModel);
     }
 
     @Test
@@ -29,6 +41,12 @@ public class TestCreateTagViewModel {
         assertEquals("", this.viewModel.heightProperty().get());
         assertEquals("", this.viewModel.errorMessageProperty().get());
         assertNull(this.viewModel.animalClassProperty().get());
+    }
+
+    @Test
+    void testSessionInitialization() {
+        assertNotNull(this.viewModel.getSession());
+        assertNotNull(this.viewModel.getServerService());
     }
 
     @Test
@@ -93,7 +111,7 @@ public class TestCreateTagViewModel {
     }
 
     @Test
-    void testCancelButtonConfirmation() {
+    void testClearButtonConfirmation() {
         this.viewModel.generateTagId();
         this.viewModel.animalClassProperty().set(AnimalClass.MAMMAL);
         this.viewModel.descriptionProperty().set("Description");
@@ -108,46 +126,60 @@ public class TestCreateTagViewModel {
     }
 
     @Test
-    void testIdIsntInteger() {
+    void testIdIsntValid() {
         this.viewModel.animalClassProperty().set(AnimalClass.MAMMAL);
         this.viewModel.descriptionProperty().set("Description");
         this.viewModel.lengthProperty().set("1.2");
         this.viewModel.heightProperty().set("1.2");
         this.viewModel.weightProperty().set("1.2");
-        assertNull(this.viewModel.makeTagOrNull());
+        boolean hasMade = this.viewModel.makeTag();
+
+        assertFalse(hasMade);
         assertFalse(this.viewModel.errorMessageProperty().get().isEmpty());
     }
 
     @Test
-    void testLengthIsntDouble() {
+    void testLengthIsntValid() {
         this.viewModel.animalClassProperty().set(AnimalClass.MAMMAL);
         this.viewModel.descriptionProperty().set("Description");
         this.viewModel.generateTagId();
         this.viewModel.heightProperty().set("1.2");
         this.viewModel.weightProperty().set("1.2");
-        assertNull(this.viewModel.makeTagOrNull());
+        this.viewModel.lengthProperty().set("ABC");
+
+        boolean hasMade = this.viewModel.makeTag();
+
+        assertFalse(hasMade);
         assertFalse(this.viewModel.errorMessageProperty().get().isEmpty());
     }
 
     @Test
-    void testHeightIsntDouble() {
+    void testHeightIsntValid() {
         this.viewModel.animalClassProperty().set(AnimalClass.MAMMAL);
         this.viewModel.descriptionProperty().set("Description");
         this.viewModel.generateTagId();
         this.viewModel.lengthProperty().set("1.2");
         this.viewModel.weightProperty().set("1.2");
-        assertNull(this.viewModel.makeTagOrNull());
+        this.viewModel.heightProperty().set("ABC");
+
+        boolean hasMade = this.viewModel.makeTag();
+
+        assertFalse(hasMade);
         assertFalse(this.viewModel.errorMessageProperty().get().isEmpty());
     }
 
     @Test
-    void testWeightIsntDouble() {
+    void testWeightIsntValid() {
         this.viewModel.animalClassProperty().set(AnimalClass.MAMMAL);
         this.viewModel.descriptionProperty().set("Description");
         this.viewModel.generateTagId();
         this.viewModel.heightProperty().set("1.2");
         this.viewModel.lengthProperty().set("1.2");
-        assertNull(this.viewModel.makeTagOrNull());
+        this.viewModel.weightProperty().set("ABC");
+
+        boolean hasMade = this.viewModel.makeTag();
+
+        assertFalse(hasMade);
         assertFalse(this.viewModel.errorMessageProperty().get().isEmpty());
     }
 
@@ -159,21 +191,31 @@ public class TestCreateTagViewModel {
         this.viewModel.heightProperty().set("1.2");
         this.viewModel.lengthProperty().set("1.2");
         this.viewModel.weightProperty().set("1.2");
-        Animal rat = this.viewModel.makeTagOrNull();
+        boolean hasMade = this.viewModel.makeTag();
 
         int expectedId = 123456;
         double expectedWeight = 1.2;
         double expectedLength = 1.2;
         double expectedHeight = 1.2;
 
-        assertNotNull(rat);
-        assertEquals(AnimalClass.MAMMAL, rat.getAnimalClass());
-        assertEquals("Description", rat.getDescription());
-        assertEquals(expectedId, rat.getTagID());
-        assertEquals(expectedWeight, rat.getWeight());
-        assertEquals(expectedLength, rat.getHeight());
-        assertEquals(expectedHeight, rat.getLength());
+        Project project = this.viewModel.getViewProjectViewModel().getProjectProperty().get();
+        Animal newAnimal = project.getAnimals().getLast();
 
+        assertTrue(hasMade);
+        assertEquals(AnimalClass.MAMMAL, newAnimal.getAnimalClass());
+        assertEquals("Description", newAnimal.getDescription());
+        assertEquals(expectedId, newAnimal.getTagID());
+        assertEquals(expectedWeight, newAnimal.getWeight());
+        assertEquals(expectedLength, newAnimal.getHeight());
+        assertEquals(expectedHeight, newAnimal.getLength());
+
+    }
+
+    @Test
+    void testResetTagID() {
+        this.viewModel.tagIdProperty().set("123456");
+        this.viewModel.resetTagID();
+        assertEquals("******", this.viewModel.tagIdProperty().get());
     }
 
 }

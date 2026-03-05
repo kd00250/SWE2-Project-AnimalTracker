@@ -84,12 +84,17 @@
       <VBox alignment="CENTER" layoutX="542.0" layoutY="141.0" prefHeight="210.0" prefWidth="175.0" spacing="50.0">
          <children>
             <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitClick" prefHeight="46.0" prefWidth="113.0" text="Submit" />
-            <Button mnemonicParsing="false" onAction="#onCancelClick" prefHeight="46.0" prefWidth="113.0" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#onClearClick" prefHeight="46.0" prefWidth="113.0" text="Cancel" />
          </children>
       </VBox>
       <VBox layoutX="45.0" layoutY="249.0" prefHeight="37.0" prefWidth="420.0">
          <children>
             <Label fx:id="errorLabel" prefHeight="32.0" prefWidth="420.0" textFill="RED" />
+         </children>
+      </VBox>
+      <VBox layoutX="616.0" layoutY="14.0" prefHeight="96.0" prefWidth="114.0">
+         <children>
+            <Button fx:id="backButton" maxHeight="46.0" maxWidth="113.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="46.0" prefWidth="113.0" text="Back" />
          </children>
       </VBox>
    </children>

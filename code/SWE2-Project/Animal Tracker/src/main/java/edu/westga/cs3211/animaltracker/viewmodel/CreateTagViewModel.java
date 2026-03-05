@@ -2,6 +2,8 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
 
@@ -22,11 +24,47 @@ public class CreateTagViewModel {
     private StringProperty weight;
     private StringProperty errorMessage;
 
+    private LoginResponse authSession;
+    private ServerService serverService;
+    private ViewProjectDataViewModel viewProjectViewModel;
+
     /**
      * Initialize a new instance of CreateTagViewModel.
      */
     public CreateTagViewModel() {
         this.buildProperties();
+    }
+
+    /**
+     * Sets the session for this view model.
+     *
+     * @param session              the user's session
+     * @param server               the server service
+     * @param viewProjectViewModel the viewProjectViewModel for the session.
+     */
+    public void setSession(LoginResponse session, ServerService server, ViewProjectDataViewModel viewProjectViewModel) {
+        this.authSession = session;
+        this.serverService = server;
+        this.viewProjectViewModel = viewProjectViewModel;
+
+    }
+
+    /**
+     * Gets the session information.
+     *
+     * @return the session
+     */
+    public LoginResponse getSession() {
+        return this.authSession;
+    }
+
+    /**
+     * Gets the server service.
+     *
+     * @return the server service
+     */
+    public ServerService getServerService() {
+        return this.serverService;
     }
 
     /**
@@ -93,6 +131,15 @@ public class CreateTagViewModel {
     }
 
     /**
+     * ViewProjectViewModel.
+     *
+     * @return the viewProjectViewModel
+     */
+    public ViewProjectDataViewModel getViewProjectViewModel() {
+        return this.viewProjectViewModel;
+    }
+
+    /**
      * Generates a random six-digit id for tag creation.
      */
     public void generateTagId() {
@@ -118,20 +165,21 @@ public class CreateTagViewModel {
      * Makes an animal tag based off the input provided.
      * If tag is unable to made, a null value is returned.
      *
-     * @return an Animal
+     * @return a true or false value depending on if the tag was made
      */
-    public Animal makeTagOrNull() {
+    public boolean makeTag() {
         try {
             double heightValue = this.parseDoubleOrThrow(this.height.get(), "Height");
             double weightValue = this.parseDoubleOrThrow(this.weight.get(), "Weight");
             double lengthValue = this.parseDoubleOrThrow(this.length.get(), "Length");
             int id = this.parseIntOrThrow(this.tagId.get());
-
-            return new Animal(this.animalClass.get(), heightValue, weightValue, lengthValue, id, this.description.get());
+            Animal animal = new Animal(this.animalClass.get(), heightValue, weightValue, lengthValue, id, this.description.get());
+            this.viewProjectViewModel.getProjectProperty().get().addAnimal(animal);
+            return true;
 
         } catch (Exception e) {
             this.errorMessage.set(e.getMessage());
-            return null;
+            return false;
         }
     }
 
@@ -147,6 +195,13 @@ public class CreateTagViewModel {
                 .or(this.height.isEmpty())
                 .or(this.length.isEmpty())
                 .or(this.weight.isEmpty());
+    }
+
+    /**
+     * Resets the tag id.
+     */
+    public void resetTagID() {
+        this.tagId.set(DEFAULT_TAG);
     }
 
     private double parseDoubleOrThrow(String value, String fieldName) {

@@ -53,4 +53,14 @@ public final class PageInformation {
      * The title for the select project page.
      */
     public static final String SELECT_PROJECT_TITLE = "Select Project";
+
+    /**
+     * The path for the create tag page.
+     */
+    public static final String CREATE_TAG_PATH = "view/CreateTagPage.fxml";
+
+    /**
+     * The title for the create tag page.
+     */
+    public static final String CREATE_TAG_TITLE = "Create Tag";
 }
