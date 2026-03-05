@@ -1,9 +1,9 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.login.request.data.UserDataRequest;
-import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 
 /**
  * The landing page view model class.
@@ -18,6 +18,14 @@ public class LandingPageViewModel {
      * @param server the server
      */
     public void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("session cannot be null");
+        }
+
+        if (server == null) {
+            throw new IllegalArgumentException("server cannot be null");
+        }
+
         this.authSession = session;
         this.serverService = server;
     }

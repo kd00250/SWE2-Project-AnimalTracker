@@ -175,4 +175,55 @@ class TestConstructors {
         assertNotNull(project.getUsers(), "checking users list is not null");
         assertEquals(0, project.getUsers().size(), "checking users list is empty");
     }
+
+    @Test
+    void testUsersNullInTripleParameter() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Project(null, "1234", new ArrayList<Animal>());
+        });
+    }
+
+    @Test
+    void testNameNullInTripleParameter() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Project(new ArrayList<User>(), null, new ArrayList<Animal>());
+        });
+    }
+
+    @Test
+    void testAnimalNullInTripleParameter() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Project(new ArrayList<User>(), "1234", null);
+        });
+    }
+
+    @Test
+    void testNameEmptyInTripleParameter() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Project(new ArrayList<User>(), "", new ArrayList<Animal>());
+        });
+    }
+
+    @Test
+    void testValidTripleParameterConstructor() {
+        List<Animal> animals = new ArrayList<>();
+        List<User> users = new ArrayList<>();
+        var name = "Project1";
+        User user1 = new User("user1", "password1", Role.SCIENTIST);
+        User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
+        Animal animal1 = new Animal(AnimalClass.BIRD, 14, 24, 14, 14, "Bird");
+        Animal animal2 = new Animal(AnimalClass.MAMMAL, 16, 24, 14, 11, "Cat");
+        animals.add(animal1);
+        animals.add(animal2);
+        users.add(user1);
+        users.add(user2);
+
+        Project project = new Project(users, name, animals);
+        assertEquals(users, project.getUsers());
+        assertEquals(animals, project.getAnimals());
+        assertEquals(name, project.getName());
+    }
+
+
+
 }

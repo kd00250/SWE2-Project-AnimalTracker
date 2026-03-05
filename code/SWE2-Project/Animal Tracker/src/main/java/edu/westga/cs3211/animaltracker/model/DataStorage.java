@@ -2,10 +2,7 @@ package edu.westga.cs3211.animaltracker.model;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * The data storage class.
@@ -22,6 +19,17 @@ public class DataStorage {
 
     static {
         reset();
+    }
+
+    /**
+     * Adds a new project to the database.
+     * @param project the project
+     */
+    public static void addProject(Project project) {
+        if (project == null) {
+            throw new IllegalArgumentException("project cannot be null");
+        }
+        projects.put(project.getId(), project);
     }
 
     /**
@@ -84,6 +92,22 @@ public class DataStorage {
     }
 
     /**
+     * Gets the token map, used in testing.
+     * @return the token map
+     */
+    public static HashMap<String, User> getTokenMap() {
+        return tokenMap;
+    }
+
+    /**
+     * Gets the expiration map.
+     * @return the expiration map
+     */
+    public static HashMap<String, ZonedDateTime> getExpirationMap() {
+        return expirationMap;
+    }
+
+    /**
      * gets the next highest animal id.
      *
      * @return the next highestID
@@ -105,6 +129,14 @@ public class DataStorage {
             return 1;
         }
         return Collections.max(projects.keySet()) + 1;
+    }
+
+    /**
+     * Deletes a project using its id from the database.
+     * @param projectId the projects id
+     */
+    public static void deleteProjectIfExist(int projectId) {
+        projects.remove(projectId);
     }
 
     /**
@@ -145,6 +177,7 @@ public class DataStorage {
 
     /**
      * Checks if a given token exist in the storage.
+     *
      * @param token the token
      * @return true if token exist, otherwise false
      */
@@ -153,6 +186,18 @@ public class DataStorage {
             throw new IllegalArgumentException("Token cannot be null.");
         }
         return tokenMap.containsKey(token);
+    }
+
+    /**
+     * Gets animals in this database by their id.
+     * @param id the animals id
+     * @return the animal
+     */
+    public static Animal getAnimalById(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException("Animal ID cannot be negative.");
+        }
+        return animals.get(id);
     }
 
     /**
@@ -169,6 +214,7 @@ public class DataStorage {
         Animal defaultAnimal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!");
 
         User defaultUser = new User("Bob", "1234", Role.SCIENTIST);
+        DataStorage.generateTokenForUser(defaultUser);
         User defaultUserAdmin = new User("Billy", "6767", Role.ADMIN);
         users.add(defaultUser);
         users.add(defaultUserAdmin);

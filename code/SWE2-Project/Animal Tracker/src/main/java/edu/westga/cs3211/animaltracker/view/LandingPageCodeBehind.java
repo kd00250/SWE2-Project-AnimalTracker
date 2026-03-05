@@ -1,8 +1,8 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.login.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.login.service.ServerService;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.LandingPageViewModel;
 import javafx.event.ActionEvent;
@@ -56,6 +56,7 @@ public class LandingPageCodeBehind {
 
         try {
             CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
+            controller.setSession(this.landingViewModel.getSession(), this.landingViewModel.getServerService());
 
             controller.setSession(
                     this.landingViewModel.getSession(),
@@ -63,6 +64,15 @@ public class LandingPageCodeBehind {
             );
         } catch (IOException e) {
             System.err.println("Unexpected Error: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    void onLogoutClick(ActionEvent event) {
+        try {
+            ViewSwapper.loadPageFromStage(PageInformation.LOGIN_PATH, this.mainPane, PageInformation.LOGIN_TITLE);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to logout");
         }
     }
 

@@ -1,3 +1,6 @@
+/**
+ * The animal tracker module.
+ */
 module edu.westga.cs3211.animaltracker {
     requires javafx.controls;
     requires javafx.fxml;

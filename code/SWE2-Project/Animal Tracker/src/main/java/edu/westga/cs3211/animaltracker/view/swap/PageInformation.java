@@ -55,7 +55,16 @@ public final class PageInformation {
     public static final String SELECT_PROJECT_TITLE = "Select Project";
 
     /**
-     * The path for the create tag page.
+     * The fxml path for the login page.
+     */
+    public static final String LOGIN_PATH = "view/login.fxml";
+    /**
+     * The login pages title.
+     */
+    public static final String LOGIN_TITLE = "Login";
+
+    /**
+     * The create tag path.
      */
     public static final String CREATE_TAG_PATH = "view/CreateTagPage.fxml";
 
