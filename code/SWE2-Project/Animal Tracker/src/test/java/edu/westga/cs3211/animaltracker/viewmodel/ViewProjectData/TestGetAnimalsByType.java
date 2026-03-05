@@ -13,10 +13,14 @@ class TestGetAnimalsByType {
 
     @Test
     void testGetAnimalsByType() {
+        DataStorage.getAnimals().clear();
+        DataStorage.getProjects().clear();
+        var project = new Project();
+        var animal = new Animal(AnimalClass.BIRD, 1, 1, 1, 111, "hi");
+        project.addAnimal(animal);
+        DataStorage.addProject(project);
         ViewProjectDataViewModel vm = new ViewProjectDataViewModel();
         vm.getAnimalClassProperty().set(AnimalClass.BIRD);
-        Animal animal = DataStorage.getAnimals().get(1);
-        Project project = DataStorage.getProjects().get(1);
         vm.setProject(project);
 
         assertEquals(animal, vm.getAnimalsByType(vm.getAnimalClassProperty().get()).getFirst());
