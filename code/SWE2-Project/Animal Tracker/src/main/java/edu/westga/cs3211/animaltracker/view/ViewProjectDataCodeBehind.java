@@ -67,6 +67,7 @@ public class ViewProjectDataCodeBehind {
                     this.vm.getServerService()
             );
 
+            controller.refreshProjects();
         } catch (IOException e) {
             this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
