@@ -124,12 +124,11 @@ public class SelectProjectCodeBehind {
                 );
 
                 // Pass the selected project and session to the view project page
-                // TODO: Uncomment when ViewProjectDataCodeBehind has these methods
-                // controller.setProject(selectedProject);
-                // controller.setSession(
-                //     this.viewModel.getSession(),
-                //     this.viewModel.getServerService()
-                // );
+                controller.setProject(selectedProject);
+                controller.setSession(
+                        this.viewModel.getSession(),
+                        this.viewModel.getServerService()
+                );
 
             } catch (IOException e) {
                 this.showErrorAlert("Failed to open project details: " + e.getMessage());

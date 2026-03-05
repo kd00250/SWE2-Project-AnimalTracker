@@ -8,109 +8,100 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0"
-            prefWidth="878.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.westga.cs3211.animaltracker.view.ViewProjectDataCodeBehind">
-    <children>
-        <Label fx:id="projectNameLabel" layoutX="284.0" layoutY="14.0" prefHeight="70.0" prefWidth="310.0"
-               text="Project Name">
-            <font>
-                <Font size="48.0"/>
-            </font>
-        </Label>
-        <VBox alignment="TOP_RIGHT" layoutX="77.0" layoutY="118.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
-            <children>
-                <Label text="Animal Class:  ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-                <Label prefHeight="35.0" prefWidth="136.0" text="Height (cm): ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-                <Label text="Weight (lbs): ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <Label fx:id="heightLabel" layoutX="256.0" layoutY="203.0" text="Label">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <Label fx:id="weightLabel" layoutX="259.0" layoutY="288.0" text="Label">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <ComboBox fx:id="animalClassComboBox" layoutX="256.0" layoutY="125.0" prefWidth="150.0"/>
-        <VBox alignment="TOP_RIGHT" layoutX="489.0" layoutY="117.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
-            <children>
-                <Label text="Subject : ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-                <Label text="Animal Name: ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-                <Label text="Length (cm): ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <Label layoutX="-282.0" layoutY="-45.0" text="Label"/>
-        <Label fx:id="animalLabel" layoutX="672.0" layoutY="202.0" prefHeight="35.0" prefWidth="73.0" text="Label">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <Label fx:id="lengthLabel" layoutX="671.0" layoutY="288.0" prefHeight="35.0" prefWidth="56.0" text="Label">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <ComboBox fx:id="subjectComboBox" layoutX="672.0" layoutY="125.0" prefWidth="150.0"/>
-        <VBox layoutX="-170.0" layoutY="288.0" prefHeight="200.0" prefWidth="100.0"/>
-        <Label layoutX="373.0" layoutY="351.0" text="Tag Info">
-            <font>
-                <Font size="36.0"/>
-            </font>
-        </Label>
-        <VBox alignment="TOP_RIGHT" layoutX="23.0" layoutY="405.0" prefHeight="146.0" prefWidth="236.0" spacing="50.0">
-            <children>
-                <Label text="Tag ID: ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-                <Label text="Description: ">
-                    <font>
-                        <Font size="24.0"/>
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <TextArea fx:id="descriptionTextArea" editable="false" layoutX="259.0" layoutY="494.0" prefHeight="86.0"
-                  prefWidth="324.0"/>
-        <Label fx:id="tagIDLabel" layoutX="256.0" layoutY="405.0" text="Label">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <Button fx:id="visualizeDataButton" layoutX="634.0" layoutY="511.0" mnemonicParsing="false"
-                onAction="#visualize" prefHeight="51.0" prefWidth="202.0" text="Visualize Data">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Button>
-    </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="878.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.ViewProjectDataCodeBehind">
+   <children>
+      <Label fx:id="projectNameLabel" alignment="CENTER" layoutX="168.0" layoutY="21.0" prefHeight="70.0" prefWidth="570.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_RIGHT" layoutX="77.0" layoutY="118.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
+         <children>
+            <Label text="Animal Class:  ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label prefHeight="35.0" prefWidth="136.0" text="Height (cm): ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Weight (lbs): ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label fx:id="heightLabel" layoutX="256.0" layoutY="203.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="weightLabel" layoutX="259.0" layoutY="288.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="animalClassComboBox" layoutX="256.0" layoutY="125.0" onAction="#onAnimalClassChange" prefWidth="150.0" />
+      <VBox alignment="TOP_RIGHT" layoutX="489.0" layoutY="117.0" prefHeight="206.0" prefWidth="182.0" spacing="50.0">
+         <children>
+            <Label text="Subject : ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Length (cm): ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <Label layoutX="-282.0" layoutY="-45.0" text="Label" />
+      <Label fx:id="lengthLabel" layoutX="671.0" layoutY="203.0" prefHeight="35.0" prefWidth="56.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="subjectComboBox" layoutX="672.0" layoutY="125.0" onAction="#onSubjectChange" prefWidth="150.0" />
+      <VBox layoutX="-170.0" layoutY="288.0" prefHeight="200.0" prefWidth="100.0" />
+      <Label layoutX="373.0" layoutY="351.0" text="Tag Info">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_RIGHT" layoutX="23.0" layoutY="405.0" prefHeight="146.0" prefWidth="236.0" spacing="50.0">
+         <children>
+            <Label text="Tag ID: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label text="Description: ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <TextArea fx:id="descriptionTextArea" editable="false" layoutX="259.0" layoutY="494.0" prefHeight="86.0" prefWidth="324.0" />
+      <Label fx:id="tagIDLabel" layoutX="256.0" layoutY="405.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="visualizeDataButton" layoutX="634.0" layoutY="511.0" mnemonicParsing="false" onAction="#visualize" prefHeight="51.0" prefWidth="202.0" text="Visualize Data">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="createTagButton" layoutX="634.0" layoutY="423.0" mnemonicParsing="false" onAction="#onCreateTagButtonClick" prefHeight="51.0" prefWidth="202.0" text="Create Tag">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="backButton" layoutX="770.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="82.0" text="Back" />
+   </children>
 </AnchorPane>

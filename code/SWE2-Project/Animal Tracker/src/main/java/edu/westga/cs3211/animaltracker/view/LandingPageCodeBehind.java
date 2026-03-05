@@ -25,6 +25,9 @@ public class LandingPageCodeBehind {
     private Button createProjectButton;
 
     @FXML
+    private Button addUserButton;
+
+    @FXML
     private Button viewProjectButton;
 
     @FXML
@@ -34,12 +37,31 @@ public class LandingPageCodeBehind {
     }
 
     @FXML
+    void onAddUserButtonClick(ActionEvent event) {
+
+        try {
+            AddUserCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.ADD_USER_PATH, this.mainPane, PageInformation.ADD_USER_TITLE);
+
+            controller.setSession(
+                    this.landingViewModel.getSession(),
+                    this.landingViewModel.getServerService()
+            );
+        } catch (IOException e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+        }
+    }
+
+    @FXML
     void onCreateProjectClick(ActionEvent event) {
 
         try {
             CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
             controller.setSession(this.landingViewModel.getSession(), this.landingViewModel.getServerService());
 
+            controller.setSession(
+                    this.landingViewModel.getSession(),
+                    this.landingViewModel.getServerService()
+            );
         } catch (IOException e) {
             System.err.println("Unexpected Error: " + e.getMessage());
         }
@@ -77,6 +99,9 @@ public class LandingPageCodeBehind {
         if (role == Role.CONTRIBUTOR || role == Role.GUEST || role == Role.ADMIN) {
             this.createProjectButton.setDisable(true);
             this.viewProjectButton.setDisable(true);
+        }
+        if (!(role == Role.ADMIN)) {
+            this.addUserButton.setDisable(true);
         }
     }
 

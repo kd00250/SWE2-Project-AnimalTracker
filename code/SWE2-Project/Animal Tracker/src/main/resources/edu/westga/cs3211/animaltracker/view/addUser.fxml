@@ -8,46 +8,45 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.westga.cs3211.animaltracker.view.AddUserCodeBehind">
-    <children>
-        <Label layoutX="202.0" text="Add User">
-            <font>
-                <Font size="48.0"/>
-            </font>
-        </Label>
-        <Label layoutX="93.0" layoutY="79.0" text="Please Enter a Username and password">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-        <VBox alignment="TOP_RIGHT" layoutX="99.0" layoutY="126.0" prefHeight="147.0" prefWidth="155.0" spacing="50.0">
-            <children>
-                <Label text="Username: ">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </Label>
-                <Label text="Password: ">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </Label>
-                <Label text="Role: ">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </Label>
-            </children>
-        </VBox>
-        <TextField fx:id="usernameTextField" layoutX="255.0" layoutY="126.0" promptText="ex: Bob"/>
-        <TextField fx:id="passwordTextField" layoutX="255.0" layoutY="194.0" promptText="ex: clone33"/>
-        <Button fx:id="addUserButton" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" onAction="#addUser"
-                prefHeight="46.0" prefWidth="106.0" text="Add User">
-            <font>
-                <Font size="18.0"/>
-            </font>
-        </Button>
-        <ComboBox fx:id="roleComboBox" layoutX="255.0" layoutY="262.0" prefWidth="150.0"/>
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.AddUserCodeBehind">
+   <children>
+      <Label layoutX="202.0" text="Add User">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="93.0" layoutY="79.0" text="Please Enter a Username and password">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_RIGHT" layoutX="99.0" layoutY="126.0" prefHeight="147.0" prefWidth="155.0" spacing="50.0">
+         <children>
+            <Label text="Username: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Password: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Role: ">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <TextField fx:id="usernameTextField" layoutX="255.0" layoutY="126.0" promptText="ex: Bob" />
+      <TextField fx:id="passwordTextField" layoutX="255.0" layoutY="194.0" promptText="ex: clone33" />
+      <Button fx:id="addUserButton" layoutX="247.0" layoutY="323.0" mnemonicParsing="false" onAction="#addUser" prefHeight="46.0" prefWidth="106.0" text="Add User">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="roleComboBox" layoutX="255.0" layoutY="262.0" prefWidth="150.0" />
+      <Button fx:id="backButton" layoutX="508.0" layoutY="23.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="26.0" prefWidth="54.0" text="Back" />
+   </children>
 </AnchorPane>
