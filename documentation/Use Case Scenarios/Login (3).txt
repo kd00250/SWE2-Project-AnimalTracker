@@ -1,0 +1,43 @@
+Login 
+
+ 
+
+Context: 
+
+User is not logged into the system and is on the login page. 
+
+ 
+
+Primary Flow: 
+
+   1. User enters credentials into the username and password fields. 
+
+   2. User submits login requests to the system. 
+
+   3. System receives login requests and validates requests. 
+
+   4. Server logs user into the system and system changes to landing page. 
+
+ 
+
+Alternative Flows 
+
+Users' credentials do not match credentials in storage. 
+
+A3. System does not match with a current username and password 
+
+A4. System sends invalid login response 
+
+A5. Page prompts user that their credentials are invalid. 
+
+A6. Return to Primary Flow 1.
+
+ 
+
+User does not enter all credentials on submission. 
+
+A2. User submits field with missing credentials 
+
+A3. Page warns user that there is credential information missing in a field. 
+
+A4. return to Primary Flow 1.

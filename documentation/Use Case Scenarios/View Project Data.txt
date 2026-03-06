@@ -1,0 +1,27 @@
+View Project Data
+Context
+Scientist is logged in and is on the select project page
+
+Primary Flow
+1. User indicates which project they want to view from list of projects 
+2. System routes the user to the view project data page
+3. User indicates which class of animal they want to view in the project
+4. User indicates which animal stats of the corresponding class that they want to view
+5. System validates selection and populates data on page 
+
+Alternative Flows
+
+Missing Species and/or animal type
+
+A3. User provides incomplete credentials (i.e., only species or animal type)
+A4. User is unable to see updated information and is propeted to enter information
+A5. Return to Primary Flow step 2
+
+No animals in the project for specified class
+
+A4. There is no option in the dropdown box as there are no animals for the specified class
+A5. Return to Primary Flow step 3
+
+User leaves Page
+A3. User hits the Back button
+A4. Return to Primary Flow step 1

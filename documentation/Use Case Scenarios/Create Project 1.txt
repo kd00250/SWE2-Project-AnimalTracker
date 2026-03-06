@@ -1,0 +1,26 @@
+Create Project
+
+Context
+Scientist is logged in and in the Create Project Page.
+
+Primary Flow
+1. User enters Project name and Location.
+2. User requests to create a Project.
+3. Data is sent to server and Project is created.
+4. A Message appears saying the Project [name] is created.
+
+Alternative Flows
+
+Create Project w/ Scientists available.
+
+A1 The User selects a scientist in Available Scientists and clicks Add Scientist.
+A2. User clicks Create Project button.
+
+User Removes Scientist to be Added
+
+A1. The User selects a scientist in Available Scientists and clicks Add Scientist.
+A2. User selects the scientist in the Scientist to Add and then clicks Remove Scientist.
+
+User leaves Page
+A1. User hits the Back button
+A2. The user is taken to the landing page.

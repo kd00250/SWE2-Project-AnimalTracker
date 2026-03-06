@@ -1,0 +1,27 @@
+Add User
+Context
+Admin is logged in and on the landing page
+
+Primary Flow
+1. User indicates that they want to add a new user to the system
+2. System prompts user to enter username, password, and role for new user
+3. User indicates that they want to submit the data
+3. System verifies submission
+5. System displays a success popup message 
+
+Alternative Flows
+
+Missing/Empty Credentials
+
+A3. User provides incomplete credentials (i.e., only username or password)
+A4. User is unable to submit credentials
+A5. Return to Primary Flow step 2
+
+Username already exists
+
+A4. System displays error popup message saying that the username already and to try again
+A5. Return to Primary Flow step 2
+
+User leaves Page
+A3. User hits the Back button
+A4. Return to Primary Flow step 1

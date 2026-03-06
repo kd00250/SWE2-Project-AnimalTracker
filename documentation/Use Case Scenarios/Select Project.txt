@@ -1,0 +1,20 @@
+Select Project
+
+Context
+Scientist is logged in and in the Select Project Page.
+
+Primary Flow
+1. User selects a project they would like to view in the list.
+2. User presses the View Project button.
+3. Server then gets the Project data and returns it to user.
+4. The page changes to the View Project Data page and has all relevant data from the project.
+
+Alternative Flows
+
+Empty Projects List
+
+A1. There is no available project to select, making the user unable to do anything.
+
+User leaves Page
+A1. User hits the Back button
+A2. The user is taken to the landing page.

@@ -1,0 +1,30 @@
+Create Tag
+
+Context
+User has scientist role and is logged in on the ViewProjectData page.
+
+Project is created, and tags can be added to start tracking
+Primary Flow
+1. User indicates they want to create a tag.
+2. System prompts user to provide tag information including generating a tag id, animal class (Mammal, Bird, Fish, Reptile, Amphibian), description, height, length, and weight.
+3. User provides information.
+4. User indicates they want to submit data.
+5. System prompts user to confirm submission.
+6. User confirms.
+7. System verifies information provided is legal.
+8. System adds tagged animal to project.
+
+
+Alternative Flows
+
+User wants to cancel submitting tag
+A4. User indicates they want to cancel submission.
+A5. System prompts user to confirm cancellation.
+A6. User confirms.
+A7. System clears all fields .
+A8. Return to primary flow step 2 with all fields being empty.
+
+User provides illegal formatted data
+A7. System prompts user that data is not in right format.
+A8. Return to primary flow step 3.
+
