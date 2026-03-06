@@ -1,0 +1,25 @@
+Remove Scientist
+Context
+Scientist is logged in and in create project page
+
+Primary Flow
+1. User selects a scientist from the list of available scientists
+2. User indicates that they want to add a scientist to the project
+3. User selects a scientist from the project scientist list
+4. User indicates that they want to remove the scientist
+5. System takes the selected scientist out of the project scientists list
+3. User enters in name and location for the project
+4. User indicates that they want to create a project with the specified scientists
+5. System verifies the entries
+6. System displays success popup message
+
+Alternative Flows
+
+Empty project scientists list
+
+A1. There are no project scientists in the list and the user is presented with an empty list
+A2. Return to Primary Flow step 1
+
+User leaves Page
+A3. User hits the Back button
+A4. Return to Primary Flow step 1

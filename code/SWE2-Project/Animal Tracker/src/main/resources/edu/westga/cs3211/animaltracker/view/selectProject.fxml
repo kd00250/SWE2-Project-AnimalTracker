@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.westga.cs3211.animaltracker.view.SelectProjectCodeBehind"
+            prefHeight="500.0" prefWidth="600.0">
+
+    <!-- Top: Title and Back Button -->
+    <top>
+        <BorderPane BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="20.0"/>
+            </padding>
+
+            <!-- Center: Title -->
+            <center>
+                <VBox alignment="CENTER" spacing="10.0">
+                    <Label text="Select Project">
+                        <font>
+                            <Font name="System Bold" size="24.0"/>
+                        </font>
+                    </Label>
+                    <Label text="Choose a project to view or delete"/>
+                </VBox>
+            </center>
+
+            <!-- Right: Back Button -->
+            <right>
+                <Button fx:id="backButton"
+                        mnemonicParsing="false"
+                        onAction="#onBackClick"
+                        text="Back"
+                        BorderPane.alignment="TOP_RIGHT"/>
+            </right>
+        </BorderPane>
+    </top>
+
+    <!-- Center: Project List -->
+    <center>
+        <ListView fx:id="projectsListView" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0"/>
+            </BorderPane.margin>
+        </ListView>
+    </center>
+
+    <!-- Bottom: Action Buttons -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="15.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="10.0"/>
+            </padding>
+
+            <Button fx:id="viewProjectButton"
+                    mnemonicParsing="false"
+                    onAction="#onViewProjectClick"
+                    text="View Project"
+                    prefWidth="120.0"/>
+
+            <Button fx:id="deleteProjectButton"
+                    mnemonicParsing="false"
+                    onAction="#onDeleteProjectClick"
+                    text="Delete Project"
+                    prefWidth="120.0"
+                    style="-fx-background-color: #d9534f; -fx-text-fill: white;"/>
+
+            <Button fx:id="refreshButton"
+                    mnemonicParsing="false"
+                    onAction="#onRefreshClick"
+                    text="Refresh"
+                    prefWidth="120.0"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
