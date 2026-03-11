@@ -1,9 +1,9 @@
-package edu.westga.cs3211.animaltracker.viewmodel;
+package edu.westga.cs3211.animaltracker.viewmodel.SelectProject;
 
 import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
+import edu.westga.cs3211.animaltracker.viewmodel.SelectProjectViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
