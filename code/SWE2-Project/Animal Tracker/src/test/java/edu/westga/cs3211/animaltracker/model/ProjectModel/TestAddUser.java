@@ -8,6 +8,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.Role;
 
+import java.util.ArrayList;
+
 /**
  * Tests for the addUser method in Project class.
  * @author mrocker1
@@ -16,14 +18,14 @@ class TestAddUser {
 
     @Test
     void testAddNullUser() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
 
         assertThrows(IllegalArgumentException.class, () -> project.addUser(null));
     }
 
     @Test
     void testAddValidUser() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user = new User("testuser", "password123", Role.SCIENTIST);
 
         project.addUser(user);
@@ -34,7 +36,7 @@ class TestAddUser {
 
     @Test
     void testAddMultipleUsers() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("user1", "password1", Role.SCIENTIST);
         User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
         User user3 = new User("user3", "password3", Role.GUEST);
@@ -51,7 +53,7 @@ class TestAddUser {
 
     @Test
     void testAddDuplicateUser() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user = new User("duplicate", "password", Role.SCIENTIST);
 
         project.addUser(user);
@@ -61,7 +63,7 @@ class TestAddUser {
 
     @Test
     void testAddUserToProjectWithExistingUsers() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("existing", "pass1", Role.SCIENTIST);
         User user2 = new User("newuser", "pass2", Role.ADMIN);
 

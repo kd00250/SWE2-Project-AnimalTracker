@@ -147,9 +147,8 @@ public class CreateProjectViewModel {
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
-        ArrayList<Scientist> dummyList = new ArrayList<>();
         ArrayList<Animal> emptyList = new ArrayList<>();
-        new Project(name, dummyList, emptyList, users);
+        new Project(users, name, emptyList);
     }
 
     /**

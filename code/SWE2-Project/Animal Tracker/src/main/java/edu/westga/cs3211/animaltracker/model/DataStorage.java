@@ -225,6 +225,6 @@ public class DataStorage {
         ArrayList<Animal> projectAnimals = new ArrayList<>();
         projectAnimals.add(defaultAnimal);
 
-        new Project("Wildlife Migration Study", new ArrayList<Scientist>(), projectAnimals, projectUsers);
+        new Project(projectUsers, "Wildlife Migration Study", projectAnimals);
     }
 }

@@ -7,6 +7,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestGetAnimalsByType {
@@ -18,13 +20,13 @@ class TestGetAnimalsByType {
 
     @Test
     void testGetAnimalsWithNullAnimalClass() {
-        var project = new Project();
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         assertThrows(IllegalArgumentException.class, () -> project.getAnimalsByType(null));
     }
 
     @Test
     void testGetAnimalsWithNoAnimals() {
-        var project = new Project();
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         var result = project.getAnimalsByType(AnimalClass.MAMMAL);
 
         assertAll(() -> {
@@ -35,7 +37,7 @@ class TestGetAnimalsByType {
 
     @Test
     void testGetAnimalsWithOneAnimal() {
-        var project = new Project();
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         var animal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
         project.addAnimal(animal);
         var result = project.getAnimalsByType(AnimalClass.BIRD);
@@ -49,7 +51,7 @@ class TestGetAnimalsByType {
 
     @Test
     void testGetAnimalsWithMultipleAnimalOfSameClass() {
-        var project = new Project();
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         var animal1 = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
         var animal2 = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122346, "");
         var animal3 = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122347, "");
@@ -69,7 +71,7 @@ class TestGetAnimalsByType {
 
     @Test
     void testGetAnimalsWithMultipleAnimalWithDifferentClasses() {
-        var project = new Project();
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         var animal1 = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
         var animal2 = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122346, "");
         var animal3 = new Animal(AnimalClass.MAMMAL, 11.0, 15.0, 17.0, 122347, "");
