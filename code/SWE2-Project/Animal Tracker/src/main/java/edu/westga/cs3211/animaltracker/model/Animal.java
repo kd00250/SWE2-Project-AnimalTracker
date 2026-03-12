@@ -4,14 +4,14 @@ package edu.westga.cs3211.animaltracker.model;
  * the animal class.
  */
 public class Animal {
-    private AnimalClass animalClass;
-    private double height;
-    private double weight;
-    private double length;
-    private int tagID;
-    private String description;
-    private TagStatus tagStatus;
-    private int id;
+    private final AnimalClass animalClass;
+    private final double height;
+    private final double weight;
+    private final double length;
+    private final int tagID;
+    private final String description;
+    private final TagStatus tagStatus;
+    private final int id;
 
     /**
      * instantiates a new instance of the animal class.

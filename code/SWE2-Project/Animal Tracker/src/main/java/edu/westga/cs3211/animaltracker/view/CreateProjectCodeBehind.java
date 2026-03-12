@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.io.IOException;
 
 /**
  * The CreateProject CodeBehind.

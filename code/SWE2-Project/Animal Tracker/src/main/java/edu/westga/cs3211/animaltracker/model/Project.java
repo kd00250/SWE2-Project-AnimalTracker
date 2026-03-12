@@ -1,7 +1,5 @@
 package edu.westga.cs3211.animaltracker.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,9 +9,9 @@ import java.util.List;
  */
 public class Project {
 
-    private String name;
-    private List<Animal> animals;
-    private List<User> users;
+    private final String name;
+    private final List<Animal> animals;
+    private final List<User> users;
     private int id;
 
 

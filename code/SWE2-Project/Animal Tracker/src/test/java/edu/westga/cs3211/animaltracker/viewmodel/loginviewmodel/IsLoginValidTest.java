@@ -32,8 +32,8 @@ public class IsLoginValidTest {
     @Test
     void testLoginResponseValid() {
         var vm = new LoginViewModel();
-        vm.usernameProperty().set(this.user.getUsername());
-        vm.passwordProperty().set(this.user.getPassword());
+        vm.usernameProperty().set(this.user.username());
+        vm.passwordProperty().set(this.user.password());
         vm.processLoginRequest();
         assertTrue(vm.isLoginValid());
     }

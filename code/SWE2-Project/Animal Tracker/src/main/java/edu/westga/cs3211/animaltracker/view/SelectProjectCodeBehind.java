@@ -38,7 +38,7 @@ public class SelectProjectCodeBehind {
     @FXML
     private Button backButton;
 
-    private SelectProjectViewModel viewModel;
+    private final SelectProjectViewModel viewModel;
 
     /**
      * Instantiates a new select project code behind.
