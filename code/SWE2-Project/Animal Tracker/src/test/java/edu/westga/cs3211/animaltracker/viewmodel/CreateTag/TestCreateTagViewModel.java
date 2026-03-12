@@ -211,11 +211,4 @@ public class TestCreateTagViewModel {
 
     }
 
-    @Test
-    void testResetTagID() {
-        this.viewModel.tagIdProperty().set("123456");
-        this.viewModel.resetTagID();
-        assertEquals("******", this.viewModel.tagIdProperty().get());
-    }
-
 }

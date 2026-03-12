@@ -197,13 +197,6 @@ public class CreateTagViewModel {
                 .or(this.weight.isEmpty());
     }
 
-    /**
-     * Resets the tag id.
-     */
-    public void resetTagID() {
-        this.tagId.set(DEFAULT_TAG);
-    }
-
     private double parseDoubleOrThrow(String value, String fieldName) {
         try {
             return Double.parseDouble(value.trim());
