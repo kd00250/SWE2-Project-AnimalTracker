@@ -1,4 +1,6 @@
-from TagStatus import TagStatus
+from model.TagStatus import TagStatus
+
+
 class Animal:
     def __init__(self, animal_class, height, weight, length, tag_id, description):
         if description is None:
@@ -36,23 +38,4 @@ class Animal:
         return self._tag_status
     def get_description(self):
         return self._description
-
-    def set_animal_class(self, animal_class):
-        self._animal_class = animal_class
-
-    def set_height(self, height):
-        self._height = height
-    def set_weight(self, weight):
-        self._weight = weight
-    def set_length(self, length):
-        self._length = length
-
-    def set_tag_id(self, tag_id):
-        self._tagId = tag_id
-
-    def set_tag_status(self, tag_status):
-        self._tag_status = tag_status
-
-    def set_description(self, description):
-        self._description = description
 
