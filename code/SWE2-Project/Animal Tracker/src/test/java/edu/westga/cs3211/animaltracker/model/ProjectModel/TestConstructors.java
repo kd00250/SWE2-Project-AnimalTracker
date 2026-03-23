@@ -18,79 +18,36 @@ class TestConstructors {
 
     @Test
     void testNullName() {
-        assertThrows(IllegalArgumentException.class, () -> new Project(null, new ArrayList<Scientist>(), new ArrayList<Animal>()));
+        assertThrows(IllegalArgumentException.class, () -> new Project(new ArrayList<>(), null, new ArrayList<>()));
     }
 
     @Test
     void testEmptyName() {
-        assertThrows(IllegalArgumentException.class, () -> new Project("", new ArrayList<Scientist>(), new ArrayList<Animal>()));
+        assertThrows(IllegalArgumentException.class, () -> new Project(new ArrayList<>(), "", new ArrayList<>()));
     }
 
     @Test
     void testBlankName() {
-        assertThrows(IllegalArgumentException.class, () -> new Project(" ", new ArrayList<Scientist>(), new ArrayList<Animal>()));
+        assertThrows(IllegalArgumentException.class, () -> new Project(new ArrayList<>(), " ", new ArrayList<>()));
     }
 
-    @Test
-    void testNullScientists() {
-        assertThrows(IllegalArgumentException.class, () -> new Project("Salmon Migration", null, new ArrayList<Animal>()));
-    }
 
     @Test
     void testNullAnimals() {
-        assertThrows(IllegalArgumentException.class, () -> new Project("Salmon Migration", new ArrayList<Scientist>(), null));
+        assertThrows(IllegalArgumentException.class, () -> new Project(new ArrayList<>(), "test ", null));
     }
 
-    @Test
-    void testDefaultConstructor() {
-        var project = new Project();
-
-        assertAll(
-                () -> {
-                    assertEquals("Test", project.getName());
-                    assertNotNull(project.getScientists());
-                    assertNotNull(project.getAnimals());
-                }
-        );
-    }
-
-    @Test
-    void testConstructorOnlyName() {
-        var project = new Project("Salmon Migration");
-
-        assertAll(
-                () -> {
-                    assertEquals("Salmon Migration", project.getName());
-                    assertNotNull(project.getScientists());
-                    assertNotNull(project.getAnimals());
-                }
-        );
-    }
-
-    @Test
-    void testConstructorWithNameAndEmptyScientists() {
-        var scientists = new ArrayList<Scientist>();
-        var project = new Project("Salmon Migration", scientists);
-
-        assertAll(
-                () -> {
-                    assertEquals("Salmon Migration", project.getName());
-                    assertEquals(scientists, project.getScientists());
-                    assertNotNull(project.getAnimals());
-                }
-        );
-    }
 
     @Test
     void testThreeParameterConstructor() {
-        var scientists = new ArrayList<Scientist>();
+        var users = new ArrayList<User>();
         var animals = new ArrayList<Animal>();
-        var project = new Project("Salmon Migration", scientists, animals);
+        var project = new Project(users , "Salmon Migration", animals);
 
         assertAll(
                 () -> {
                     assertEquals("Salmon Migration", project.getName());
-                    assertEquals(scientists, project.getScientists());
+                    assertEquals(users, project.getUsers());
                     assertEquals(animals, project.getAnimals());
                 }
         );
@@ -98,83 +55,40 @@ class TestConstructors {
 
     @Test
     void testConstructorWithScientists() {
-        var scientists = new ArrayList<Scientist>();
-        var scientist1 = new Scientist("John Doe", "123456789");
-        var scientist2 = new Scientist("Sallie Mae", "234567891");
-        var scientist3 = new Scientist("Jane Doe", "3456789012");
-        scientists.add(scientist1);
-        scientists.add(scientist2);
-        scientists.add(scientist3);
+        var users = new ArrayList<User>();
+        var user1 = new User("John Doe", "123456789", Role.SCIENTIST);
+        var user2 = new User("Sallie Mae", "234567891", Role.SCIENTIST);
+        var user3 = new User("Jane Doe", "3456789012", Role.SCIENTIST);
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
         var animals = new ArrayList<Animal>();
-        var project = new Project("Salmon Migration", scientists, animals);
+        var project = new Project(users, "Salmon Migration", animals);
 
         assertAll(
                 () -> {
                     assertEquals("Salmon Migration", project.getName());
-                    assertEquals(scientists, project.getScientists());
-                    assertEquals(scientist1, project.getScientists().get(0));
-                    assertEquals(scientist2, project.getScientists().get(1));
-                    assertEquals(scientist3, project.getScientists().get(2));
+                    assertEquals(users, project.getUsers());
+                    assertEquals(user1, project.getUsers().get(0));
+                    assertEquals(user2, project.getUsers().get(1));
+                    assertEquals(user3, project.getUsers().get(2));
                     assertEquals(animals, project.getAnimals());
                 }
         );
     }
 
-    @Test
-    void testConstructorWithNullUsers() {
-        List<Scientist> scientists = new ArrayList<>();
-        List<Animal> animals = new ArrayList<>();
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Project("Test Project", scientists, animals, null);
-        });
-    }
 
     @Test
     void testConstructorWithEmptyUsers() {
-        List<Scientist> scientists = new ArrayList<>();
         List<Animal> animals = new ArrayList<>();
         List<User> users = new ArrayList<>();
 
-        Project project = new Project("Test Project", scientists, animals, users);
+        Project project = new Project(users, "Test Project", animals);
 
         assertNotNull(project.getUsers(), "checking users list is not null");
         assertEquals(0, project.getUsers().size(), "checking users list is empty");
     }
 
-    @Test
-    void testConstructorWithUsers() {
-        List<Scientist> scientists = new ArrayList<>();
-        List<Animal> animals = new ArrayList<>();
-        List<User> users = new ArrayList<>();
-
-        User user1 = new User("user1", "password1", Role.SCIENTIST);
-        User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
-        users.add(user1);
-        users.add(user2);
-
-        Project project = new Project("Test Project", scientists, animals, users);
-
-        assertEquals(2, project.getUsers().size(), "checking users list size");
-        assertTrue(project.getUsers().contains(user1), "checking user1 in list");
-        assertTrue(project.getUsers().contains(user2), "checking user2 in list");
-    }
-
-    @Test
-    void testDefaultConstructorInitializesEmptyUsers() {
-        Project project = new Project();
-
-        assertNotNull(project.getUsers(), "checking users list is not null");
-        assertEquals(0, project.getUsers().size(), "checking users list is empty");
-    }
-
-    @Test
-    void testConstructorWithNameInitializesEmptyUsers() {
-        Project project = new Project("Test Project");
-
-        assertNotNull(project.getUsers(), "checking users list is not null");
-        assertEquals(0, project.getUsers().size(), "checking users list is empty");
-    }
 
     @Test
     void testUsersNullInTripleParameter() {

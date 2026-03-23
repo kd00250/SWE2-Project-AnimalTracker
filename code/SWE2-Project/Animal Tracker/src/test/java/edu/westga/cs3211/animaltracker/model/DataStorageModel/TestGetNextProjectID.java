@@ -5,6 +5,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestGetNextProjectID {
@@ -21,7 +23,7 @@ class TestGetNextProjectID {
 
     @Test
     void testGetNextAnimalIDNotEmpty() {
-        Project project = new Project("Whales");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         assertEquals(3, DataStorage.getNextProjectId());
         assertEquals(DataStorage.getProjects().get(2), project);
     }

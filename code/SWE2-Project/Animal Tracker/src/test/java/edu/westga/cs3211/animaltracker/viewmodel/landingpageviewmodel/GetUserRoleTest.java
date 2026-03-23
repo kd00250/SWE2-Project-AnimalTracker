@@ -20,7 +20,7 @@ public class GetUserRoleTest {
         var vm = new LandingPageViewModel();
         vm.setSession(new LoginResponse(token, 500), new LocalServer());
         Role userRole = vm.getUserRole();
-        assertEquals(user.getRole(), userRole);
+        assertEquals(user.role(), userRole);
     }
 
     @Test
