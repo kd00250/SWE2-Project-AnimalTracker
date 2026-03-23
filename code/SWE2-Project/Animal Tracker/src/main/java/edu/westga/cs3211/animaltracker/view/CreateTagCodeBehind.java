@@ -94,7 +94,7 @@ public class CreateTagCodeBehind {
             boolean hasMadeTag = this.viewModel.makeTag();
             if (hasMadeTag) {
                 this.displayConfirmationPopup("A new tag with id: " + this.viewModel.tagIdProperty().get() + " has been successfully created");
-                this.viewModel.resetTagID();
+                this.viewModel.clear();
             }
 
         }
