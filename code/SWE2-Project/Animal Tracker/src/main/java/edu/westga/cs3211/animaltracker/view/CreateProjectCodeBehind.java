@@ -12,8 +12,6 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.io.IOException;
-
 /**
  * The CreateProject CodeBehind.
  *
@@ -130,34 +128,30 @@ public class CreateProjectCodeBehind {
 
     @FXML
     void onAddScientistToProjectClick(ActionEvent actionEvent) {
-        this.addScientistToProjectButton.setOnAction(e -> {
-            User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
-            if (selectedUser != null) {
-                try {
-                    this.vm.addScientistToProject(selectedUser);
-                    this.scientistToAddListView.getItems().add(selectedUser);
-                } catch (IllegalArgumentException ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-                    alert.showAndWait();
-                }
+        User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                this.vm.addScientistToProject(selectedUser);
+                this.scientistToAddListView.getItems().add(selectedUser);
+            } catch (IllegalArgumentException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                alert.showAndWait();
             }
-        });
+        }
     }
 
     @FXML
     void onRemoveScientistToAddClick(ActionEvent actionEvent) {
-        this.removeScientistToAddButton.setOnAction(e -> {
-            User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
-            if (selectedUser != null) {
-                try {
-                    this.vm.removeScientistFromProject(selectedUser);
-                    this.scientistToAddListView.getItems().remove(selectedUser);
-                } catch (IllegalArgumentException ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-                    alert.showAndWait();
-                }
+        User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                this.vm.removeScientistFromProject(selectedUser);
+                this.scientistToAddListView.getItems().remove(selectedUser);
+            } catch (IllegalArgumentException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                alert.showAndWait();
             }
-        });
+        }
     }
 
     @FXML
