@@ -1,6 +1,16 @@
 
 class Project:
     def __init__(self, name, users, animals, project_id):
+        if (name == None):
+            raise Exception("Project name cannot be None")
+        if (users == None):
+            raise Exception("Project users cannot be None")
+        if (animals == None):
+            raise Exception("Project animals cannot be None")
+        if (project_id < 0):
+            raise Exception("Project project_id cannot be negative")
+        if name.strip() == "":
+            raise Exception("Project name cannot be an empty string")
         self._name = name
         self._users = users
         self._animals = animals
