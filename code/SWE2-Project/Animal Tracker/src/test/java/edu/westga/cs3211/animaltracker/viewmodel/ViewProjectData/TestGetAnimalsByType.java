@@ -7,6 +7,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestGetAnimalsByType {
@@ -15,7 +17,7 @@ class TestGetAnimalsByType {
     void testGetAnimalsByType() {
         DataStorage.getAnimals().clear();
         DataStorage.getProjects().clear();
-        var project = new Project();
+        var project = new Project(new ArrayList<>(), "test", new ArrayList<>());
         var animal = new Animal(AnimalClass.BIRD, 1, 1, 1, 111, "hi");
         project.addAnimal(animal);
         DataStorage.addProject(project);

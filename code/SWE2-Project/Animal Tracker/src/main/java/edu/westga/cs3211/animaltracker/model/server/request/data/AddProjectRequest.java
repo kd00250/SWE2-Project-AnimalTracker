@@ -9,9 +9,9 @@ import java.util.Collection;
  * The AddProjectRequest class.
  */
 public class AddProjectRequest extends Request {
-    private String projectName;
-    private Collection<String> scientistUsernames;
-    private Collection<Integer> animalIds;
+    private final String projectName;
+    private final Collection<String> scientistUsernames;
+    private final Collection<Integer> animalIds;
 
     /**
      * Instantiates a new project add request.

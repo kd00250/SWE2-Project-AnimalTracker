@@ -1,6 +1,6 @@
 package edu.westga.cs3211.animaltracker.view;
 
-import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
+
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import javafx.event.ActionEvent;

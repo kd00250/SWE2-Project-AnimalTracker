@@ -14,8 +14,8 @@ public class PropertyTest {
         var user = new User("1234", "1234", Role.ADMIN);
         DataStorage.generateTokenForUser(user);
         var vm = new LoginViewModel();
-        vm.usernameProperty().set(user.getUsername());
-        vm.passwordProperty().set(user.getPassword());
+        vm.usernameProperty().set(user.username());
+        vm.passwordProperty().set(user.password());
         vm.processLoginRequest();
         assertNotNull(vm.getLoginResponse());
         assertNotNull(vm.getServerService());

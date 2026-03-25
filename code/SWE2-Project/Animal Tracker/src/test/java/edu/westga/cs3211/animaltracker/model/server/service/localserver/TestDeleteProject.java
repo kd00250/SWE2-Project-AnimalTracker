@@ -33,7 +33,7 @@ public class TestDeleteProject {
         Project project = new Project(users, name, animals);
 
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
-        var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
+        var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
         var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
         var server = new LocalServer();
         server.AddProject(request);

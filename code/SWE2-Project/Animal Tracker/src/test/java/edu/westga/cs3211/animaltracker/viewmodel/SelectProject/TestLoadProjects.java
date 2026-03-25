@@ -46,7 +46,7 @@ class TestLoadProjects {
         DataStorage.getUsers().add(this.user);
         var users = new ArrayList<User>();
         users.add(this.user);
-        var project = new Project("Test", new ArrayList<>(), new ArrayList<>(), users);
+        Project project = new Project(users,  "Test", new ArrayList<>());
         DataStorage.addProject(project);
         var vm = new SelectProjectViewModel();
         vm.setSession(this.loginResponse, this.localServer);
@@ -61,12 +61,12 @@ class TestLoadProjects {
         DataStorage.getUsers().add(this.user);
         var users = new ArrayList<User>();
         users.add(this.user);
-        var project1 = new Project("Test", new ArrayList<>(), new ArrayList<>(), users);
+        Project project1 = new Project(users,  "Test", new ArrayList<>());
         DataStorage.addProject(project1);
         var vm = new SelectProjectViewModel();
         vm.setSession(this.loginResponse, this.localServer);
         vm.loadProjects();
-        var project2 = new Project("Test2", new ArrayList<>(), new ArrayList<>(), users);
+        Project project2 = new Project(users,  "Test", new ArrayList<>());
         DataStorage.addProject(project2);
         vm.refreshProjects();
         assertTrue(vm.projectsProperty().get().contains(project2));

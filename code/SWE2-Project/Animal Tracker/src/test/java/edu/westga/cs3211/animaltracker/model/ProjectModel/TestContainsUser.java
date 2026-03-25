@@ -8,6 +8,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.Role;
 
+import java.util.ArrayList;
+
 /**
  * Tests for the containsUser method in Project class.
  * @author mrocker1
@@ -16,7 +18,7 @@ class TestContainsUser {
 
     @Test
     void testContainsUserWhenEmpty() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user = new User("testuser", "password", Role.SCIENTIST);
 
         assertFalse(project.containsUser(user), "checking user not in empty list");
@@ -24,7 +26,7 @@ class TestContainsUser {
 
     @Test
     void testContainsUserWhenPresent() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user = new User("testuser", "password", Role.SCIENTIST);
 
         project.addUser(user);
@@ -34,7 +36,7 @@ class TestContainsUser {
 
     @Test
     void testContainsUserWhenNotPresent() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("user1", "password1", Role.SCIENTIST);
         User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
 
@@ -45,7 +47,7 @@ class TestContainsUser {
 
     @Test
     void testContainsUserWithMultipleUsers() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("user1", "password1", Role.SCIENTIST);
         User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
         User user3 = new User("user3", "password3", Role.GUEST);
@@ -63,7 +65,7 @@ class TestContainsUser {
 
     @Test
     void testContainsNullUser() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
 
         assertFalse(project.containsUser(null), "checking null user returns false");
     }

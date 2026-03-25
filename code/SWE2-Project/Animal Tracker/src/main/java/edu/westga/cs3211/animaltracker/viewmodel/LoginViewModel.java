@@ -12,10 +12,10 @@ import javafx.beans.property.StringProperty;
  * The login view model class.
  */
 public class LoginViewModel {
-    private StringProperty username;
-    private StringProperty password;
-    private ServerService authenticator;
-    private SimpleObjectProperty<LoginResponse> loginResponse;
+    private final StringProperty username;
+    private final StringProperty password;
+    private final ServerService authenticator;
+    private final SimpleObjectProperty<LoginResponse> loginResponse;
 
     /**
      * Instantiates a new login view model.

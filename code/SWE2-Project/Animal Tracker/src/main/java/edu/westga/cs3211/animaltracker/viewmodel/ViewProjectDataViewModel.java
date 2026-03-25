@@ -15,15 +15,15 @@ import java.util.List;
 public class ViewProjectDataViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private ObjectProperty<AnimalClass> animalClass;
-    private ObjectProperty<Animal> animal;
-    private ObjectProperty<Project> project;
-    private StringProperty projectName;
-    private DoubleProperty height;
-    private DoubleProperty weight;
-    private DoubleProperty length;
-    private IntegerProperty tagID;
-    private StringProperty description;
+    private final ObjectProperty<AnimalClass> animalClass;
+    private final ObjectProperty<Animal> animal;
+    private final ObjectProperty<Project> project;
+    private final StringProperty projectName;
+    private final DoubleProperty height;
+    private final DoubleProperty weight;
+    private final DoubleProperty length;
+    private final IntegerProperty tagID;
+    private final StringProperty description;
 
     /**
      * creates a new instance of view project view model.
