@@ -1,13 +1,13 @@
 
 class Project:
     def __init__(self, name, users, animals, project_id):
-        if (name == None):
+        if name is None:
             raise Exception("Project name cannot be None")
-        if (users == None):
+        if users is None:
             raise Exception("Project users cannot be None")
-        if (animals == None):
+        if animals is None:
             raise Exception("Project animals cannot be None")
-        if (project_id < 0):
+        if project_id < 0:
             raise Exception("Project project_id cannot be negative")
         if name.strip() == "":
             raise Exception("Project name cannot be an empty string")
@@ -25,8 +25,16 @@ class Project:
     def get_id(self):
         return self._id
     def set_name(self, name):
+        if name is None:
+            raise Exception("Project name cannot be None")
+        if name.strip() == "":
+            raise Exception("Project name cannot be an empty string")
         self._name = name
     def set_id(self, id):
+        if id is None:
+            raise Exception("Project id cannot be None")
+        if id < 0:
+            raise Exception("Project id cannot be negative")
         self._id = id
 
     def add_user(self, user):
@@ -50,5 +58,5 @@ class Project:
 
     def remove_user(self, user):
         if user is None:
-            raise Exception("User cannot be None")
+            return
         self._users.remove(user)

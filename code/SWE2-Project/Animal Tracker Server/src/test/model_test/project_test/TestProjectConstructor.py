@@ -18,7 +18,7 @@ class TestConstructor(unittest.TestCase):
 
     def test_none_animals(self):
         with self.assertRaises(Exception):
-            Project(None, [User("Casey", "Winkle", Role.ADMIN)], [], 0)
+            Project("1234", [User("Casey", "Winkle", Role.ADMIN)], None, 2)
 
     def test_negative_id(self):
         with self.assertRaises(Exception):
@@ -26,7 +26,8 @@ class TestConstructor(unittest.TestCase):
 
     def test_empty_name(self):
         with self.assertRaises(Exception):
-            Project("", [User("Casey", "Winkle", Role.ADMIN)], [], -1)
+            Project("", [User("Casey", "Winkle", Role.ADMIN)], [], 5)
+
 
     def test_create_valid_project(self):
         user = User("Casey", "Winkle", Role.ADMIN)
