@@ -12,7 +12,6 @@ import java.util.List;
 public class Project {
 
     private String name;
-    private List<Scientist> scientists;
     private List<Animal> animals;
     private List<User> users;
     private int id;
