@@ -14,8 +14,6 @@ public class Project {
     private final List<User> users;
     private int id;
 
-
-
     /**
      * Instantiates a new Project.
      *
@@ -57,6 +55,7 @@ public class Project {
      * @param users   the users
      * @param name    the name of the project
      * @param animals the animals in the project
+     * @param id the id of the user
      * @pre users != null && name != null or empty && animals != null
      * @post getUsers().equals(users) &&
      * getName.equals(name) &&
@@ -67,10 +66,6 @@ public class Project {
         this(users, name, animals);
         this.id = id;
     }
-
-
-
-
 
     /**
      * Gets the Name of the Project.
@@ -90,8 +85,6 @@ public class Project {
         return this.animals;
     }
 
-
-
     /**
      * Gets the List of Users.
      *
@@ -100,9 +93,6 @@ public class Project {
     public List<User> getUsers() {
         return this.users;
     }
-
-
-
 
     /**
      * Adds an animal to the List of Animals.

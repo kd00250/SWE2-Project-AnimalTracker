@@ -48,11 +48,12 @@ public class DataStorage {
      * @return true or false if the username is already taken or not
      */
     public static Boolean isUsernameAvailable(String username) {
-        boolean result = true;
         for (User user : getUsers()) {
-            result = !user.username().equals(username);
+            if (user.username().equals(username)) {
+                return false;
+            }
         }
-        return result;
+        return true;
     }
 
     /**
