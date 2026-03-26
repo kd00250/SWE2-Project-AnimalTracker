@@ -5,8 +5,8 @@
 .idea/
 
 #Python cache
-**/__pycache__/
-
+/__pycache__/
+*.py[codz]
 #target files
 target/
 
