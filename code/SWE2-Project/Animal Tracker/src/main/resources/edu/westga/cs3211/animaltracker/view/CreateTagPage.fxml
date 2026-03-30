@@ -11,9 +11,9 @@
 
 <AnchorPane prefHeight="535.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.westga.cs3211.animaltracker.view.CreateTagCodeBehind">
    <children>
-      <Label layoutX="46.0" layoutY="27.0" prefHeight="25.0" prefWidth="159.0" text="Add Animal To Track">
+      <Label layoutX="46.0" layoutY="27.0" prefHeight="32.0" prefWidth="222.0" text="Add Animal To Track">
          <font>
-            <Font name="System Bold" size="16.0" />
+            <Font name="System Bold" size="22.0" />
          </font>
       </Label>
       <VBox alignment="CENTER_LEFT" layoutX="45.0" layoutY="56.0" prefHeight="118.0" prefWidth="114.0" spacing="10.0">
@@ -35,7 +35,7 @@
          <children>
             <Label prefHeight="27.0" prefWidth="121.0" text="Animal Class">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="13.0" />
                </font>
             </Label>
             <ComboBox fx:id="speciesComboBox" prefWidth="150.0" />
@@ -75,7 +75,7 @@
          <children>
             <Label text="Description:">
                <font>
-                  <Font name="System Bold" size="17.0" />
+                  <Font name="System Bold" size="15.0" />
                </font>
             </Label>
             <TextArea fx:id="descriptionText" prefHeight="174.0" prefWidth="514.0" />
@@ -86,8 +86,8 @@
             <Label fx:id="errorLabel" prefHeight="31.0" prefWidth="351.0" textFill="RED" />
          </children>
       </VBox>
-      <Button fx:id="submitButton" layoutX="283.0" layoutY="460.0" mnemonicParsing="false" onAction="#onSubmitClick" prefHeight="46.0" prefWidth="113.0" text="Submit" />
-      <Button layoutX="46.0" layoutY="460.0" mnemonicParsing="false" onAction="#onClearClick" prefHeight="46.0" prefWidth="113.0" text="Clear" />
+      <Button fx:id="submitButton" layoutX="283.0" layoutY="460.0" mnemonicParsing="false" onAction="#onSubmitClick" prefHeight="46.0" prefWidth="113.0" style="-fx-background-color: #28a745; -fx-text-fill: white;" text="Submit" />
+      <Button layoutX="46.0" layoutY="460.0" mnemonicParsing="false" onAction="#onClearClick" prefHeight="46.0" prefWidth="113.0" style="-fx-background-color: #d9534f; -fx-text-fill: white;" text="Clear" />
       <Button fx:id="backButton" layoutX="305.0" layoutY="16.0" maxHeight="46.0" maxWidth="113.0" mnemonicParsing="false" onAction="#onBackClick" prefHeight="46.0" prefWidth="113.0" text="Back" />
    </children>
 </AnchorPane>
