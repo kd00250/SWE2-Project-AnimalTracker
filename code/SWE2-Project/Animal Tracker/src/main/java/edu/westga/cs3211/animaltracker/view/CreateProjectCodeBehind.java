@@ -108,18 +108,22 @@ public class CreateProjectCodeBehind {
 
     @FXML
     void onBackButtonClick(ActionEvent actionEvent) {
+        this.goToProjectsPage();
+    }
+
+    private void goToProjectsPage() {
         try {
-            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
-                    PageInformation.LANDING_PATH,
+            SelectProjectCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.SELECT_PROJECT_PATH,
                     this.backButton,
-                    PageInformation.LANDING_TITLE
+                    PageInformation.SELECT_PROJECT_TITLE
             );
 
             controller.setSession(
                     this.vm.getSession(),
                     this.vm.getServerService()
             );
-
+            controller.refreshProjects();
         } catch (IOException e) {
             this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
@@ -161,6 +165,7 @@ public class CreateProjectCodeBehind {
         ArrayList<User> scientist = this.vm.getAddedScientist();
         this.vm.createProject(name, scientist);
         this.displaySuccessPopup();
+        this.goToProjectsPage();
     }
 
     @FXML

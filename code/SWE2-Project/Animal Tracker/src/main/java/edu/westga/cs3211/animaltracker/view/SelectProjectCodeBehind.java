@@ -38,6 +38,9 @@ public class SelectProjectCodeBehind {
     @FXML
     private Button backButton;
 
+    @FXML
+    private Button createProjectButton;
+
     private final SelectProjectViewModel viewModel;
 
     /**
@@ -222,6 +225,22 @@ public class SelectProjectCodeBehind {
             throw new IllegalArgumentException("Server cannot be null");
         }
         this.viewModel.setSession(session, server);
+    }
+
+    @FXML
+    void onCreateProjectClick(ActionEvent event) {
+
+        try {
+            CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.createProjectButton, PageInformation.CREATE_PROJECT_TITLE);
+            controller.setSession(this.viewModel.getSession(), this.viewModel.getServerService());
+
+            controller.setSession(
+                    this.viewModel.getSession(),
+                    this.viewModel.getServerService()
+            );
+        } catch (IOException e) {
+            System.err.println("Unexpected Error: " + e.getMessage());
+        }
     }
 
     /**

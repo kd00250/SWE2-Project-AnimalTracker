@@ -22,9 +22,6 @@ public class LandingPageCodeBehind {
     private AnchorPane mainPane;
 
     @FXML
-    private Button createProjectButton;
-
-    @FXML
     private Button addUserButton;
 
     @FXML
@@ -41,22 +38,6 @@ public class LandingPageCodeBehind {
 
         try {
             AddUserCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.ADD_USER_PATH, this.mainPane, PageInformation.ADD_USER_TITLE);
-
-            controller.setSession(
-                    this.landingViewModel.getSession(),
-                    this.landingViewModel.getServerService()
-            );
-        } catch (IOException e) {
-            System.err.println("Unexpected Error: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    void onCreateProjectClick(ActionEvent event) {
-
-        try {
-            CreateProjectCodeBehind controller = ViewSwapper.loadPageFromStage(PageInformation.CREATE_PROJECT_PATH, this.mainPane, PageInformation.CREATE_PROJECT_TITLE);
-            controller.setSession(this.landingViewModel.getSession(), this.landingViewModel.getServerService());
 
             controller.setSession(
                     this.landingViewModel.getSession(),
@@ -118,7 +99,6 @@ public class LandingPageCodeBehind {
 
     private void disableBasedOnRole(Role role) {
         if (role == Role.CONTRIBUTOR || role == Role.GUEST || role == Role.ADMIN) {
-            this.createProjectButton.setDisable(true);
             this.viewProjectButton.setDisable(true);
         }
         if (!(role == Role.ADMIN)) {
