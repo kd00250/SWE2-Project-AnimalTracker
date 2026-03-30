@@ -107,16 +107,25 @@ public class CreateTagCodeBehind {
      */
     @FXML
     public void onBackClick(ActionEvent event) {
-        try {
-            ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(
-                    PageInformation.VIEW_PROJECT_PATH,
-                    this.backButton,
-                    PageInformation.VIEW_PROJECT_TITLE
-            );
-            controller.setProject(this.viewModel.getViewProjectViewModel().getProjectProperty().get());
-            controller.setSession(this.viewModel.getSession(), this.viewModel.getServerService());
-        } catch (IOException e) {
-            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+        var backConfirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        backConfirmationAlert.setTitle("Back");
+        backConfirmationAlert.setHeaderText("Are you sure you want to go back?");
+        backConfirmationAlert.setContentText("Are you sure you want to go back?");
+        Optional<ButtonType> result = backConfirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+            try {
+                this.viewModel.clear();
+                ViewProjectDataCodeBehind controller = ViewSwapper.loadPageFromStage(
+                        PageInformation.VIEW_PROJECT_PATH,
+                        this.backButton,
+                        PageInformation.VIEW_PROJECT_TITLE
+                );
+                controller.setProject(this.viewModel.getViewProjectViewModel().getProjectProperty().get());
+                controller.setSession(this.viewModel.getSession(), this.viewModel.getServerService());
+            } catch (IOException e) {
+                this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+            }
         }
     }
 

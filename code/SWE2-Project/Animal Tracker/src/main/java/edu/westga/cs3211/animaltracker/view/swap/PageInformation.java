@@ -72,4 +72,14 @@ public final class PageInformation {
      * The title for the create tag page.
      */
     public static final String CREATE_TAG_TITLE = "Create Tag";
+
+    /**
+     * The Add Sighting Path.
+     */
+    public static final String ADD_SIGHTING_PATH = "view/addSighting.fxml";
+
+    /**
+     * The Add Sighting Title.
+     */
+    public static final String ADD_SIGHTING_TITLE = "Add Sighting";
 }

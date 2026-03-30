@@ -23,5 +23,16 @@ public enum AnimalClass {
     /**
      * the amphibian enum.
      */
-    AMPHIBIAN
+    AMPHIBIAN;
+
+    @Override
+    public String toString() {
+        return switch (this) {
+            case MAMMAL -> "Mammal";
+            case BIRD -> "Bird";
+            case FISH -> "Fish";
+            case REPTILE -> "Reptile";
+            case AMPHIBIAN -> "Amphibian";
+        };
+    }
 }

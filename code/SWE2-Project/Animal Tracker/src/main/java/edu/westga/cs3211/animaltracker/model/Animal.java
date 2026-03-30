@@ -127,6 +127,6 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "animal " + this.getId();
+        return this.getAnimalClass() + " " + this.getId();
     }
 }
