@@ -20,8 +20,8 @@ import java.util.List;
 public class SelectProjectViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private ListProperty<Project> projects;
-    private ObjectProperty<Project> selectedProject;
+    private final ListProperty<Project> projects;
+    private final ObjectProperty<Project> selectedProject;
 
     /**
      * Instantiates a new select project view model.

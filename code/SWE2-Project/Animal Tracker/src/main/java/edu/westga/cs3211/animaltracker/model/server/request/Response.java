@@ -6,7 +6,7 @@ import java.util.Random;
  * The response abstract class.
  */
 public abstract class Response {
-    private long responseId;
+    private final long responseId;
 
     /**
      * Initializes a new response with a response id.

@@ -19,7 +19,7 @@ import java.io.IOException;
 public class ViewProjectDataCodeBehind {
 
     @FXML
-    private ComboBox<AnimalClass> animalClassComboBox;
+    private ListView<AnimalClass> animalClassListView;
 
     @FXML
     private TextArea descriptionTextArea;
@@ -34,7 +34,7 @@ public class ViewProjectDataCodeBehind {
     private Label projectNameLabel;
 
     @FXML
-    private ComboBox<Animal> subjectComboBox;
+    private ListView<Animal> animalListView;
 
     @FXML
     private Button backButton;
@@ -75,7 +75,6 @@ public class ViewProjectDataCodeBehind {
 
     @FXML
     void onCreateTagButtonClick(ActionEvent event) {
-        //Jake pass in the create tag page
         try {
             CreateTagCodeBehind controller = ViewSwapper.loadPageFromStage(
                     PageInformation.CREATE_TAG_PATH,
@@ -91,20 +90,6 @@ public class ViewProjectDataCodeBehind {
 
         } catch (IOException e) {
             this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
-        }
-    }
-
-    @FXML
-    void onAnimalClassChange(ActionEvent event) {
-        this.subjectComboBox.getItems().clear();
-        this.vm.clearAnimalStats();
-        this.subjectComboBox.getItems().addAll(this.vm.getAnimalsByType(this.vm.getAnimalClassProperty().get()));
-    }
-
-    @FXML
-    void onSubjectChange(ActionEvent event) {
-        if (!this.subjectComboBox.getItems().isEmpty()) {
-            this.vm.setAnimalStats(this.subjectComboBox.getSelectionModel().getSelectedItem());
         }
     }
 
@@ -134,12 +119,32 @@ public class ViewProjectDataCodeBehind {
         this.vm = new ViewProjectDataViewModel();
         this.vm.setProject(project);
         this.setUpBindings();
+        this.setUpListeners();
+    }
+
+    private void setUpListeners() {
+        this.animalClassListView.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            this.animalListView.getItems().clear();
+            this.vm.clearAnimalStats();
+
+            if (newValue != null) {
+                this.animalListView.getItems().addAll(this.vm.getAnimalsByType(newValue));
+            }
+        });
+
+        this.animalListView.getSelectionModel().selectedItemProperty().addListener((obs, oldAnimal, newAnimal) -> {
+            if (newAnimal != null) {
+                this.vm.setAnimalStats(newAnimal);
+            }
+        });
     }
 
     private void setUpBindings() {
-        this.vm.getAnimalClassProperty().bind(this.animalClassComboBox.valueProperty());
-        this.animalClassComboBox.getItems().addAll(AnimalClass.values());
-        this.vm.getAnimalProperty().bind(this.subjectComboBox.valueProperty());
+        this.animalListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.animalClassListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        this.vm.getAnimalClassProperty().bind(this.animalClassListView.getSelectionModel().selectedItemProperty());
+        this.animalClassListView.getItems().addAll(AnimalClass.values());
+        this.vm.getAnimalProperty().bind(this.animalListView.getSelectionModel().selectedItemProperty());
         this.heightLabel.textProperty().bind(this.vm.getHeightProperty().asString());
         this.weightLabel.textProperty().bind(this.vm.getWeightProperty().asString());
         this.lengthLabel.textProperty().bind(this.vm.getLengthProperty().asString());

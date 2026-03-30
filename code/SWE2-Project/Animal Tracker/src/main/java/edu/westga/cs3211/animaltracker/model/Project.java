@@ -1,7 +1,5 @@
 package edu.westga.cs3211.animaltracker.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -11,37 +9,10 @@ import java.util.List;
  */
 public class Project {
 
-    private String name;
-    private List<Animal> animals;
-    private List<User> users;
+    private final String name;
+    private final List<Animal> animals;
+    private final List<User> users;
     private int id;
-
-    /**
-     * Instantiates a new Project.
-     *
-     * @pre none
-     * @post getName().equals(name) &&
-     * getScientists().equals(scientists) &&
-     * getAnimals().equals(animals) &&
-     * getUsers().equals(users)
-     */
-    public Project() {
-        this("Test", new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
-    }
-
-    /**
-     * Instantiates a new Project.
-     *
-     * @param name the Name of the Project
-     * @pre name != null && !name.isBlank()
-     * @post getName().equals(name) &&
-     * getScientists().equals(scientists) &&
-     * getAnimals().equals(animals) &&
-     * getUsers().equals(users)
-     */
-    public Project(String name) {
-        this(name, new ArrayList<Scientist>(), new ArrayList<Animal>(), new ArrayList<User>());
-    }
 
     /**
      * Instantiates a new Project.
@@ -64,7 +35,7 @@ public class Project {
             throw new IllegalArgumentException("Name cannot be null");
         }
 
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
 
@@ -72,7 +43,6 @@ public class Project {
             throw new IllegalArgumentException("Animals cannot be null");
         }
         this.name = name;
-        this.scientists = new ArrayList<>();
         this.animals = animals;
         this.users = users;
         this.id = DataStorage.getNextProjectId();
@@ -82,75 +52,19 @@ public class Project {
     /**
      * Instantiates a new Project.
      *
-     * @param name       the Name of the Project
-     * @param scientists the Scientists
-     * @pre name != null && !name.isBlank() &&
-     * scientist != null
-     * @post getName().equals(name) &&
-     * getScientists().equals(scientists) &&
-     * getAnimals().equals(animals) &&
-     * getUsers().equals(users)
+     * @param users   the users
+     * @param name    the name of the project
+     * @param animals the animals in the project
+     * @param id the id of the user
+     * @pre users != null && name != null or empty && animals != null
+     * @post getUsers().equals(users) &&
+     * getName.equals(name) &&
+     * getAnimals.equals(animals) &&
+     * getId = random project id.
      */
-    public Project(String name, List<Scientist> scientists) {
-        this(name, scientists, new ArrayList<Animal>(), new ArrayList<User>());
-    }
-
-    /**
-     * Instantiates a new Project.
-     *
-     * @param name       the Name of the Project
-     * @param scientists the Scientists
-     * @param animals    the Animals
-     * @pre name != null && !name.isBlank() &&
-     * scientist != null &&
-     * animals != null
-     * @post getName().equals(name) &&
-     * getScientists().equals(scientists) &&
-     * getAnimals().equals(animals) &&
-     * getUsers().equals(users)
-     */
-    public Project(String name, List<Scientist> scientists, List<Animal> animals) {
-        this(name, scientists, animals, new ArrayList<User>());
-    }
-
-    /**
-     * Instantiates a new Project.
-     *
-     * @param name       the Name of the Project
-     * @param scientists the Scientists
-     * @param animals    the Animals
-     * @param users      the Users
-     * @pre name != null && !name.isBlank() &&
-     * scientist != null &&
-     * animals != null &&
-     * users != null
-     * @post getName().equals(name) &&
-     * getScientists().equals(scientists) &&
-     * getAnimals().equals(animals) &&
-     * getUsers().equals(users)
-     */
-    public Project(String name, List<Scientist> scientists, List<Animal> animals, List<User> users) {
-        if (name == null) {
-            throw new IllegalArgumentException("name cannot be null");
-        }
-        if (name.isBlank()) {
-            throw new IllegalArgumentException("name cannot be blank");
-        }
-        if (scientists == null) {
-            throw new IllegalArgumentException("scientists cannot be null");
-        }
-        if (animals == null) {
-            throw new IllegalArgumentException("animals cannot be null");
-        }
-        if (users == null) {
-            throw new IllegalArgumentException("users cannot be null");
-        }
-        this.name = name;
-        this.scientists = scientists;
-        this.animals = animals;
-        this.users = users;
-        this.id = DataStorage.getNextProjectId();
-        DataStorage.getProjects().put(this.getId(), this);
+    public Project(List<User> users, String name, List<Animal> animals, int id) {
+        this(users, name, animals);
+        this.id = id;
     }
 
     /**
@@ -172,50 +86,12 @@ public class Project {
     }
 
     /**
-     * Gets the List of Scientist.
-     *
-     * @return the List of Scientist
-     */
-    public List<Scientist> getScientists() {
-        return this.scientists;
-    }
-
-    /**
      * Gets the List of Users.
      *
      * @return the List of Users
      */
     public List<User> getUsers() {
         return this.users;
-    }
-
-    /**
-     * Adds a Scientist to the Project.
-     *
-     * @param scientist the Scientist
-     * @pre scientist != null
-     * @post scientists.size() = scientists.size()@prev + 1
-     */
-    public void addScientist(Scientist scientist) {
-        if (scientist == null) {
-            throw new IllegalArgumentException("scientist cannot be null");
-        }
-        if (this.containsScientist(scientist)) {
-            throw new IllegalArgumentException("scientist already exists");
-        }
-        this.scientists.add(scientist);
-    }
-
-    /**
-     * Checks if the Scientist is in the List.
-     *
-     * @param scientist the Animal
-     * @return true if scientist is in the List, false otherwise.
-     * @pre none
-     * @post none
-     */
-    public boolean containsScientist(Scientist scientist) {
-        return this.scientists.contains(scientist);
     }
 
     /**

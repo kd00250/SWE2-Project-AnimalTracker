@@ -26,9 +26,9 @@ class TestCreateUser {
 
         vm.createNewUser();
         User user = DataStorage.getUsers().get(2);
-        assertEquals("Kaz", user.getUsername());
-        assertEquals("1234", user.getPassword());
-        assertEquals(Role.SCIENTIST, user.getRole());
+        assertEquals("Kaz", user.username());
+        assertEquals("1234", user.password());
+        assertEquals(Role.SCIENTIST, user.role());
     }
 
     @Test

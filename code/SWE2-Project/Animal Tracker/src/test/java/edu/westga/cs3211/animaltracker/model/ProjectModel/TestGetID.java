@@ -8,16 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestGetID {
+import java.util.ArrayList;
 
-    @BeforeEach
-    void setUp() {
-        DataStorage.reset();
-    }
+class TestGetID {
 
     @Test
     void getProjectID() {
-        Project project = new Project("Hello World");
+        Project project = new Project(new ArrayList<>(), "test", new ArrayList<>(), 2);
 
         assertEquals(2, project.getId());
     }

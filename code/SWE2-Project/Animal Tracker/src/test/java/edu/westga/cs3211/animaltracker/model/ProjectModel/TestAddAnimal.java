@@ -10,31 +10,30 @@ import java.util.LinkedList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestAddAnimal {
-
+    private Project project;
     @BeforeEach
     void setUp() {
         DataStorage.reset();
+        this.project = new Project(new ArrayList<>(), "Test Project", new ArrayList<>());
     }
 
     @Test
     void testAddNullAnimal() {
-        var project = new Project();
         assertThrows(IllegalArgumentException.class, () -> {
-            project.addAnimal(null);
+            this.project.addAnimal(null);
         });
     }
 
     @Test
     void testAddValidAnimal() {
-        var project = new Project();
         var animal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
-        project.addAnimal(animal);
+        this.project.addAnimal(animal);
 
         assertAll(() -> {
-            assertTrue(project.containsAnimal(animal));
-            assertEquals(1, project.getAnimals().size());
-            assertEquals(animal, project.getAnimals().getFirst());
-            assertTrue(project.containsAnimalType(AnimalClass.BIRD));
+            assertTrue(this.project.containsAnimal(animal));
+            assertEquals(1, this.project.getAnimals().size());
+            assertEquals(animal, this.project.getAnimals().getFirst());
+            assertTrue(this.project.containsAnimalType(AnimalClass.BIRD));
         });
     }
 
@@ -43,7 +42,9 @@ class TestAddAnimal {
         var animals = new LinkedList<Animal>();
         var animal = new Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "");
         animals.add(animal);
-        var project = new Project("Project", new ArrayList<Scientist>(), animals);
+        for (var currAnimal : animals) {
+            this.project.addAnimal(currAnimal);
+        }
 
         assertThrows(IllegalArgumentException.class, () -> {
             project.addAnimal(animal);
