@@ -33,7 +33,7 @@ public class Client {
         System.out.println("Client - Received: " + response.toString());
 
         System.out.println("Client - Sending exit");
-        socket.send("exit".getBytes(ZMQ.CHARSET), 0);
+        //socket.send("exit".getBytes(ZMQ.CHARSET), 0);
 
         socket.close();
         context.term();
