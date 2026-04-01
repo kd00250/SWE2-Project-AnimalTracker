@@ -4,6 +4,9 @@
 #IDE files
 .idea/
 
+#Python cache
+/__pycache__/
+*.py[codz]
 #target files
 target/
 
