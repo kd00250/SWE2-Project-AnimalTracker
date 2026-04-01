@@ -4,6 +4,7 @@ from model.data.UserStorage import UserStorage
 The project storage which updates and stores projects.
 """
 class ProjectStorage:
+
     """
     Instantiates a new project storage
     """

@@ -45,7 +45,10 @@ class UserStorage:
                 user = current_user
 
         self._users.remove(user)
-
+    def contains_user(self, user):
+        if user in self._username_map:
+            return True
+        return False
     def _remove_token(self, username):
         token_to_delete = None
         for token in self._token_map.values():
