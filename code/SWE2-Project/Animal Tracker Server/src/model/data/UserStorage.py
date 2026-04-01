@@ -1,5 +1,12 @@
 import uuid
+"""
+The user storage which stores and updates user information.
+"""
 class UserStorage:
+
+    """
+    Instantiates a new user storage.
+    """
     def __init__(self):
         self._username_map = {}
         self._users = []
