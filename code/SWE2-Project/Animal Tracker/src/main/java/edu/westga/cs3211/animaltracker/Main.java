@@ -44,7 +44,6 @@ public class Main extends Application {
      * @param args not used
      */
     public static void main(String[] args) {
-        new Client();
         launch(args);
     }
 }

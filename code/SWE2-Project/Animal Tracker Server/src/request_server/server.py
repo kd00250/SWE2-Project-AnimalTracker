@@ -17,7 +17,9 @@ def main():
     print("Creating User")
     storage = ServerStorage()
     bob = User("Bob", "1234", Role.SCIENTIST)
+    billy = User("Billy", "6767", Role.ADMIN)
     storage.add_user(bob)
+    storage.add_user(billy)
 
     while True:
         raw = socket.recv()

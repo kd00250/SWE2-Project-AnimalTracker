@@ -33,6 +33,9 @@ public class RemoteServer implements ServerService {
 
         String token = response.optString("token", null);
         int timeout = 1000;
+        if (token == null) {
+            return null;
+        }
 
         return new LoginResponse(token, timeout);
     }

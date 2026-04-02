@@ -62,7 +62,7 @@ public final class LoginRequest extends Request {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("action", LOGIN_REQUEST);
+        json.put("action", "login");
         json.put("username", this.username);
         json.put("password", this.password);
 
