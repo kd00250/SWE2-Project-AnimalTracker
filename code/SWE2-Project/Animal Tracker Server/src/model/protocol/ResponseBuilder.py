@@ -3,7 +3,7 @@ class ResponseBuilder:
     @staticmethod
     def build_login_response(has_token):
         if has_token:
-            print("Server - Received login, sending request to server...")
+            print("Server - Received login, sending request to client...")
             response = {
                 "token": has_token
             }
@@ -18,10 +18,13 @@ class ResponseBuilder:
     @staticmethod
     def build_get_role_response(has_role):
         if has_role:
-            print("Server - Received get role, sending request to server...")
+            print("Server - Received get role, sending request to client...")
+            print(has_role)
+            print(type(has_role))
             response = {
-                "role": str(has_role)
+                "role": has_role
             }
+            print(response)
         else:
             print("Server - Get role Failed")
             response = {

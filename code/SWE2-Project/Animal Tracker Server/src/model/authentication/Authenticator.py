@@ -1,23 +1,21 @@
 from model.data.ServerStorage import ServerStorage
-import json
 
 
 class Authenticator:
 
     @staticmethod
-    def check_login(message):
+    def check_login(request):
         storage = ServerStorage()
-        request = json.loads(message)
         print(f"In Authenticator")
 
         if request["action"] != "login":
             return None
         print("Server - Login Action!")
 
-        username = request["username"]
-        password = request["password"]
+        username = request.get("username")
+        password = request.get("password")
 
-        if not storage.contains_username(request["username"]):
+        if not storage.contains_username(username):
             return None
         print(f"Server - Login {username}!")
 
