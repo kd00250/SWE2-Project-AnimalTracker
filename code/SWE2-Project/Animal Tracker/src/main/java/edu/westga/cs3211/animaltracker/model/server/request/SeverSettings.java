@@ -8,7 +8,7 @@ public final class SeverSettings {
     /**
      * the login request constant.
      */
-    public static final String LOGIN_REQUEST = "login_request";
+    public static final String LOGIN_REQUEST = "login";
 
     /**
      * the user role request constant.

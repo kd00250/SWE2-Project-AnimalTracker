@@ -15,20 +15,19 @@ public class AddProjectRequest extends Request {
     private final String projectName;
     private final Collection<String> scientistUsernames;
     private final Collection<Integer> animalIds;
-    private final String token;
+    //private final String token;
 
     /**
      * Instantiates a new project add request.
      * @param projectName the project name
      * @param scientistUsernames the scientist usernames
      * @param animalIds the animal id's
-     * @param token the token
      */
-    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds, String token) {
+    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds) {
         this.projectName = projectName;
         this.scientistUsernames = scientistUsernames;
         this.animalIds = animalIds;
-        this.token = token;
+        //this.token = token;
     }
 
     /**

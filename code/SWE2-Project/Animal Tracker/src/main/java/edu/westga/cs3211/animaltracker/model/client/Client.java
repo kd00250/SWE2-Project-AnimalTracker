@@ -41,7 +41,6 @@ public class Client {
 
             byte[] reply = this.socket.recv(0);
             String rawResponse = new String(reply, ZMQ.CHARSET);
-            System.out.print("client");
 
             return new JSONObject(rawResponse);
         } catch (Exception e) {
