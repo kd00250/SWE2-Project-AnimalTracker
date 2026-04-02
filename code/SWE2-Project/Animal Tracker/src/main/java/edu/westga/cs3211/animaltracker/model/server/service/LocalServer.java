@@ -39,14 +39,6 @@ public class LocalServer implements ServerService {
     }
 
     @Override
-    public boolean isValidToken(String token) {
-        if (token != null) {
-            return !token.isEmpty();
-        }
-        return false;
-    }
-
-    @Override
     public Role requestUserRole(UserDataRequest request) {
         if (request == null) {
             throw new IllegalArgumentException("UserDataRequest is null");
