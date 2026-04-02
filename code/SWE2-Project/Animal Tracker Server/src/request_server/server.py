@@ -3,8 +3,8 @@ import json
 
 from model.Role import Role
 from model.User import User
-from model.authentication.Authenticator import Authenticator
 from model.data.ServerStorage import ServerStorage
+from model.protocol.RequestHandler import RequestHandler
 from model.protocol.ResponseBuilder import ResponseBuilder
 
 
@@ -29,8 +29,8 @@ def main():
             print("Server - Received exit, shutting down.")
             break
 
-        has_token = Authenticator.check_login(message)
-        response = ResponseBuilder.build_login_response(has_token)
+        has_handled_request = RequestHandler.handle_request(message)
+        response = ResponseBuilder.build_login_response(has_handled_request)
 
         socket.send(json.dumps(response).encode("utf-8"))
 

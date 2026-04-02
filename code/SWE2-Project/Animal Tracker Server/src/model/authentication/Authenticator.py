@@ -8,7 +8,7 @@ class Authenticator:
     def check_login(message):
         storage = ServerStorage()
         request = json.loads(message)
-        print(f"Server - Received: {request}")
+        print(f"In Authenticator")
 
         if request["action"] != "login":
             return None
