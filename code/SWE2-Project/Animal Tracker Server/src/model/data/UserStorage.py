@@ -13,19 +13,22 @@ class UserStorage:
         self._token_map = {}
 
     def add_user(self, user):
-        if user not in self._username_map:
+        if user is None:
+            raise Exception('User is required')
+        username = user.get_username()
+        if username not in self._username_map:
             self._users.append(user)
-            self._username_map[user] = user.username
+            self._username_map[username] = user
 
     def create_token(self, username):
-        if username not in self._token_map:
+        if username not in self._username_map:
             raise Exception("Invalid token creation")
 
         user_token = uuid.uuid4()
         user = self._username_map[username]
         self._token_map[str(user_token)] = user
 
-        return user_token
+        return str(user_token)
 
     def token_valid(self, token):
         return token in self._token_map
@@ -37,24 +40,31 @@ class UserStorage:
         return self._token_map[token]
 
     def remove_user(self, username):
+        if username is None:
+            raise Exception("Invalid username")
         self._username_map.pop(username)
 
         user = None
         for current_user in self._users:
-            if user.username == username:
+            if current_user.get_username() == username:
                 user = current_user
 
         self._users.remove(user)
     def contains_user(self, user):
-        if user in self._username_map:
+        if user in self._users:
             return True
         return False
-    def _remove_token(self, username):
-        token_to_delete = None
-        for token in self._token_map.values():
-            found_user = self._username_map[token]
-            if found_user.username == username:
-                token_to_delete = token
 
-        if token_to_delete is not None:
-            self._token_map.pop(token_to_delete)
+    def contains_username(self, username):
+        if username in self._username_map:
+            return True
+        return False
+
+    def contains_users_password(self, username, password):
+        if username is None or password is None:
+            return False
+        user = self._username_map[username]
+        if user.get_password() == password:
+            return True
+        return False
+
