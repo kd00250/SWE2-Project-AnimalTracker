@@ -18,6 +18,6 @@ class TestGetUserByUserName {
     @Test
     void testGetUserByUserName() {
         User user = new User("bob", "toon", Role.ADMIN);
-        assertEquals(user, DataStorage.getUserByUsername(user.getUsername()));
+        assertEquals(user, DataStorage.getUserByUsername(user.username()));
     }
 }

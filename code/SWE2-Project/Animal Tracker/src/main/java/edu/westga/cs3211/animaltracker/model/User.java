@@ -2,21 +2,19 @@ package edu.westga.cs3211.animaltracker.model;
 
 /**
  * The User Class.
+ *
  * @author mrocker1
  */
-public class User {
-
-    private String username;
-    private String password;
-    private Role role;
+public record User(String username, String password, Role role) {
 
     /**
      * Instantiates a new User.
-     * @pre username != null && !username.isBlank() &&
-     *      password != null && !password.isBlank()
+     *
      * @param username the Username
      * @param password the password
-     * @param role the role
+     * @param role     the role
+     * @pre username != null && !username.isBlank() &&
+     * password != null && !password.isBlank()
      */
     public User(String username, String password, Role role) {
         if (username == null) {
@@ -39,25 +37,31 @@ public class User {
 
     /**
      * Gets the User Name.
+     *
      * @return the Scientist Name
      */
-    public String getUsername() {
+    @Override
+    public String username() {
         return this.username;
     }
 
     /**
      * Gets the user ID.
+     *
      * @return the user ID
      */
-    public String getPassword() {
+    @Override
+    public String password() {
         return this.password;
     }
 
     /**
      * Gets the role.
+     *
      * @return the role
      */
-    public Role getRole() {
+    @Override
+    public Role role() {
         return this.role;
     }
 

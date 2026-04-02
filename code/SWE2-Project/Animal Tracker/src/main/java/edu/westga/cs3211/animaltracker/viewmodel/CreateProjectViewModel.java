@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class CreateProjectViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private StringProperty projectName;
-    private StringProperty projectLocation;
-    private ArrayList<User> addedScientist;
+    private final StringProperty projectName;
+    private final StringProperty projectLocation;
+    private final ArrayList<User> addedScientist;
 
     /**
      * Instantiates a new CreateProjectViewModel.
@@ -67,7 +67,7 @@ public class CreateProjectViewModel {
     public ArrayList<User> getAvailableScientists() {
         ArrayList<User> availableUsers = new ArrayList<>();
         for (User currentUser : DataStorage.getUsers()) {
-            if (currentUser.getRole().equals(Role.SCIENTIST)) {
+            if (currentUser.role().equals(Role.SCIENTIST)) {
                 availableUsers.add(currentUser);
             }
         }
@@ -147,9 +147,8 @@ public class CreateProjectViewModel {
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
-        ArrayList<Scientist> dummyList = new ArrayList<>();
         ArrayList<Animal> emptyList = new ArrayList<>();
-        new Project(name, dummyList, emptyList, users);
+        new Project(users, name, emptyList);
     }
 
     /**

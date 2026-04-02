@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker;
 
 import java.io.IOException;
 
+import edu.westga.cs3211.animaltracker.model.client.Client;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

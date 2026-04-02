@@ -6,7 +6,6 @@ import java.util.*;
 
 /**
  * The data storage class.
- *
  * This class is for testing purpose only and is taking the place of a sever storing information
  */
 public class DataStorage {
@@ -23,6 +22,7 @@ public class DataStorage {
 
     /**
      * Adds a new project to the database.
+     *
      * @param project the project
      */
     public static void addProject(Project project) {
@@ -48,11 +48,12 @@ public class DataStorage {
      * @return true or false if the username is already taken or not
      */
     public static Boolean isUsernameAvailable(String username) {
-        boolean result = true;
         for (User user : getUsers()) {
-            result = !user.getUsername().equals(username);
+            if (user.username().equals(username)) {
+                return false;
+            }
         }
-        return result;
+        return true;
     }
 
     /**
@@ -93,6 +94,7 @@ public class DataStorage {
 
     /**
      * Gets the token map, used in testing.
+     *
      * @return the token map
      */
     public static HashMap<String, User> getTokenMap() {
@@ -101,6 +103,7 @@ public class DataStorage {
 
     /**
      * Gets the expiration map.
+     *
      * @return the expiration map
      */
     public static HashMap<String, ZonedDateTime> getExpirationMap() {
@@ -133,6 +136,7 @@ public class DataStorage {
 
     /**
      * Deletes a project using its id from the database.
+     *
      * @param projectId the projects id
      */
     public static void deleteProjectIfExist(int projectId) {
@@ -190,6 +194,7 @@ public class DataStorage {
 
     /**
      * Gets animals in this database by their id.
+     *
      * @param id the animals id
      * @return the animal
      */
@@ -225,6 +230,6 @@ public class DataStorage {
         ArrayList<Animal> projectAnimals = new ArrayList<>();
         projectAnimals.add(defaultAnimal);
 
-        new Project("Wildlife Migration Study", new ArrayList<Scientist>(), projectAnimals, projectUsers);
+        new Project(projectUsers, "Wildlife Migration Study", projectAnimals);
     }
 }

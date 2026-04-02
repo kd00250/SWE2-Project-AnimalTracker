@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.viewmodel;
+package edu.westga.cs3211.animaltracker.viewmodel.SelectProject;
 
 import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Project;
@@ -6,6 +6,7 @@ import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
+import edu.westga.cs3211.animaltracker.viewmodel.SelectProjectViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -36,7 +37,7 @@ class TestDeleteSelectedProject {
         DataStorage.getUsers().add(this.user);
         var users = new ArrayList<User>();
         users.add(this.user);
-        var project = new Project("Test", new ArrayList<>(), new ArrayList<>(), users);
+        Project project = new Project(users,  "Test", new ArrayList<>());
         DataStorage.addProject(project);
         var vm = new SelectProjectViewModel();
         vm.setSession(this.loginResponse, this.localServer);

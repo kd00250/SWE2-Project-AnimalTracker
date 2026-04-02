@@ -2,7 +2,6 @@ package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
 import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import org.junit.jupiter.api.Test;
 
@@ -42,13 +41,13 @@ public class TestAddProject {
 
         var baseUser = new User("1234", "1234", Role.SCIENTIST);
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
-        var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
+        var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
         var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {
             for (var scientist : currProject.getUsers()) {
-                assertTrue(scientistNames.contains(scientist.getUsername()));
+                assertTrue(scientistNames.contains(scientist.username()));
             }
             for (var currAnimal : currProject.getAnimals()) {
                 assertTrue(animalId.contains(currAnimal.getId()));
@@ -80,13 +79,13 @@ public class TestAddProject {
         Project project = new Project(users, name, animals);
 
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
-        var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
+        var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
         var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {
             for (var scientist : currProject.getUsers()) {
-                assertTrue(scientistNames.contains(scientist.getUsername()));
+                assertTrue(scientistNames.contains(scientist.username()));
             }
             for (var currAnimal : currProject.getAnimals()) {
                 assertTrue(animalId.contains(currAnimal.getId()));

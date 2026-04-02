@@ -30,20 +30,12 @@ public class LocalServer implements ServerService {
         request.validateRequest();
         var matchingUser = DataStorage.getUserByUsername(request.getUsername());
         if (matchingUser != null) {
-            if (matchingUser.getPassword().equals(request.getPassword())) {
+            if (matchingUser.password().equals(request.getPassword())) {
                 var token = DataStorage.generateTokenForUser(matchingUser);
                 return new LoginResponse(token, DEFAULT_TIMEOUT);
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean isValidToken(String token) {
-        if (token != null) {
-            return !token.isEmpty();
-        }
-        return false;
     }
 
     @Override
@@ -54,7 +46,7 @@ public class LocalServer implements ServerService {
         request.validateRequest();
         if (DataStorage.tokenExist(request.getToken())) {
             var user = DataStorage.getUserByToken(request.getToken());
-            return user.getRole();
+            return user.role();
         }
         return null;
     }
@@ -91,7 +83,7 @@ public class LocalServer implements ServerService {
         if (role == Role.SCIENTIST || role == Role.ADMIN) {
             Collection<User> scientist = new ArrayList<>();
             for (User user : getUsers()) {
-                if (user.getRole() == Role.SCIENTIST) {
+                if (user.role() == Role.SCIENTIST) {
                     scientist.add(user);
                 }
             }
@@ -131,7 +123,7 @@ public class LocalServer implements ServerService {
         List<User> scientists = new ArrayList<>();
         for (String username : usernames) {
             var scientist = DataStorage.getUserByUsername(username);
-            if (scientist.getRole() == Role.SCIENTIST) {
+            if (scientist.role() == Role.SCIENTIST) {
                 scientists.add(scientist);
             }
         }

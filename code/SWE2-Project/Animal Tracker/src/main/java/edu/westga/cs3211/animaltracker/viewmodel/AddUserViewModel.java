@@ -16,9 +16,9 @@ import javafx.beans.property.StringProperty;
 public class AddUserViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private StringProperty username;
-    private StringProperty password;
-    private ObjectProperty<Role> role;
+    private final StringProperty username;
+    private final StringProperty password;
+    private final ObjectProperty<Role> role;
 
     /**
      * Initializes a new instance of add user view model.

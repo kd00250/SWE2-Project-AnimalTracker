@@ -61,10 +61,20 @@ class ServerStorage:
     def get_user(self, token):
         return self._user_storage.get_user(token)
 
-    def contains_user(self, user):
-        return self._user_storage.contains_user(user)
+    def remove_user(self, username):
+        self._user_storage.remove_user(username)
+
     def contains_username(self, username):
         return self._user_storage.contains_username(username)
+
+    def contains_users_password(self, username, password):
+        return self._user_storage.contains_users_password(username, password)
+
+
+
+    def contains_user(self, user):
+        return self._user_storage.contains_user(user)
+    
     def _reset(self):
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()
