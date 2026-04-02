@@ -17,5 +17,6 @@ class ResponseBuilder:
             response = {
                 "status": "error",
             }
+            print(response)
 
         return response
