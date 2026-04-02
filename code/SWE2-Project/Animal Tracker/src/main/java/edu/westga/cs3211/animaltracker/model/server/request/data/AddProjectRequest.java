@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.util.Collection;
 
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_PROJECT_REQUEST;
+
 /**
  * The AddProjectRequest class.
  */
@@ -13,17 +15,20 @@ public class AddProjectRequest extends Request {
     private final String projectName;
     private final Collection<String> scientistUsernames;
     private final Collection<Integer> animalIds;
+    private final String token;
 
     /**
      * Instantiates a new project add request.
      * @param projectName the project name
      * @param scientistUsernames the scientist usernames
      * @param animalIds the animal id's
+     * @param token the token
      */
-    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds) {
+    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds, String token) {
         this.projectName = projectName;
         this.scientistUsernames = scientistUsernames;
         this.animalIds = animalIds;
+        this.token = token;
     }
 
     /**
@@ -73,6 +78,10 @@ public class AddProjectRequest extends Request {
      */
     @Override
     public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("action", ADD_PROJECT_REQUEST);
+        //json.put("token", getToken());
         return null;
     }
 }
