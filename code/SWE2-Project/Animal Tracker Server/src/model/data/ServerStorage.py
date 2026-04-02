@@ -19,8 +19,11 @@ class ServerStorage:
     Instantiates a server storage.
     """
     def __init__(self):
+        if hasattr(self, "_initialized"):
+            return
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()
+        self._initialized = True
 
     def add_project(self, project):
         self._project_storage.add_project(project)
@@ -56,16 +59,22 @@ class ServerStorage:
         self._user_storage.add_user(user)
 
     def create_token(self, username):
-        self._user_storage.create_token(username)
+        return self._user_storage.create_token(username)
 
     def token_valid(self, token):
         self._user_storage.token_valid(token)
 
     def get_user(self, token):
-        self._user_storage.get_user(token)
+        return self._user_storage.get_user(token)
 
     def remove_user(self, username):
         self._user_storage.remove_user(username)
+
+    def contains_username(self, username):
+        return self._user_storage.contains_username(username)
+
+    def contains_users_password(self, username, password):
+        return self._user_storage.contains_users_password(username, password)
 
 
 

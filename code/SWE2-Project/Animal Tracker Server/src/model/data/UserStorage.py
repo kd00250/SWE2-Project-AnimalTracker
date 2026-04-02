@@ -13,19 +13,19 @@ class UserStorage:
         self._token_map = {}
 
     def add_user(self, user):
-        if user not in self._username_map:
+        username = user.get_username()
+        if username not in self._username_map:
             self._users.append(user)
-            self._username_map[user] = user.username
+            self._username_map[username] = user
 
     def create_token(self, username):
-        if username not in self._token_map:
+        if username not in self._username_map:
             raise Exception("Invalid token creation")
 
         user_token = uuid.uuid4()
         user = self._username_map[username]
         self._token_map[str(user_token)] = user
-
-        return user_token
+        return str(user_token)
 
     def token_valid(self, token):
         return token in self._token_map
@@ -49,6 +49,18 @@ class UserStorage:
         if user in self._username_map:
             return True
         return False
+
+    def contains_username(self, username):
+        if username in self._username_map:
+            return True
+        return False
+
+    def contains_users_password(self, username, password):
+        user = self._username_map[username]
+        if user.get_password() == password:
+            return True
+        return False
+
     def _remove_token(self, username):
         token_to_delete = None
         for token in self._token_map.values():
