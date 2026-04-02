@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker.model.server.request.data;
 
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONObject;
 
 import java.util.Collection;
 
@@ -64,5 +65,14 @@ public class AddProjectRequest extends Request {
             throw new InvalidRequestException("animalIds is null");
         }
 
+    }
+
+    /**
+     * changes project to json to be sent to the storage.
+     * @return the json to be sent.
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

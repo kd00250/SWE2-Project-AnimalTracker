@@ -23,13 +23,6 @@ public interface ServerService {
     LoginResponse login(LoginRequest request);
 
     /**
-     * Checks if a given token is valid.
-     * @param token the token
-     * @return true if valid, otherwise false
-     */
-    boolean isValidToken(String token);
-
-    /**
      * Request the role for a given user.
      * @param request  the request
      * @return the role of the user

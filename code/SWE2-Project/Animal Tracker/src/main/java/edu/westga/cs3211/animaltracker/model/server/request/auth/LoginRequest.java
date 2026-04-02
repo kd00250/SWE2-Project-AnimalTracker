@@ -2,6 +2,9 @@ package edu.westga.cs3211.animaltracker.model.server.request.auth;
 
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONObject;
+
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.LOGIN_REQUEST;
 
 /**
  * The login request class.
@@ -53,5 +56,16 @@ public final class LoginRequest extends Request {
         if (this.password.isEmpty()) {
             throw new InvalidRequestException("Password are mandatory");
         }
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("action", "login");
+        json.put("username", this.username);
+        json.put("password", this.password);
+
+        return json;
     }
 }

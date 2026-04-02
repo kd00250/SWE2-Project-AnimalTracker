@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker.model.server.request.data;
 
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONObject;
 
 /**
  * The UserDataRequest class.
@@ -16,7 +17,6 @@ public final class UserDataRequest extends Request {
     public UserDataRequest(String token) {
         this.token = token;
     }
-
 
     /**
      * Gets the user token.
@@ -35,5 +35,11 @@ public final class UserDataRequest extends Request {
             throw new InvalidRequestException("Token is empty");
         }
 
+    }
+
+
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }
