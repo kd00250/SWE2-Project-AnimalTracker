@@ -26,9 +26,7 @@ class ServerStorage:
         self._initialized = True
 
     def add_project(self, project):
-        if self._check_users_exist(project.get_users()):
-            return self._project_storage.add_project(project)
-        return None
+        self._project_storage.add_project(project)
     """
     Removes a project from the storage
     """
@@ -38,7 +36,7 @@ class ServerStorage:
     Gets a project from the storage
     """
     def get_project(self, project_id):
-        self._project_storage.get_project(project_id)
+        return self._project_storage.get_project(project_id)
     """
     Updates a projects name inside the storage.
     """
@@ -49,13 +47,7 @@ class ServerStorage:
         self._project_storage.get_project(project_id).add_animal(animal)
 
     def add_project_user(self, project_id, user):
-        if self._user_storage.contains_user(user):
-            is_added = self._project_storage.get_project(project_id).add_user(user)
-            return is_added
-        return False
-
-    def project_remove_user(self, project_id, user):
-        self._project_storage.get_project(project_id).remove_user(user)
+        self._project_storage.update_add_user(project_id, user)
 
     def add_user(self, user):
         self._user_storage.add_user(user)
@@ -63,22 +55,17 @@ class ServerStorage:
     def create_token(self, username):
         return self._user_storage.create_token(username)
 
-    def token_valid(self, token):
-        self._user_storage.token_valid(token)
+    def token_valid(self, username):
+        return self._user_storage.token_valid(username)
 
     def get_user(self, token):
-        self._user_storage.get_user(token)
-
-    def remove_user(self, username):
-        self._user_storage.remove_user(username)
-
-    def _check_users_exist(self, users):
-        for user in users:
-            if not self._user_storage.contains_user(user):
-                return False
-        return True
+        return self._user_storage.get_user(token)
 
     def contains_user(self, user):
         return self._user_storage.contains_user(user)
     def contains_username(self, username):
-        return self._user_storage.contains_user(username)
+        return self._user_storage.contains_username(username)
+    def _reset(self):
+        self._user_storage = UserStorage()
+        self._project_storage = ProjectStorage()
+        self._initialized = True

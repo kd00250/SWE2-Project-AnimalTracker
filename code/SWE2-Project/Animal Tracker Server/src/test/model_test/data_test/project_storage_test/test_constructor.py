@@ -1,0 +1,15 @@
+import unittest
+
+from model.data.ProjectStorage import ProjectStorage
+from model.data.UserStorage import UserStorage
+
+
+class TestProjectStorageConstructor(unittest.TestCase):
+    def setUp(self):
+        self._project_storage = ProjectStorage()
+        self._project_storage.reset()
+
+    def test_storage_initialized(self):
+        self.assertEqual(0, len(self._project_storage._projects))
+        self.assertEqual(0, len(self._project_storage._id_to_project))
+

@@ -31,7 +31,7 @@ class UserStorage:
         return str(user_token)
 
     def token_valid(self, token):
-        return token in self._token_map
+        return token in self._token_map.keys()
 
     def get_user(self, token):
         if token not in self._token_map:
@@ -56,7 +56,7 @@ class UserStorage:
         return False
 
     def contains_username(self, username):
-        if username in self._username_map:
+        if username in self._username_map.keys():
             return True
         return False
 
