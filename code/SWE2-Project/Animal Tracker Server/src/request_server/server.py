@@ -11,6 +11,7 @@ from model.protocol.ResponseBuilder import ResponseBuilder
 def main():
     context = zmq.Context()
     socket = context.socket(zmq.REP)
+
     socket.bind("tcp://127.0.0.1:5555")
     print("Server listening on port 5555...")
 
@@ -29,10 +30,9 @@ def main():
             print("Server - Received exit, shutting down.")
             break
 
-        has_handled_request = RequestHandler.handle_request(message)
-        response = ResponseBuilder.build_login_response(has_handled_request)
+        handled_request = RequestHandler.handle_request(message)
 
-        socket.send(json.dumps(response).encode("utf-8"))
+        socket.send(json.dumps(handled_request).encode("utf-8"))
 
     socket.close()
     context.term()
