@@ -1,11 +1,23 @@
 import zmq
 import json
 
+from model.Role import Role
+from model.User import User
+from model.authentication.Authenticator import Authenticator
+from model.data.ServerStorage import ServerStorage
+from model.protocol.ResponseBuilder import ResponseBuilder
+
+
 def main():
     context = zmq.Context()
     socket = context.socket(zmq.REP)
     socket.bind("tcp://127.0.0.1:5555")
     print("Server listening on port 5555...")
+
+    print("Creating User")
+    storage = ServerStorage()
+    bob = User("Bob", "1234", Role.SCIENTIST)
+    storage.add_user(bob)
 
     while True:
         raw = socket.recv()
@@ -15,13 +27,9 @@ def main():
             print("Server - Received exit, shutting down.")
             break
 
-        request = json.loads(message)
-        print(f"Server - Received: {request}")
+        has_token = Authenticator.check_login(message)
+        response = ResponseBuilder.build_login_response(has_token)
 
-        response = {
-            "status": "ok",
-            "message": f"Got your message: {request.get('message', '')}"
-        }
         socket.send(json.dumps(response).encode("utf-8"))
 
     socket.close()
