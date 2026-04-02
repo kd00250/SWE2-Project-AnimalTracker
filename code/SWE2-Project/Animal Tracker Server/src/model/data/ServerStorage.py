@@ -36,7 +36,7 @@ class ServerStorage:
     Gets a project from the storage
     """
     def get_project(self, project_id):
-        self._project_storage.get_project(project_id)
+        return self._project_storage.get_project(project_id)
     """
     Updates a projects name inside the storage.
     """
@@ -47,13 +47,7 @@ class ServerStorage:
         self._project_storage.get_project(project_id).add_animal(animal)
 
     def add_project_user(self, project_id, user):
-        if self._user_storage.contains_user(user):
-            is_added = self._project_storage.get_project(project_id).add_user(user)
-            return is_added
-        return False
-
-    def project_remove_user(self, project_id, user):
-        self._project_storage.get_project(project_id).remove_user(user)
+        self._project_storage.update_add_user(project_id, user)
 
     def add_user(self, user):
         self._user_storage.add_user(user)
@@ -61,8 +55,8 @@ class ServerStorage:
     def create_token(self, username):
         return self._user_storage.create_token(username)
 
-    def token_valid(self, token):
-        self._user_storage.token_valid(token)
+    def token_valid(self, username):
+        return self._user_storage.token_valid(username)
 
     def get_user(self, token):
         return self._user_storage.get_user(token)
@@ -78,3 +72,10 @@ class ServerStorage:
 
 
 
+    def contains_user(self, user):
+        return self._user_storage.contains_user(user)
+    
+    def _reset(self):
+        self._user_storage = UserStorage()
+        self._project_storage = ProjectStorage()
+        self._initialized = True
