@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -42,6 +43,26 @@
                 </font>
             </Label>
             <ComboBox fx:id="locationComboBox" prefWidth="360.0" promptText="Select a location..."/>
+        </VBox>
+
+        <VBox spacing="6.0">
+            <Label text="Coordinates">
+                <font>
+                    <Font size="16.0"/>
+                </font>
+            </Label>
+
+            <HBox spacing="12.0">
+                <VBox spacing="4.0">
+                    <Label text="Latitude"/>
+                    <TextField fx:id="latitudeTextField" prefWidth="180.0" promptText="Enter latitude..."/>
+                </VBox>
+
+                <VBox spacing="4.0">
+                    <Label text="Longitude"/>
+                    <TextField fx:id="longitudeTextField" prefWidth="180.0" promptText="Enter longitude..."/>
+                </VBox>
+            </HBox>
         </VBox>
 
         <VBox spacing="6.0">

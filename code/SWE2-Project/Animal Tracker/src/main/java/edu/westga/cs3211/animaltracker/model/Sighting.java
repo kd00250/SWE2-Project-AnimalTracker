@@ -1,0 +1,131 @@
+package edu.westga.cs3211.animaltracker.model;
+
+import java.time.LocalDateTime;
+
+/**
+ * Represents a documented sighting of an animal.
+ *
+ * @author mrocker1
+ */
+public class Sighting {
+    private final Animal animal;
+    private final String location;
+    private final double latitude;
+    private final double longitude;
+    private final LocalDateTime time;
+    private final String notes;
+
+    /**
+     * Instantiates a new Sighting object.
+     *
+     * @param animal    the animal sighted (mandatory)
+     * @param location  the general location of the sighting (mandatory)
+     * @param latitude  the latitude coordinate (mandatory)
+     * @param longitude the longitude coordinate (mandatory)
+     * @param time      the specific date and time of the sighting (optional)
+     * @param notes     additional notes regarding the sighting (optional)
+     */
+    public Sighting(Animal animal, String location, double latitude, double longitude, LocalDateTime time, String notes) {
+        if (animal == null) {
+            throw new IllegalArgumentException("Animal must be selected.");
+        }
+        if (isInvalidLocation(location)) {
+            throw new IllegalArgumentException("Location must be selected/provided.");
+        }
+
+        if (isInvalidLatitude(latitude)) {
+            throw new IllegalArgumentException("Latitude must be a valid coordinate between -90 and 90.");
+        }
+        if (isInvalidLongitude(longitude)) {
+            throw new IllegalArgumentException("Longitude must be a valid coordinate between -180 and 180.");
+        }
+
+        if (isInvalidTime(time)) {
+            throw new IllegalArgumentException("Sighting time cannot be in the future.");
+        }
+
+        if (isInvalidNotes(notes)) {
+            throw new IllegalArgumentException("Notes must contain valid text if provided.");
+        }
+
+        this.animal = animal;
+        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.time = time;
+        this.notes = notes;
+    }
+
+    private static boolean isInvalidLocation(String location) {
+        return location == null || location.trim().isEmpty();
+    }
+
+    private static boolean isInvalidNotes(String notes) {
+        return notes != null && !notes.isEmpty() && notes.trim().isEmpty();
+    }
+
+    private static boolean isInvalidTime(LocalDateTime time) {
+        return time != null && time.isAfter(LocalDateTime.now());
+    }
+
+    private static boolean isInvalidLongitude(double longitude) {
+        return longitude < -180.0 || longitude > 180.0;
+    }
+
+    private static boolean isInvalidLatitude(double latitude) {
+        return latitude < -90.0 || latitude > 90.0;
+    }
+
+    /**
+     * Gets the animal.
+     * @return the animal
+     */
+    public Animal getAnimal() {
+        return this.animal;
+    }
+
+    /**
+     * Gets the location.
+     * @return the location
+     */
+    public String getLocation() {
+        return this.location;
+    }
+
+    /**
+     * Gets the latitude coordinate.
+     * @return the latitude
+     */
+    public double getLatitude() {
+        return this.latitude;
+    }
+
+    /**
+     * Gets the longitude coordinate.
+     * @return the longitude
+     */
+    public double getLongitude() {
+        return this.longitude;
+    }
+
+    /**
+     * Gets the time of the sighting.
+     * @return the time, or null if not provided
+     */
+    public LocalDateTime getTime() {
+        return this.time;
+    }
+
+    /**
+     * Gets the notes for the sighting.
+     * @return the notes, or null if not provided
+     */
+    public String getNotes() {
+        return this.notes;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Sighting: %s at %s (%.5f, %.5f)", this.animal.toString(), this.location, this.latitude, this.longitude);
+    }
+}
