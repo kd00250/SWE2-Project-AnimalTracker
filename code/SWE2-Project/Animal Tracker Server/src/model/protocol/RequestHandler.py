@@ -8,67 +8,102 @@ from model.protocol.ResponseBuilder import ResponseBuilder
 
 
 class RequestHandler:
+    storage = ServerStorage()
 
     @staticmethod
     def handle_request(message):
-        storage = ServerStorage()
 
         request = json.loads(message)
         print(f"Server - Received request: {request}")
 
         if request.get("action") == "login":
-            has_token = Authenticator.check_login(request)
-            response = ResponseBuilder.build_login_response(has_token)
-            return response
+            return RequestHandler.handle_login(request)
 
         if request.get("action") == "user_role_request":
-            token = request.get("token")
-            user = storage.get_user(token)
-            role = user.get_role().name
-            response = ResponseBuilder.build_get_role_response(role)
-            return response
+            return RequestHandler.handle_get_user_role_request(request)
 
         if request.get("action") == "add_user_request":
-            username = request.get("username")
-            if not storage.contains_username(username):
-                password = request.get("password")
-                role = Role[request.get("role")]
-                user = User(username, password, role)
-                response = ResponseBuilder.build_add_user_response(user)
-                return response
-            return ResponseBuilder.build_user_exists_response()
+            return RequestHandler.handle_add_user_request(request)
 
         if request.get("action") == "get_project_list_request":
-            token = request.get("token")
-            user = storage.get_user(token)
-            role = user.get_role()
-
-            if role == Role.SCIENTIST:
-                projects = storage.retrieve_projects_from_user(user)
-                response = ResponseBuilder.build_retrieved_projects_response(projects)
-                return response
-            return ResponseBuilder.build_user_does_not_have_permission_response()
+            return RequestHandler.handle_get_project_list_request(request)
 
         if request.get("action") == "get_project_request":
-            token = request.get("token")
-            id = request.get("project id")
-            print(id)
-            project_name = request.get("project name")
-            project = storage.get_project(id)
+            return RequestHandler.handle_get_project_request(request)
 
-            if project is None:
-                return ResponseBuilder.build_could_not_find_project()
-
-            print(project)
-            print(project.get_name())
-            if int(id) == project.get_id() and project_name == project.get_name():
-                response = ResponseBuilder.build_get_project_response(project)
-                print(response)
-            else:
-                response = ResponseBuilder.build_could_not_find_project()
-                print(response)
-            return response
+        if request.get("action") == "delete_project_request":
+            RequestHandler.handle_delete_project_request(request)
 
         return None
 
+    @staticmethod
+    def handle_login(request):
+        has_token = Authenticator.check_login(request)
+        response = ResponseBuilder.build_login_response(has_token)
+        return response
+
+    @staticmethod
+    def handle_get_user_role_request(request):
+        token = request.get("token")
+        user = RequestHandler.storage.get_user(token)
+        role = user.get_role().name
+        response = ResponseBuilder.build_get_role_response(role)
+        return response
+
+    @staticmethod
+    def handle_add_user_request(request):
+        username = request.get("username")
+        if not RequestHandler.storage.contains_username(username):
+            password = request.get("password")
+            role = Role[request.get("role")]
+            user = User(username, password, role)
+            return ResponseBuilder.build_add_user_response(user)
+        return ResponseBuilder.build_user_exists_response()
+
+    @staticmethod
+    def handle_get_project_list_request(request):
+        token = request.get("token")
+        user = RequestHandler.storage.get_user(token)
+        role = user.get_role()
+
+        if role == Role.SCIENTIST:
+            projects = RequestHandler.storage.retrieve_projects_from_user(user)
+            return ResponseBuilder.build_retrieved_projects_response(projects)
+        return ResponseBuilder.build_user_does_not_have_permission_response()
+
+    @staticmethod
+    def handle_get_project_request(request):
+        token = request.get("token")
+        project_id = request.get("project id")
+        print(project_id)
+
+        project_name = request.get("project name")
+        project = RequestHandler.storage.get_project(project_id)
+
+        if project is None:
+            return ResponseBuilder.build_could_not_find_project()
+        print(project)
+        print(project.get_name())
+
+        if int(project_id) == project.get_id() and project_name == project.get_name():
+            return ResponseBuilder.build_get_project_response(project)
+        else:
+            return ResponseBuilder.build_could_not_find_project()
+
+    @staticmethod
+    def handle_delete_project_request(request):
+        project_id = request.get("project id")
+        token = request.get("token")
+
+        user = RequestHandler.storage.get_user(token)
+        has_removed_project = False
+        if user is None:
+            return ResponseBuilder.build_removed_project(has_removed_project)
+
+        for project in RequestHandler.storage.retrieve_projects_from_user(user):
+            if project.get_id() == int(project_id):
+                has_removed_project = RequestHandler.storage.remove_project(project)
+                break
+
+        return ResponseBuilder.build_removed_project(has_removed_project)
 

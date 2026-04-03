@@ -111,5 +111,20 @@ class ResponseBuilder:
         }
         return response
 
+    @staticmethod
+    def build_removed_project(has_removed_project):
+        if has_removed_project:
+            print("Server - Received removed project, sending request to client...")
+            response = {
+                "status": "success",
+            }
+            return response
+        else:
+            print("Server - Removed project Failed")
+            response = {
+                "status": "error",
+            }
+            return response
+
 
 

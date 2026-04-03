@@ -29,9 +29,10 @@ class ProjectStorage:
     def remove_project(self, project):
         project_id = project.get_id()
         if project_id not in self._id_to_project:
-            return
+            return False
         self._projects.remove(project)
         del self._id_to_project[project_id]
+        return True
 
     """
     Gets a project from the storage
