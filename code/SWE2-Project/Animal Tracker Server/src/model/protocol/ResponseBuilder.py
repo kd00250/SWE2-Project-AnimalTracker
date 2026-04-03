@@ -67,6 +67,7 @@ class ResponseBuilder:
 
         project_list = []
         for project in projects:
+            print(project.get_id())
             project_list.append({
                 "name": project.get_name(),
                 "id": project.get_id(),
@@ -98,12 +99,12 @@ class ResponseBuilder:
         animals = project.get_animals()
         for animal in animals:
             animal_list.append({
-                "Class": animal.animal_class.name,
-                "Height": animal.animal_height,
-                "Weight": animal.animal_weight,
-                "Length": animal.animal_length,
-                "TagID": animal.tag_id,
-                "Description": animal.description,
+                "Class": animal.get_animal_class().name,
+                "Height": animal.get_height(),
+                "Weight": animal.get_weight(),
+                "Length": animal.get_length(),
+                "TagID": animal.get_tag_id(),
+                "Description": animal.get_description(),
             })
         response = {
             "projects": animal_list

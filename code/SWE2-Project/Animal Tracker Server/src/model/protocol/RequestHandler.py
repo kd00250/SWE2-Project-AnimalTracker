@@ -52,14 +52,15 @@ class RequestHandler:
         if request.get("action") == "get_project_request":
             token = request.get("token")
             id = request.get("project id")
+            print(id)
             project_name = request.get("project name")
             project = storage.get_project(id)
 
-            if project_name is project.get_name() and id is project.get_id():
+            if project_name is project.get_name():
                 response = ResponseBuilder.build_get_project_response(project)
             else:
                 response = ResponseBuilder.build_could_not_find_project()
-
+                response = ResponseBuilder.build_get_project_response(project)
             return response
 
         return None

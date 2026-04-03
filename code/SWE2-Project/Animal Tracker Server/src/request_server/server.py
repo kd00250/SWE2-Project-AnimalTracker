@@ -21,6 +21,7 @@ def build_storage():
     animals = {animal}
     users = {bob}
     project = Project("Wildlife Migration Study", users, animals, 1)
+    print(project.get_id())
     storage.add_project(project)
 
 def main():
