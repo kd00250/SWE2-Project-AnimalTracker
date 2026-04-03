@@ -49,6 +49,18 @@ class RequestHandler:
                 return response
             return ResponseBuilder.build_user_does_not_have_permission_response()
 
+        if request.get("action") == "get_project_request":
+            token = request.get("token")
+            id = request.get("project id")
+            project_name = request.get("project name")
+            project = storage.get_project(id)
+
+            if project_name is project.get_name() and id is project.get_id():
+                response = ResponseBuilder.build_get_project_response(project)
+            else:
+                response = ResponseBuilder.build_could_not_find_project()
+
+            return response
 
         return None
 

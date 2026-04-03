@@ -84,5 +84,31 @@ class ResponseBuilder:
         }
         return response
 
+    @staticmethod
+    def build_could_not_find_project():
+        print("Server - Could not find project")
+        response = {
+            "status": "error",
+        }
+        return response
+
+    @staticmethod
+    def build_get_project_response(project):
+        animal_list = []
+        animals = project.get_animals()
+        for animal in animals:
+            animal_list.append({
+                "Class": animal.animal_class.name,
+                "Height": animal.animal_height,
+                "Weight": animal.animal_weight,
+                "Length": animal.animal_length,
+                "TagID": animal.tag_id,
+                "Description": animal.description,
+            })
+        response = {
+            "projects": animal_list
+        }
+        return response
+
 
 
