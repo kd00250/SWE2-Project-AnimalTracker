@@ -1,6 +1,5 @@
 package edu.westga.cs3211.animaltracker.model.server.request.data;
 
-import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONArray;
@@ -8,7 +7,6 @@ import org.json.JSONObject;
 
 import java.util.Collection;
 
-import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_PROJECT_REQUEST;
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.CREATE_PROJECT_REQUEST;
 
 /**
@@ -93,10 +91,9 @@ public class AddProjectRequest extends Request {
 
         json.put("action", CREATE_PROJECT_REQUEST);
         json.put("token", this.getToken());
-        json.put("projectName", this.getProjectName());
+        json.put("project name", this.getProjectName());
 
-        json.put("scientists", this.buildStringArray(this.getScientistUsernames()));
-        json.put("animals", this.buildIntegerArray(this.getAnimalIds()));
+        json.put("users", this.buildStringArray(this.getScientistUsernames()));
 
         return json;
     }
