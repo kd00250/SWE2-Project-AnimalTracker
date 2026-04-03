@@ -5,13 +5,13 @@ import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONObject;
 
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.DELETE_PROJECT_REQUEST;
-import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.GET_PROJECT_REQUEST;
 
 /**
  * the delete project request class.
  */
 public class DeleteProjectRequest extends Request {
     private int projectID;
+    private String token;
 
     /**
      * creates a new instance of get single project request.
@@ -22,11 +22,29 @@ public class DeleteProjectRequest extends Request {
     }
 
     /**
+     * overloaded constructor to have the token.
+     * @param token the token
+     * @param id the id
+     */
+    public DeleteProjectRequest(String token, int id) {
+        this(id);
+        this.token = token;
+    }
+
+    /**
      * Gets the project id.
      * @return the project id
      */
     public int getProjectID() {
         return this.projectID;
+    }
+
+    /**
+     * gets the token from the request.
+     * @return the token from the request
+     */
+    public String getToken() {
+        return this.token;
     }
 
     /**
@@ -48,6 +66,7 @@ public class DeleteProjectRequest extends Request {
         JSONObject json = new JSONObject();
 
         json.put("action", DELETE_PROJECT_REQUEST);
+        json.put("token", this.getToken());
         json.put("project id", this.getProjectID());
         return json;
     }

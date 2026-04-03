@@ -129,8 +129,9 @@ public class LocalServer implements ServerService {
     }
 
     @Override
-    public void deleteProject(int projectId) {
-        DataStorage.deleteProjectIfExist(projectId);
+    public void deleteProject(DeleteProjectRequest request) {
+
+        DataStorage.deleteProjectIfExist(request.getProjectID());
     }
 
     private List<Animal> getAnimalsFromId(Collection<Integer> ids) {

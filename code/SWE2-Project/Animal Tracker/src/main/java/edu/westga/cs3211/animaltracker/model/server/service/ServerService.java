@@ -66,8 +66,8 @@ public interface ServerService {
 
     /**
      * Deletes a project from the server.
-     * @param projectId the project id
+     * @param request the project id
      */
-    void deleteProject(int projectId);
+    void deleteProject(DeleteProjectRequest request);
 
 }

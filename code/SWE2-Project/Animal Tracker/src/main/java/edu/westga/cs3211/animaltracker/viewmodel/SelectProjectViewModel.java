@@ -2,10 +2,7 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetSingleProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -107,7 +104,9 @@ public class SelectProjectViewModel {
         if (project == null) {
             return false;
         }
-        edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
+        //edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
+        DeleteProjectRequest request = new DeleteProjectRequest(this.authSession.getToken(), project.getId());
+        this.serverService.deleteProject(request);
 
         this.refreshProjects();
 

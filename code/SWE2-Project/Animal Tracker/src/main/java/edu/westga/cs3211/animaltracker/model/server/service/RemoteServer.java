@@ -88,8 +88,8 @@ public class RemoteServer implements ServerService {
     }
 
     @Override
-    public void deleteProject(int projectId) {
-        DeleteProjectRequest request = new DeleteProjectRequest(projectId);
+    public void deleteProject(DeleteProjectRequest request) {
+        JSONObject response = this.client.send(request);
     }
 
     private List<Project> parseProjects(JSONObject response){
