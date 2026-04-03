@@ -1,8 +1,6 @@
 package edu.westga.cs3211.animaltracker.model.server.service;
 
-import edu.westga.cs3211.animaltracker.model.Project;
-import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.client.Client;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
@@ -35,8 +33,10 @@ public class RemoteServer implements ServerService {
      */
     @Override
     public Project requestSingleProject(GetSingleProjectRequest request) {
+        String projectName = request.getProjectName();
+        int projectID = request.getProjectID();
         JSONObject response = this.client.send(request);
-        return null;
+        return this.buildProjectFromResponse(response, projectName, projectID);
     }
 
     /**
@@ -114,6 +114,41 @@ public class RemoteServer implements ServerService {
         }
         System.out.println(projects.getFirst().getName() + " " + projects.getFirst().getId());
         return projects;
+    }
+
+    private Project buildProjectFromResponse(JSONObject response, String projectName, int projectId) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+
+        Project project = new Project(new ArrayList<>(), projectName, new ArrayList<>(), projectId);
+
+        JSONObject projectJson = response.getJSONObject("project");
+        JSONArray animalsArray = projectJson.getJSONArray("animals");
+
+        for (int i = 0; i < animalsArray.length(); i++) {
+            JSONObject animalJson = animalsArray.getJSONObject(i);
+            Animal animal = this.buildAnimal(animalJson);
+            project.addAnimal(animal);
+        }
+
+        return project;
+    }
+
+    private Animal buildAnimal(JSONObject animalJson) {
+        if (animalJson == null) {
+            throw new IllegalArgumentException("Animal JSON cannot be null");
+        }
+
+        AnimalClass animalClass = AnimalClass.valueOf(animalJson.getString("Class"));
+
+        double height = animalJson.getDouble("Height");
+        double weight = animalJson.getDouble("Weight");
+        double length = animalJson.getDouble("Length");
+        int tagID = animalJson.getInt("tagID");
+        String description = animalJson.getString("Description");
+
+        return new Animal(animalClass, height, weight, length, tagID, description);
     }
 
     /**

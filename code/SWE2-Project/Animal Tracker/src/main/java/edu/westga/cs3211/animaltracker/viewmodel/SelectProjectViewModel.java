@@ -4,6 +4,7 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetSingleProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
@@ -69,7 +70,11 @@ public class SelectProjectViewModel {
      * @return the selected project, or null if none selected
      */
     public Project getSelectedProject() {
-        return this.selectedProject.get();
+        String projectName = this.selectedProject.get().getName();
+        int projectID = this.selectedProject.get().getId();
+        GetSingleProjectRequest request = new GetSingleProjectRequest(this.authSession.getToken(), projectName, projectID);
+        //return this.selectedProject.get();
+        return this.serverService.requestSingleProject(request);
     }
 
     /**
