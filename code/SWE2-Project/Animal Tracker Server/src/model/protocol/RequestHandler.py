@@ -34,6 +34,9 @@ class RequestHandler:
         if request.get("action") == "delete_project_request":
             RequestHandler.handle_delete_project_request(request)
 
+        if request.get("action") == "get_scientist_request":
+            RequestHandler.handle_request_scientist(request)
+
         return None
 
     @staticmethod
@@ -106,4 +109,13 @@ class RequestHandler:
                 break
 
         return ResponseBuilder.build_removed_project(has_removed_project)
+
+    @staticmethod
+    def handle_request_scientist(request):
+        token = request.get("token")
+        users = RequestHandler.storage.get_all_users()
+        if token is None:
+            return ResponseBuilder.build_token_does_not_exist()
+        else:
+            return ResponseBuilder.build_get_scientist_response(users)
 

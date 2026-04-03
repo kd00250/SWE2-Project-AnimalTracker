@@ -68,3 +68,6 @@ class UserStorage:
             return True
         return False
 
+    def get_all_users(self):
+        return list(self._users)
+

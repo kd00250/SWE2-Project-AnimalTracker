@@ -77,6 +77,9 @@ class ServerStorage:
     def retrieve_projects_from_user(self, user):
         projects = self._project_storage.retrieve_projects_from_user(user)
         return projects
+
+    def get_all_users(self):
+        return self._user_storage.get_all_users()
     
     def _reset(self):
         self._user_storage = UserStorage()
