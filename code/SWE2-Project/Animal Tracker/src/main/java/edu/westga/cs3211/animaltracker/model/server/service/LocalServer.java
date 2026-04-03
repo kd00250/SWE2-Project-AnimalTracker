@@ -117,6 +117,16 @@ public class LocalServer implements ServerService {
         }
     }
 
+    /**
+     * This method is for testing purposes only.
+     * @param request the request
+     * @return nothing this method is for testing
+     */
+    @Override
+    public Collection<User> requestAllScientistsFromServer(GetAllScientistsRequests request) {
+        return List.of();
+    }
+
     @Override
     public void AddProject(AddProjectRequest request) {
         if (request == null) {
