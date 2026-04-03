@@ -26,6 +26,11 @@ public final class SeverSettings {
     public static final String DELETE_PROJECT_REQUEST = "delete_project_request";
 
     /**
+     * the add project request constant.
+     */
+    public static final String GET_SCIENTISTS_REQUEST = "get_scientist_request";
+
+    /**
      * the get project request constant.
      */
     public static final String GET_PROJECT_REQUEST = "get_project_request";

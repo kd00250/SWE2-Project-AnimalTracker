@@ -59,6 +59,13 @@ public interface ServerService {
     Collection<User> requestAllScientist(UserDataRequest request);
 
     /**
+     * Requests all scientists from the server.
+     * @param request the request
+     * @return the users
+     */
+    Collection<User> requestAllScientistsFromServer(GetAllScientistsRequests request);
+
+    /**
      * Adds a new project to the server.
      * @param request the request
      */
