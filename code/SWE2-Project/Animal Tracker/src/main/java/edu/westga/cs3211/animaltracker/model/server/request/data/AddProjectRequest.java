@@ -1,12 +1,15 @@
 package edu.westga.cs3211.animaltracker.model.server.request.data;
 
+import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Collection;
 
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_PROJECT_REQUEST;
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.CREATE_PROJECT_REQUEST;
 
 /**
  * The AddProjectRequest class.
@@ -15,19 +18,20 @@ public class AddProjectRequest extends Request {
     private final String projectName;
     private final Collection<String> scientistUsernames;
     private final Collection<Integer> animalIds;
-    //private final String token;
+    private final String token;
 
     /**
      * Instantiates a new project add request.
      * @param projectName the project name
      * @param scientistUsernames the scientist usernames
      * @param animalIds the animal id's
+     * @param token the token
      */
-    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds) {
+    public AddProjectRequest(String projectName, Collection<String> scientistUsernames, Collection<Integer> animalIds, String token) {
         this.projectName = projectName;
         this.scientistUsernames = scientistUsernames;
         this.animalIds = animalIds;
-        //this.token = token;
+        this.token = token;
     }
 
     /**
@@ -52,6 +56,14 @@ public class AddProjectRequest extends Request {
      */
     public Collection<Integer> getAnimalIds() {
         return this.animalIds;
+    }
+
+    /**
+     * gets the token from the request.
+     * @return the token from the request
+     */
+    public String getToken() {
+        return this.token;
     }
 
     @Override
@@ -79,8 +91,33 @@ public class AddProjectRequest extends Request {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
-        json.put("action", ADD_PROJECT_REQUEST);
-        //json.put("token", getToken());
-        return null;
+        json.put("action", CREATE_PROJECT_REQUEST);
+        json.put("token", this.getToken());
+        json.put("projectName", this.getProjectName());
+
+        json.put("scientists", this.buildStringArray(this.getScientistUsernames()));
+        json.put("animals", this.buildIntegerArray(this.getAnimalIds()));
+
+        return json;
+    }
+
+    private JSONArray buildStringArray(Collection<String> values) {
+        JSONArray array = new JSONArray();
+
+        for (String value : values) {
+            array.put(value);
+        }
+
+        return array;
+    }
+
+    private JSONArray buildIntegerArray(Collection<Integer> values) {
+        JSONArray array = new JSONArray();
+
+        for (Integer value : values) {
+            array.put(value);
+        }
+
+        return array;
     }
 }
