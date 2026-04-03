@@ -92,7 +92,7 @@ public class RemoteServer implements ServerService {
         JSONObject response = this.client.send(request);
     }
 
-    private List<Project> parseProjects(JSONObject response){
+    private List<Project> parseProjects(JSONObject response) {
         List<Project> projects = new ArrayList<>();
         System.out.print(response.toString());
 
@@ -113,7 +113,6 @@ public class RemoteServer implements ServerService {
 
             projects.add(project);
         }
-        System.out.println(projects.getFirst().getName() + " " + projects.getFirst().getId());
         return projects;
     }
 
