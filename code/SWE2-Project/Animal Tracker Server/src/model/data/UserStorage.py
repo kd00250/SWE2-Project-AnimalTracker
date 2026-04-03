@@ -68,6 +68,11 @@ class UserStorage:
             return True
         return False
 
+    def get_user_with_username(self, username):
+        if username is None:
+            return None
+        return self._username_map.get(username)
+
     def get_all_users(self):
         return list(self._users)
 

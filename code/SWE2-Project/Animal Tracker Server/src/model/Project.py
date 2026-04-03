@@ -5,8 +5,6 @@ class Project:
             raise Exception("Project name cannot be None")
         if users is None:
             raise Exception("Project users cannot be None")
-        if animals is None:
-            raise Exception("Project animals cannot be None")
         if project_id < 0:
             raise Exception("Project project_id cannot be negative")
         if name.strip() == "":

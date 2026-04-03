@@ -152,6 +152,18 @@ class ResponseBuilder:
         }
         return response
 
+    @staticmethod
+    def build_create_project_response(created_project):
+        if created_project is None:
+            response = {
+                "status": "error",
+            }
+        else:
+            response = {
+                "status": "success",
+            }
+        return response
+
 
 
 
