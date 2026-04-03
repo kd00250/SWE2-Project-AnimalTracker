@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.GetAllScientistsRequests;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 
@@ -150,8 +151,15 @@ public class CreateProjectViewModel {
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
-        ArrayList<Animal> emptyList = new ArrayList<>();
-        new Project(users, name, emptyList);
+        //ArrayList<Animal> emptyList = new ArrayList<>();
+        ArrayList<Integer> animals = new ArrayList<>();
+        //new Project(users, name, emptyList);
+        ArrayList<String> requestUsers = new ArrayList<>();
+        for (User curUser : users) {
+            requestUsers.add(curUser.username());
+        }
+        AddProjectRequest request = new AddProjectRequest(this.getProjectNameProperty().get(), requestUsers, animals, this.authSession.getToken());
+        this.serverService.AddProject(request);
     }
 
     /**
