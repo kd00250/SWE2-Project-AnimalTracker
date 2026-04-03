@@ -22,7 +22,7 @@ public interface ServerService {
      * @param request the request to be sent
      * @return the status of the request
      */
-    String addUser(AddUserRequest request);
+    boolean addUser(AddUserRequest request);
 
     /**
      * Submits a login request and retrieves a response.

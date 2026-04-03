@@ -29,8 +29,13 @@ public class LocalServer implements ServerService {
      * @return null
      */
     @Override
-    public String addUser(AddUserRequest request) {
-        return null;
+    public boolean addUser(AddUserRequest request) {
+        User user = new User(request.getUsername(), request.getPassword(), request.getRole());
+        if (!DataStorage.isUsernameAvailable(user.username())) {
+            return false;
+        }
+        DataStorage.getUsers().add(user);
+        return true;
     }
 
     @Override
