@@ -76,10 +76,26 @@ public class RemoteServer implements ServerService {
         return this.parseProjects(response);
     }
 
+    /**
+     * This method is for testing.
+     * @param request the request
+     * @return empty List
+     */
     @Override
     public Collection<User> requestAllScientist(UserDataRequest request) {
-        JSONObject response = this.client.send(request);
         return List.of();
+    }
+
+    /**
+     * Gets the list of scientists from the server.
+     * @param request the request
+     * @return the list of scientists from the server
+     */
+    @Override
+    public Collection<User> requestAllScientistsFromServer(GetAllScientistsRequests request) {
+        JSONObject response = this.client.send(request);
+        this.buildScientistsFromJson(response);
+        return this.buildScientistsFromJson(response);
     }
 
     @Override
@@ -148,6 +164,27 @@ public class RemoteServer implements ServerService {
         String description = animalJson.getString("Description");
 
         return new Animal(animalClass, height, weight, length, tagID, description);
+    }
+
+    private Collection<User> buildScientistsFromJson(JSONObject json) {
+        if (json == null) {
+            throw new IllegalArgumentException("JSON cannot be null");
+        }
+
+        Collection<User> users = new ArrayList<>();
+
+        JSONArray userArray = json.getJSONArray("users");
+
+        for (int i = 0; i < userArray.length(); i++) {
+            JSONObject userJson = userArray.getJSONObject(i);
+
+            String username = userJson.getString("username");
+            String password = userJson.getString("password");
+
+            users.add(new User(username, password, Role.SCIENTIST));
+        }
+
+        return users;
     }
 
     /**
