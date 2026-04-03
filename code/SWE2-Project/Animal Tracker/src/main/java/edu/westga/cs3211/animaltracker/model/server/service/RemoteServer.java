@@ -89,6 +89,7 @@ public class RemoteServer implements ServerService {
 
     @Override
     public void deleteProject(int projectId) {
+        DeleteProjectRequest request = new DeleteProjectRequest(projectId);
     }
 
     private List<Project> parseProjects(JSONObject response){
@@ -123,8 +124,7 @@ public class RemoteServer implements ServerService {
 
         Project project = new Project(new ArrayList<>(), projectName, new ArrayList<>(), projectId);
 
-        JSONObject projectJson = response.getJSONObject("project");
-        JSONArray animalsArray = projectJson.getJSONArray("animals");
+        JSONArray animalsArray = response.getJSONArray("animals");
 
         for (int i = 0; i < animalsArray.length(); i++) {
             JSONObject animalJson = animalsArray.getJSONObject(i);
@@ -145,7 +145,7 @@ public class RemoteServer implements ServerService {
         double height = animalJson.getDouble("Height");
         double weight = animalJson.getDouble("Weight");
         double length = animalJson.getDouble("Length");
-        int tagID = animalJson.getInt("tagID");
+        int tagID = animalJson.getInt("TagID");
         String description = animalJson.getString("Description");
 
         return new Animal(animalClass, height, weight, length, tagID, description);
