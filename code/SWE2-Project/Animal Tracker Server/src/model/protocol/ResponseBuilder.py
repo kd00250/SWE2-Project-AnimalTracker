@@ -1,3 +1,6 @@
+from model.Role import Role
+
+
 class ResponseBuilder:
 
     @staticmethod
@@ -125,6 +128,30 @@ class ResponseBuilder:
                 "status": "error",
             }
             return response
+
+    @staticmethod
+    def build_token_does_not_exist():
+        response = {
+            "status": "error-TokenDoesNotExist",
+        }
+        return response
+
+    @staticmethod
+    def build_get_scientist_response(users):
+        user_list = []
+
+        for user in users:
+            if user.get_role() == Role.SCIENTIST:
+                user_list.append({
+                    "username": user.get_username(),
+                    "password": "******",
+                })
+
+        response = {
+            "users": user_list
+        }
+        return response
+
 
 
 
