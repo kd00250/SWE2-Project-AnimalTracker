@@ -19,4 +19,9 @@ public final class SeverSettings {
      * the add project request constant.
      */
     public static final String ADD_PROJECT_REQUEST = "add_project_request";
+
+    /**
+     * the add user request constant.
+     */
+    public static final String ADD_USER_REQUEST = "add_user_request";
 }

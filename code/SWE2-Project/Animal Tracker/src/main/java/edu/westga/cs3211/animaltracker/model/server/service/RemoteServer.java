@@ -7,6 +7,7 @@ import edu.westga.cs3211.animaltracker.model.client.Client;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import org.json.JSONObject;
 
@@ -25,6 +26,16 @@ public class RemoteServer implements ServerService {
      */
     public RemoteServer() {
         this.client = new Client();
+    }
+
+    /**
+     * adds user to server.
+     * @param request the request
+     * @return the request status
+     */
+    public String addUser(AddUserRequest request) {
+        JSONObject response = this.client.send(request);
+        return response.getString("status");
     }
 
     @Override
