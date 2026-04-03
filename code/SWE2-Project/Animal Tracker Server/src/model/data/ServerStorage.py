@@ -31,7 +31,7 @@ class ServerStorage:
     Removes a project from the storage
     """
     def remove_project(self, project):
-        self._project_storage.remove_project(project)
+        return self._project_storage.remove_project(project)
     """
     Gets a project from the storage
     """
