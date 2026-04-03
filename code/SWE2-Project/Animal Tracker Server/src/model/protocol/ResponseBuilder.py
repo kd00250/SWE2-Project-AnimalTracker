@@ -100,15 +100,25 @@ class ResponseBuilder:
     def build_get_project_response(project):
         animal_list = []
         animals = project.get_animals()
-        for animal in animals:
+        if animals is None:
             animal_list.append({
-                "Class": animal.get_animal_class().name,
-                "Height": animal.get_height(),
-                "Weight": animal.get_weight(),
-                "Length": animal.get_length(),
-                "TagID": animal.get_tag_id(),
-                "Description": animal.get_description(),
+                "Class": "",
+                "Height": "",
+                "Weight": "",
+                "Length": "",
+                "TagID": "",
+                "Description": "",
             })
+        else:
+            for animal in animals:
+                animal_list.append({
+                    "Class": animal.get_animal_class().name,
+                    "Height": animal.get_height(),
+                    "Weight": animal.get_weight(),
+                    "Length": animal.get_length(),
+                    "TagID": animal.get_tag_id(),
+                    "Description": animal.get_description(),
+                })
         response = {
             "animals": animal_list
         }
@@ -137,11 +147,11 @@ class ResponseBuilder:
         return response
 
     @staticmethod
-    def build_get_scientist_response(users):
+    def build_get_scientist_response(users, project_creator):
         user_list = []
 
         for user in users:
-            if user.get_role() == Role.SCIENTIST:
+            if user.get_role() == Role.SCIENTIST and user.get_username() != project_creator.get_username() :
                 user_list.append({
                     "username": user.get_username(),
                     "password": "******",

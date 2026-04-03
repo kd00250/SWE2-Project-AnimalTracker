@@ -40,7 +40,7 @@ class Project:
             raise Exception("User cannot be None")
         if self.contains_user(user):
             raise Exception("User already exists")
-        self._users.append(user)
+        self._users.add(user)
 
     def contains_user(self, user):
         return user in self._users
@@ -50,7 +50,7 @@ class Project:
             raise Exception("Animal cannot be None")
         if self.contains_animal(animal):
             raise Exception("Animal already exists")
-        self._animals.append(animal)
+        self._animals.add(animal)
     def contains_animal(self, animal):
         return animal in self._animals
 
