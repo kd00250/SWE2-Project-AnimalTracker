@@ -43,6 +43,18 @@ public final class AddUserRequest extends Request {
         }
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
     /**
      * json to be sent.
      * @return The json to be sent.
