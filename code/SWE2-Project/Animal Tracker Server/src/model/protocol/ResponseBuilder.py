@@ -114,7 +114,7 @@ class ResponseBuilder:
     @staticmethod
     def build_removed_project(has_removed_project):
         if has_removed_project:
-            print("Server - Received removed project, sending request to client...")
+            print("Server - Success, Received removed project, sending request to client...")
             response = {
                 "status": "success",
             }
