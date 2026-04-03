@@ -54,3 +54,35 @@ class ResponseBuilder:
         }
         return response
 
+    @staticmethod
+    def build_retrieved_projects_response(projects):
+        print("Server - Received retrieved projects, sending request to client...")
+
+        if projects is None:
+            response = {
+                "status": "error",
+                "projects": []
+            }
+            return response
+
+        project_list = []
+        for project in projects:
+            project_list.append({
+                "name": project.get_name(),
+                "id": project.get_id(),
+            })
+        response = {
+            "projects": project_list
+        }
+        return response
+
+    @staticmethod
+    def build_user_does_not_have_permission_response():
+        print("Server - Has no Permission")
+        response = {
+            "status": "error",
+        }
+        return response
+
+
+

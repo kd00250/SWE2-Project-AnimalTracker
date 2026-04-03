@@ -61,6 +61,11 @@ class ProjectStorage:
         self._id_to_project[project_id].add_user(user)
         return True
 
+    def retrieve_projects_from_user(self, user):
+        for project in self._projects:
+            if project.contains_user(user):
+                yield project
+
     def reset(self):
         self._projects = []
         self._id_to_project = {}

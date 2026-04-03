@@ -1,12 +1,25 @@
 import zmq
 import json
 
+from model.Animal import Animal
+from model.AnimalClass import AnimalClass
+from model.Project import Project
 from model.Role import Role
 from model.User import User
 from model.data.ServerStorage import ServerStorage
 from model.protocol.RequestHandler import RequestHandler
-from model.protocol.ResponseBuilder import ResponseBuilder
 
+
+def build_storage():
+    print("Creating User")
+    storage = ServerStorage()
+    bob = User("Bob", "1234", Role.SCIENTIST)
+    billy = User("Billy", "6767", Role.ADMIN)
+    storage.add_user(bob)
+    storage.add_user(billy)
+    animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
+    project = Project("Wildlife Migration Study", bob, animal, 1)
+    storage.add_project(project)
 
 def main():
     context = zmq.Context()
@@ -15,12 +28,7 @@ def main():
     socket.bind("tcp://127.0.0.1:5555")
     print("Server listening on port 5555...")
 
-    print("Creating User")
-    storage = ServerStorage()
-    bob = User("Bob", "1234", Role.SCIENTIST)
-    billy = User("Billy", "6767", Role.ADMIN)
-    storage.add_user(bob)
-    storage.add_user(billy)
+    build_storage()
 
     while True:
         raw = socket.recv()

@@ -37,6 +37,19 @@ class RequestHandler:
                 response = ResponseBuilder.build_add_user_response(user)
                 return response
             return ResponseBuilder.build_user_exists_response()
+
+        if request.get("action") == "get_project_list_request":
+            token = request.get("token")
+            user = storage.get_user(token)
+            role = user.get_role()
+
+            if role == Role.SCIENTIST:
+                projects = storage.retrieve_projects_from_user(user)
+                response = ResponseBuilder.build_retrieved_projects_response(projects)
+                return response
+            return ResponseBuilder.build_user_does_not_have_permission_response()
+
+
         return None
 
 
