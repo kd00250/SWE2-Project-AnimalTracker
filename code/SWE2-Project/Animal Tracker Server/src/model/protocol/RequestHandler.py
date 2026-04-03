@@ -40,6 +40,9 @@ class RequestHandler:
         if request.get("action") == "create_project_request":
             return RequestHandler.handle_create_project_request(request)
 
+        if request.get("action") == "add_animal_request":
+            return RequestHandler.handle_add_animal_request(request)
+
         return None
 
     @staticmethod
@@ -140,6 +143,14 @@ class RequestHandler:
 
         has_created_project = RequestHandler.storage.add_project(project)
         return ResponseBuilder.build_create_project_response(has_created_project)
+
+    @staticmethod
+    def handle_add_animal_request(request):
+        project_id = int(request.get("project id"))
+        project = RequestHandler.storage.add_project(project_id)
+
+        if project is not None:
+            animal
 
 
 
