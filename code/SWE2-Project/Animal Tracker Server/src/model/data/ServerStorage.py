@@ -71,9 +71,12 @@ class ServerStorage:
         return self._user_storage.contains_users_password(username, password)
 
 
-
     def contains_user(self, user):
         return self._user_storage.contains_user(user)
+
+    def retrieve_projects_from_user(self, user):
+        projects = self._project_storage.retrieve_projects_from_user(user)
+        return projects
     
     def _reset(self):
         self._user_storage = UserStorage()
