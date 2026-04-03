@@ -6,10 +6,7 @@ import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.client.Client;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,6 +26,17 @@ public class RemoteServer implements ServerService {
      */
     public RemoteServer() {
         this.client = new Client();
+    }
+
+    /**
+     * requests the info for a single project.
+     * @param request the request to be sent
+     * @return the project requested
+     */
+    @Override
+    public Project requestSingleProject(GetSingleProjectRequest request) {
+        JSONObject response = this.client.send(request);
+        return null;
     }
 
     /**

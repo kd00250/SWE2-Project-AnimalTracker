@@ -45,18 +45,6 @@ public final class UserDataRequest extends Request {
 
     }
 
-    /**
-     * gets the json string to send for getting the list of projects.
-     * @return the json to be sent
-     */
-    public JSONObject getUserProjects() {
-        JSONObject json = new JSONObject();
-
-        json.put("action", GET_PROJECTS_REQUEST);
-        json.put("token", this.getToken());
-        return json;
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

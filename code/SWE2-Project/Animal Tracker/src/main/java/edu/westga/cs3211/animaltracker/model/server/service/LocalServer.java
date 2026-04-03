@@ -4,10 +4,7 @@ import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -23,6 +20,16 @@ public class LocalServer implements ServerService {
      * The default timeout for a local login.
      */
     public static final int DEFAULT_TIMEOUT = 1000;
+
+    /**
+     * requests the info for a single project.
+     * @param request the request to be sent
+     * @return null (this is for testing)
+     */
+    @Override
+    public Project requestSingleProject(GetSingleProjectRequest request) {
+        return null;
+    }
 
     /**
      * this method is for testing purpose only.

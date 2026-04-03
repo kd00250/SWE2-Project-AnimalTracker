@@ -5,10 +5,7 @@ import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +14,13 @@ import java.util.List;
  * The auth login service interface.
  */
 public interface ServerService {
+
+    /**
+     * gets the project from the server.
+     * @param request the request to be sent
+     * @return the project
+     */
+    Project requestSingleProject(GetSingleProjectRequest request);
 
     /**
      * adds the user to the server.
