@@ -5,6 +5,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestExcept
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.ArrayList;
@@ -21,6 +22,16 @@ public class LocalServer implements ServerService {
      * The default timeout for a local login.
      */
     public static final int DEFAULT_TIMEOUT = 1000;
+
+    /**
+     * this method is for testing purpose only.
+     * @param request the request to be sent
+     * @return null
+     */
+    @Override
+    public String addUser(AddUserRequest request) {
+        return null;
+    }
 
     @Override
     public LoginResponse login(LoginRequest request) {
