@@ -56,11 +56,17 @@ class RequestHandler:
             project_name = request.get("project name")
             project = storage.get_project(id)
 
-            if project_name is project.get_name():
+            if project is None:
+                return ResponseBuilder.build_could_not_find_project()
+
+            print(project)
+            print(project.get_name())
+            if int(id) == project.get_id() and project_name == project.get_name():
                 response = ResponseBuilder.build_get_project_response(project)
+                print(response)
             else:
                 response = ResponseBuilder.build_could_not_find_project()
-                response = ResponseBuilder.build_get_project_response(project)
+                print(response)
             return response
 
         return None
