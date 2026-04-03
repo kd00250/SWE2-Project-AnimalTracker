@@ -32,7 +32,7 @@ class RequestHandler:
             username = request.get("username")
             if not storage.contains_username(username):
                 password = request.get("password")
-                role = Role(request.get("role"))
+                role = Role[request.get("role")]
                 user = User(username, password, role)
                 response = ResponseBuilder.build_add_user_response(user)
                 return response
