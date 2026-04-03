@@ -68,6 +68,9 @@ class ProjectStorage:
                 print(project.get_id())
                 yield project
 
+    def retrieve_projects_in_server(self):
+        return self._projects
+
     def reset(self):
         self._projects = []
         self._id_to_project = {}

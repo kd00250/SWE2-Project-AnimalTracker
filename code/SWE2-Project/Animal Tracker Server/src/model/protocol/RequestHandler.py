@@ -1,5 +1,6 @@
 import json
 
+from model.Project import Project
 from model.Role import Role
 from model.User import User
 from model.authentication.Authenticator import Authenticator
@@ -12,7 +13,6 @@ class RequestHandler:
 
     @staticmethod
     def handle_request(message):
-
         request = json.loads(message)
         print(f"Server - Received request: {request}")
 
@@ -32,10 +32,13 @@ class RequestHandler:
             return RequestHandler.handle_get_project_request(request)
 
         if request.get("action") == "delete_project_request":
-            RequestHandler.handle_delete_project_request(request)
+            return RequestHandler.handle_delete_project_request(request)
 
         if request.get("action") == "get_scientist_request":
-            RequestHandler.handle_request_scientist(request)
+            return RequestHandler.handle_get_scientist_request(request)
+
+        if request.get("action") == "create_project_request":
+            return RequestHandler.handle_create_project_request(request)
 
         return None
 
@@ -111,11 +114,34 @@ class RequestHandler:
         return ResponseBuilder.build_removed_project(has_removed_project)
 
     @staticmethod
-    def handle_request_scientist(request):
+    def handle_get_scientist_request(request):
         token = request.get("token")
         users = RequestHandler.storage.get_all_users()
         if token is None:
             return ResponseBuilder.build_token_does_not_exist()
         else:
             return ResponseBuilder.build_get_scientist_response(users)
+
+    @staticmethod
+    def handle_create_project_request(request):
+        token = request.get("token")
+        user = RequestHandler.storage.get_user(token)
+        project_name = request.get("project name")
+        project_id = len(RequestHandler.storage.retrieve_projects_in_server()) + 1
+        users = request.get("users", [])
+
+        project = Project(project_name, user, None, project_id)
+
+        for current_user in users:
+            found_user = RequestHandler.storage.get_user_with_username(current_user.get_username())
+
+            if found_user is not None:
+                project.add_user(found_user)
+
+        has_created_project = RequestHandler.storage.add_project(project)
+        return ResponseBuilder.build_create_project_response(has_created_project)
+
+
+
+
 
