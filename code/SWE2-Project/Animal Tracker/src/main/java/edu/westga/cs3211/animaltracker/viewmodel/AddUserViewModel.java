@@ -103,6 +103,9 @@ public class AddUserViewModel {
 //        User user = new User(username, password, role);
 //        DataStorage.getUsers().add(user);
         AddUserRequest request = new AddUserRequest(this.getUsername().get(), this.getPassword().get(), this.getRole().get());
-        this.serverService.addUser(request);
+        String response = this.serverService.addUser(request);
+        if (response.equals("error")) {
+            throw new IllegalArgumentException("Username is already taken, please try again");
+        }
     }
 }
