@@ -51,6 +51,7 @@ public class SelectProjectViewModel {
      */
     public ListProperty<Project> projectsProperty() {
         return this.projects;
+
     }
 
     /**
@@ -79,6 +80,7 @@ public class SelectProjectViewModel {
         GetProjectRequest request = new GetProjectRequest(this.authSession.getToken());
 
         List<Project> userProjects = this.serverService.requestUserProjects(request);
+        System.out.println(userProjects + "tttt");
 
         this.projects.setAll(userProjects);
     }

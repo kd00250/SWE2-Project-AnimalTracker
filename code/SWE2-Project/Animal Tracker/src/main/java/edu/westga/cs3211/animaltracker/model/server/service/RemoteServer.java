@@ -65,8 +65,7 @@ public class RemoteServer implements ServerService {
     @Override
     public List<Project> requestUserProjects(GetProjectRequest request) {
         JSONObject response = this.client.send(request);
-        this.parseProjects(response);
-        return List.of();
+        return this.parseProjects(response);
     }
 
     @Override
@@ -86,6 +85,7 @@ public class RemoteServer implements ServerService {
 
     private List<Project> parseProjects(JSONObject response){
         List<Project> projects = new ArrayList<>();
+        System.out.print(response.toString());
 
         JSONArray projectArray = response.getJSONArray("projects");
 
@@ -104,7 +104,7 @@ public class RemoteServer implements ServerService {
 
             projects.add(project);
         }
-
+        System.out.println(projects.getFirst().getName() + " " + projects.getFirst().getId());
         return projects;
     }
 

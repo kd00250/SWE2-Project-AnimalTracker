@@ -18,7 +18,9 @@ def build_storage():
     storage.add_user(bob)
     storage.add_user(billy)
     animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
-    project = Project("Wildlife Migration Study", bob, animal, 1)
+    animals = {animal}
+    users = {bob}
+    project = Project("Wildlife Migration Study", users, animals, 1)
     storage.add_project(project)
 
 def main():
