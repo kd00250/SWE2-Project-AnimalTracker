@@ -107,7 +107,7 @@ class ResponseBuilder:
                 "Description": animal.get_description(),
             })
         response = {
-            "projects": animal_list
+            "animals": animal_list
         }
         return response
 
