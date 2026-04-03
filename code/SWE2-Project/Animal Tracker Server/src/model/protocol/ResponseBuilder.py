@@ -32,3 +32,25 @@ class ResponseBuilder:
             }
         return response
 
+    @staticmethod
+    def build_add_user_response(user):
+        if user is not None:
+            print("Server - Received add user, sending request to client...")
+            response = {
+                "status": "success",
+            }
+        else:
+            print("Server - Add user Failed")
+            response = {
+                "status": "error",
+            }
+        return response
+
+    @staticmethod
+    def build_user_exists_response():
+        print("Server - User exists Failed")
+        response = {
+            "status": "error",
+        }
+        return response
+
