@@ -33,9 +33,10 @@ public class RemoteServer implements ServerService {
      * @param request the request
      * @return the request status
      */
-    public String addUser(AddUserRequest request) {
+    public boolean addUser(AddUserRequest request) {
         JSONObject response = this.client.send(request);
-        return response.getString("status");
+        var responseStatus = response.getString("status");
+        return !responseStatus.equals("error");
     }
 
     @Override

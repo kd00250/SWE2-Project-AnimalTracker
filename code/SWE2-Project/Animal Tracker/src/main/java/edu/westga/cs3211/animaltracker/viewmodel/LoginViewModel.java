@@ -15,7 +15,7 @@ import javafx.beans.property.StringProperty;
 public class LoginViewModel {
     private final StringProperty username;
     private final StringProperty password;
-    private final ServerService authenticator;
+    private ServerService authenticator;
     private final SimpleObjectProperty<LoginResponse> loginResponse;
 
     /**
@@ -27,6 +27,19 @@ public class LoginViewModel {
         this.loginResponse = new SimpleObjectProperty<>();
        // this.authenticator = new LocalServer();
         this.authenticator = new RemoteServer();
+    }
+
+    /**
+     * Sets the server instance, primarily used for testing purposes
+     * @param server the server
+     */
+    public void setServer(ServerService server) {
+
+        if (server == null) {
+            throw new IllegalArgumentException("server cannot be null");
+        }
+
+        this.authenticator = server;
     }
 
     /**
