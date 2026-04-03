@@ -8,9 +8,12 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -60,8 +63,9 @@ public class RemoteServer implements ServerService {
     }
 
     @Override
-    public List<Project> requestUserProjects(UserDataRequest request) {
+    public List<Project> requestUserProjects(GetProjectRequest request) {
         JSONObject response = this.client.send(request);
+        this.parseProjects(response);
         return List.of();
     }
 
@@ -78,6 +82,30 @@ public class RemoteServer implements ServerService {
 
     @Override
     public void deleteProject(int projectId) {
+    }
+
+    private List<Project> parseProjects(JSONObject response){
+        List<Project> projects = new ArrayList<>();
+
+        JSONArray projectArray = response.getJSONArray("projects");
+
+        for (int i = 0; i < projectArray.length(); i++) {
+            JSONObject projectJson = projectArray.getJSONObject(i);
+
+            int id = projectJson.getInt("id");
+            String name = projectJson.getString("name");
+
+            Project project = new Project(
+                    new ArrayList<>(),
+                    name,
+                    new ArrayList<>(),
+                    id
+            );
+
+            projects.add(project);
+        }
+
+        return projects;
     }
 
     /**

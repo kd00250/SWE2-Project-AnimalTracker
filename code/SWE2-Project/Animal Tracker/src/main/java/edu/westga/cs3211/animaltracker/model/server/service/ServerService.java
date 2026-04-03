@@ -7,6 +7,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.Collection;
@@ -44,7 +45,7 @@ public interface ServerService {
      * @param request the get all projects for user request
      * @return a list of projects associated with the user
      */
-    List<Project> requestUserProjects(UserDataRequest request);
+    List<Project> requestUserProjects(GetProjectRequest request);
 
     /**
      * Request all scientist in the system as long as user is a scientist or admin.

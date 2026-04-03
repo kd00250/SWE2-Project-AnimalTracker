@@ -1,9 +1,15 @@
 package edu.westga.cs3211.animaltracker.model.server.request.data;
 
+import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.GET_PROJECTS_REQUEST;
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.USER_ROLE_REQUEST;
 
 /**
@@ -37,6 +43,18 @@ public final class UserDataRequest extends Request {
             throw new InvalidRequestException("Token is empty");
         }
 
+    }
+
+    /**
+     * gets the json string to send for getting the list of projects.
+     * @return the json to be sent
+     */
+    public JSONObject getUserProjects() {
+        JSONObject json = new JSONObject();
+
+        json.put("action", GET_PROJECTS_REQUEST);
+        json.put("token", this.getToken());
+        return json;
     }
 
     @Override

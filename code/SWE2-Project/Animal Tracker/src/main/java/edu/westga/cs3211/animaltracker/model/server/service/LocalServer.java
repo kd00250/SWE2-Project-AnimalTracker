@@ -6,6 +6,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class LocalServer implements ServerService {
     }
 
     @Override
-    public List<Project> requestUserProjects(UserDataRequest request) {
+    public List<Project> requestUserProjects(GetProjectRequest request) {
         if (request == null) {
             throw new IllegalArgumentException("Request cannot be null");
         }

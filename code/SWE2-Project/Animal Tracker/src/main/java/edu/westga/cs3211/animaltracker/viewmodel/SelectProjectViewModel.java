@@ -2,6 +2,8 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
@@ -73,7 +75,8 @@ public class SelectProjectViewModel {
      * Loads all projects for the logged-in user using the server service.
      */
     public void loadProjects() {
-        var request = new UserDataRequest(this.authSession.getToken());
+        //var request = new UserDataRequest(this.authSession.getToken());
+        GetProjectRequest request = new GetProjectRequest(this.authSession.getToken());
 
         List<Project> userProjects = this.serverService.requestUserProjects(request);
 

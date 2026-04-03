@@ -1,6 +1,7 @@
 package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
 import edu.westga.cs3211.animaltracker.model.*;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ public class RequestUserProjectsTest {
     void testInvalidToken() {
         var server = new LocalServer();
         assertThrows(IllegalArgumentException.class, () -> {
-            server.requestUserProjects(new UserDataRequest("-1"));
+            server.requestUserProjects(new GetProjectRequest("-1"));
         });
     }
 
@@ -48,7 +49,7 @@ public class RequestUserProjectsTest {
         var project2 = new Project(users, "project2", new ArrayList<>());
         DataStorage.addProject(project1);
         DataStorage.addProject(project2);
-        var projects = server.requestUserProjects(new UserDataRequest(firstToken));
+        var projects = server.requestUserProjects(new GetProjectRequest(firstToken));
         for (var project : projects) {
             assertTrue(project.getUsers().contains(user1));
         }
@@ -75,7 +76,7 @@ public class RequestUserProjectsTest {
         var project2 = new Project(new ArrayList<User>(), "project2", new ArrayList<>());
         DataStorage.addProject(project1);
         DataStorage.addProject(project2);
-        var projects = server.requestUserProjects(new UserDataRequest(firstToken));
+        var projects = server.requestUserProjects(new GetProjectRequest(firstToken));
         for (var project : projects) {
             assertTrue(project.getUsers().contains(user1));
         }
@@ -102,7 +103,7 @@ public class RequestUserProjectsTest {
         var project2 = new Project(new ArrayList<User>(), "project2", new ArrayList<>());
         DataStorage.addProject(project1);
         DataStorage.addProject(project2);
-        var projects = server.requestUserProjects(new UserDataRequest(firstToken));
+        var projects = server.requestUserProjects(new GetProjectRequest(firstToken));
         assertTrue(projects.isEmpty());
     }
 

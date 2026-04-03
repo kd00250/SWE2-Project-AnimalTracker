@@ -6,6 +6,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONObject;
 
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_USER_REQUEST;
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.GET_PROJECTS_REQUEST;
 
 /**
  * the add user request class.
@@ -43,16 +44,28 @@ public final class AddUserRequest extends Request {
         }
     }
 
+    /**
+     * gets the username.
+     * @return the username
+     */
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
+    /**
+     * get the password.
+     * @return the password
+     */
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
+    /**
+     * gets the role.
+     * @return the role
+     */
     public Role getRole() {
-        return role;
+        return this.role;
     }
 
     /**
