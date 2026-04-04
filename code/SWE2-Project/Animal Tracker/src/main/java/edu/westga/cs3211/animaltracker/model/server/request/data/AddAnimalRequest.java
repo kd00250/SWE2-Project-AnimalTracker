@@ -6,6 +6,8 @@ import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_ANIMAL_REQUEST;
+
 /**
  * the add animal request class.
  */
@@ -82,6 +84,7 @@ public class AddAnimalRequest extends Request {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
 
+        json.put("action", ADD_ANIMAL_REQUEST);
         json.put("token", this.getToken());
         json.put("project name", this.getProjectName());
         json.put("project id", this.getProjectID());

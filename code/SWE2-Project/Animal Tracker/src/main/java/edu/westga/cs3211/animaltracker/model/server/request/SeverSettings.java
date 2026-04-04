@@ -36,6 +36,11 @@ public final class SeverSettings {
     public static final String GET_PROJECT_REQUEST = "get_project_request";
 
     /**
+     * the add animal request constant.
+     */
+    public static final String ADD_ANIMAL_REQUEST = "add_animal_request";
+
+    /**
      * the add project request constant.
      */
     public static final String GET_PROJECTS_REQUEST = "get_project_list_request";
