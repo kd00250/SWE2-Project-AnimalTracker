@@ -98,6 +98,14 @@ public class LocalServer implements ServerService {
         return userProjects;
     }
 
+    /**
+     * This is for testing only.
+     * @param request the request
+     */
+    @Override
+    public void requestAddAnimal(AddAnimalRequest request) {
+    }
+
     @Override
     public Collection<User> requestAllScientist(UserDataRequest request) {
         if (request == null) {

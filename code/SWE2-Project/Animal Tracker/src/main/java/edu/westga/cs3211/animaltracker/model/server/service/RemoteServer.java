@@ -77,6 +77,15 @@ public class RemoteServer implements ServerService {
     }
 
     /**
+     * Sends the request to the server to add an animal.
+     * @param request the request
+     */
+    @Override
+    public void requestAddAnimal(AddAnimalRequest request) {
+        JSONObject response = this.client.send(request);
+    }
+
+    /**
      * This method is for testing.
      * @param request the request
      * @return empty List

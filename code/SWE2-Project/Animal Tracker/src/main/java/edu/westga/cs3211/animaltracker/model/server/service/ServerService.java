@@ -52,6 +52,12 @@ public interface ServerService {
     List<Project> requestUserProjects(GetProjectRequest request);
 
     /**
+     * Sends a request to the server to add a animal to the project.
+     * @param request the request
+     */
+    void requestAddAnimal(AddAnimalRequest request);
+
+    /**
      * Request all scientist in the system as long as user is a scientist or admin.
      * @param request the request
      * @return the scientist in the system
