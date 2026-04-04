@@ -40,6 +40,9 @@ class RequestHandler:
         if request.get("action") == "create_project_request":
             return RequestHandler.handle_create_project_request(request)
 
+        if request.get("action") == "add_animal_request":
+            return RequestHandler.handle_add_animal_request(request)
+
         return None
 
     @staticmethod
@@ -120,12 +123,13 @@ class RequestHandler:
         if token is None:
             return ResponseBuilder.build_token_does_not_exist()
         else:
-            return ResponseBuilder.build_get_scientist_response(users)
+            project_creator = RequestHandler.storage.get_user(token)
+            return ResponseBuilder.build_get_scientist_response(users, project_creator)
 
     @staticmethod
     def handle_create_project_request(request):
         token = request.get("token")
-        user = RequestHandler.storage.get_user(token)
+        user = {RequestHandler.storage.get_user(token)}
         project_name = request.get("project name")
         project_id = len(RequestHandler.storage.retrieve_projects_in_server()) + 1
         users = request.get("users", [])
@@ -133,13 +137,21 @@ class RequestHandler:
         project = Project(project_name, user, None, project_id)
 
         for current_user in users:
-            found_user = RequestHandler.storage.get_user_with_username(current_user.get_username())
+            found_user = RequestHandler.storage.get_user_with_username(current_user)
 
             if found_user is not None:
                 project.add_user(found_user)
 
         has_created_project = RequestHandler.storage.add_project(project)
         return ResponseBuilder.build_create_project_response(has_created_project)
+
+    @staticmethod
+    def handle_add_animal_request(request):
+        project_id = int(request.get("project id"))
+        project = RequestHandler.storage.add_project(project_id)
+
+        #if project is not None:
+
 
 
 

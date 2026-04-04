@@ -14,9 +14,11 @@ def build_storage():
     print("Creating User")
     storage = ServerStorage()
     bob = User("Bob", "1234", Role.SCIENTIST)
+    Joe = User("Joe", "1234", Role.SCIENTIST)
     billy = User("Billy", "6767", Role.ADMIN)
     storage.add_user(bob)
     storage.add_user(billy)
+    storage.add_user(Joe)
     animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
     animals = {animal}
     users = {bob}
