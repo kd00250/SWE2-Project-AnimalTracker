@@ -174,6 +174,18 @@ class ResponseBuilder:
             }
         return response
 
+    @staticmethod
+    def build_add_animal_request(animal):
+        if animal is None:
+            response = {
+                "status": "error",
+            }
+        else:
+            response = {
+                "status": "success",
+            }
+        return response
+
 
 
 
