@@ -1,6 +1,7 @@
 import json
 
 from model.Animal import Animal
+from model.AnimalClass import AnimalClass
 from model.Project import Project
 from model.Role import Role
 from model.User import User
@@ -162,10 +163,11 @@ class RequestHandler:
         project = RequestHandler.storage.get_project(project_id)
 
         if project is None:
+            print("NONEEEE")
             return ResponseBuilder.build_could_not_find_project()
         else:
             animal_class = request.get("Class")
-            animal_class = Role[animal_class]
+            animal_class = AnimalClass[animal_class]
             height = float(request.get("Height"))
             weight = float(request.get("Weight"))
             length = float(request.get("Length"))
@@ -173,6 +175,8 @@ class RequestHandler:
             description = request.get("Description")
             animal = Animal(animal_class, height, weight, length, tag_Id, description)
             animal = RequestHandler.storage.update_add_animal(project_id, animal)
+
+
             return ResponseBuilder.build_add_animal_request(animal)
 
 
