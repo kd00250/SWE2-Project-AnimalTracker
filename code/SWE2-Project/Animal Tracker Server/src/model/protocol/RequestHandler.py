@@ -1,5 +1,6 @@
 import json
 
+from model.Animal import Animal
 from model.Project import Project
 from model.Role import Role
 from model.User import User
@@ -47,12 +48,14 @@ class RequestHandler:
 
     @staticmethod
     def handle_login(request):
+        print("Handle login")
         has_token = Authenticator.check_login(request)
         response = ResponseBuilder.build_login_response(has_token)
         return response
 
     @staticmethod
     def handle_get_user_role_request(request):
+        print("Handle get user role request")
         token = request.get("token")
         user = RequestHandler.storage.get_user(token)
         role = user.get_role().name
@@ -61,6 +64,7 @@ class RequestHandler:
 
     @staticmethod
     def handle_add_user_request(request):
+        print("Handle add user request")
         username = request.get("username")
         if not RequestHandler.storage.contains_username(username):
             password = request.get("password")
@@ -71,6 +75,8 @@ class RequestHandler:
 
     @staticmethod
     def handle_get_project_list_request(request):
+        print("Handling get project list")
+
         token = request.get("token")
         user = RequestHandler.storage.get_user(token)
         role = user.get_role()
@@ -82,6 +88,7 @@ class RequestHandler:
 
     @staticmethod
     def handle_get_project_request(request):
+        print("Handle get project request")
         token = request.get("token")
         project_id = request.get("project id")
         print(project_id)
@@ -101,6 +108,7 @@ class RequestHandler:
 
     @staticmethod
     def handle_delete_project_request(request):
+        print("Handling delete request")
         project_id = request.get("project id")
         token = request.get("token")
 
@@ -118,6 +126,7 @@ class RequestHandler:
 
     @staticmethod
     def handle_get_scientist_request(request):
+        print("Handling get scientist request")
         token = request.get("token")
         users = RequestHandler.storage.get_all_users()
         if token is None:
@@ -128,6 +137,7 @@ class RequestHandler:
 
     @staticmethod
     def handle_create_project_request(request):
+        print("Handling Create Project Request")
         token = request.get("token")
         user = {RequestHandler.storage.get_user(token)}
         project_name = request.get("project name")
@@ -147,10 +157,25 @@ class RequestHandler:
 
     @staticmethod
     def handle_add_animal_request(request):
+        print("Handling add animal request")
         project_id = int(request.get("project id"))
-        project = RequestHandler.storage.add_project(project_id)
+        project = RequestHandler.storage.get_project(project_id)
 
-        #if project is not None:
+        if project is None:
+            return ResponseBuilder.build_could_not_find_project()
+        else:
+            animal_class = request.get("Class")
+            animal_class = Role[animal_class]
+            height = float(request.get("Height"))
+            weight = float(request.get("Weight"))
+            length = float(request.get("Length"))
+            tag_Id = int(request.get("TagID"))
+            description = request.get("Description")
+            animal = Animal(animal_class, height, weight, length, tag_Id, description)
+            animal = RequestHandler.storage.update_add_animal(project_id, animal)
+            return ResponseBuilder.build_add_animal_request(animal)
+
+
 
 
 
