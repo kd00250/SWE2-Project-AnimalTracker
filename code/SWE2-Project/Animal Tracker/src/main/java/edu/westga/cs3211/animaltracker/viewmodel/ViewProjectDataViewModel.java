@@ -4,6 +4,7 @@ import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetSingleProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.*;
 
@@ -129,6 +130,21 @@ public class ViewProjectDataViewModel {
     public void setProject(Project project) {
         this.project.set(project);
         this.projectName.set(project.getName());
+    }
+
+    /**
+     * refreshed the view project data.
+     * @return the project
+     */
+    public Project refreshProject() {
+        if (this.project.get() == null) {
+            return null;
+        }
+
+        Project currentProject = this.project.get();
+        GetSingleProjectRequest request = new GetSingleProjectRequest(this.authSession.getToken(), currentProject.getName(), currentProject.getId());
+
+        return this.serverService.requestSingleProject(request);
     }
 
     /**
