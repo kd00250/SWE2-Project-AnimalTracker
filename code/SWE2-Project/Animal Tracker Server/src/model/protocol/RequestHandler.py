@@ -71,6 +71,8 @@ class RequestHandler:
             password = request.get("password")
             role = Role[request.get("role")]
             user = User(username, password, role)
+            #TODO check this
+            RequestHandler.storage.add_user(user)
             return ResponseBuilder.build_add_user_response(user)
         return ResponseBuilder.build_user_exists_response()
 
@@ -145,7 +147,7 @@ class RequestHandler:
         project_id = len(RequestHandler.storage.retrieve_projects_in_server()) + 1
         users = request.get("users", [])
 
-        project = Project(project_name, user, None, project_id)
+        project = Project(project_name, user, set(), project_id)
 
         for current_user in users:
             found_user = RequestHandler.storage.get_user_with_username(current_user)
