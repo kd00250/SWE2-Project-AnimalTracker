@@ -9,6 +9,8 @@ class Project:
             raise Exception("Project project_id cannot be negative")
         if name.strip() == "":
             raise Exception("Project name cannot be an empty string")
+        if animals is None:
+            raise Exception("Project animals cannot be None")
         self._name = name
         self._users = users
         self._animals = animals
