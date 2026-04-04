@@ -33,10 +33,10 @@ public class TestDeleteProject {
 
         Project project = new Project(users, name, animals);
         //DeleteProjectRequest deleteRequest = new DeleteProjectRequest("aaaaa", project.getId());
-
+        String token = "aaa";
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
         var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
-        var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
+        var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         int id = -1;

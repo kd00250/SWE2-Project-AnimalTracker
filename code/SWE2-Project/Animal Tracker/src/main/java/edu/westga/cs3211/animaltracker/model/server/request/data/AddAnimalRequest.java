@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.model.server.request.data;
 
+import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONObject;
@@ -11,11 +12,20 @@ public class AddAnimalRequest extends Request {
     private String token;
     private String projectName;
     private int projectID;
+    private Animal animal;
 
-    public AddAnimalRequest(String token, String projectName, int projectID) {
+    public AddAnimalRequest(String token, String projectName, int projectID, Animal animal) {
         this.token = token;
         this.projectName = projectName;
         this.projectID = projectID;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Animal getAnimal() {
+        return this.animal;
     }
 
     /**
