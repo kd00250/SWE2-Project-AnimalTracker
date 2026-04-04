@@ -143,6 +143,10 @@ public class RemoteServer implements ServerService {
 
         for (int i = 0; i < animalsArray.length(); i++) {
             JSONObject animalJson = animalsArray.getJSONObject(i);
+            if (!this.hasValidAnimalValues(animalJson)) {
+                System.out.println("Skipping invalid animal: " + animalJson);
+                continue;
+            }
             Animal animal = this.buildAnimal(animalJson);
             project.addAnimal(animal);
         }
@@ -154,7 +158,6 @@ public class RemoteServer implements ServerService {
         if (animalJson == null) {
             throw new IllegalArgumentException("Animal JSON cannot be null");
         }
-
         AnimalClass animalClass = AnimalClass.valueOf(animalJson.getString("Class"));
 
         double height = animalJson.getDouble("Height");
@@ -185,6 +188,39 @@ public class RemoteServer implements ServerService {
         }
 
         return users;
+    }
+
+    private boolean hasValidAnimalValues(JSONObject animalJson) {
+        if (animalJson == null) {
+            return false;
+        }
+
+        String classValue = animalJson.optString("Class", "").trim();
+        if (classValue.isEmpty()) {
+            return false;
+        }
+
+        try {
+            AnimalClass.valueOf(classValue.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+
+        if (animalJson.optDouble("Height", -1) <= 0) {
+            return false;
+        }
+        if (animalJson.optDouble("Weight", -1) <= 0) {
+            return false;
+        }
+        if (animalJson.optDouble("Length", -1) <= 0) {
+            return false;
+        }
+        if (animalJson.optInt("TagID", -1) <= 0) {
+            return false;
+        }
+
+        String description = animalJson.optString("Description", "").trim();
+        return !description.isEmpty();
     }
 
     /**
