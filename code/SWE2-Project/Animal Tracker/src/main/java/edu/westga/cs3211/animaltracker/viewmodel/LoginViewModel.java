@@ -25,7 +25,7 @@ public class LoginViewModel {
         this.username = new SimpleStringProperty("");
         this.password = new SimpleStringProperty("");
         this.loginResponse = new SimpleObjectProperty<>();
-       // this.authenticator = new LocalServer();
+        //this.authenticator = new LocalServer();
         this.authenticator = new RemoteServer();
     }
 

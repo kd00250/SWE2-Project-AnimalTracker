@@ -67,8 +67,14 @@ public class SelectProjectViewModel {
      * @return the selected project, or null if none selected
      */
     public Project getSelectedProject() {
-        String projectName = this.selectedProject.get().getName();
-        int projectID = this.selectedProject.get().getId();
+        var project = this.selectedProject.get();
+
+        if (project == null) {
+            return null;
+        }
+
+        String projectName = project.getName();
+        int projectID = project.getId();
         GetSingleProjectRequest request = new GetSingleProjectRequest(this.authSession.getToken(), projectName, projectID);
         //return this.selectedProject.get();
         return this.serverService.requestSingleProject(request);

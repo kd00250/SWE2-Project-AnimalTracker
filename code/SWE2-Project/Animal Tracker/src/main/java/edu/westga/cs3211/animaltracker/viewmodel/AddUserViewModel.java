@@ -88,10 +88,6 @@ public class AddUserViewModel {
         return this.serverService;
     }
 
-    private boolean isUsernameValid() {
-        return DataStorage.isUsernameAvailable(this.username.getValue());
-    }
-
     /**
      * Creates and adds a new user to the system.
      */

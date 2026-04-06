@@ -91,7 +91,7 @@ public class RemoteServer implements ServerService {
      * @return empty List
      */
     @Override
-    public Collection<User> requestAllScientist(UserDataRequest request) {
+    public List<User> requestAllScientist(UserDataRequest request) {
         return List.of();
     }
 
@@ -101,7 +101,7 @@ public class RemoteServer implements ServerService {
      * @return the list of scientists from the server
      */
     @Override
-    public Collection<User> requestAllScientistsFromServer(GetAllScientistsRequests request) {
+    public List<User> requestAllScientistsFromServer(GetAllScientistsRequests request) {
         JSONObject response = this.client.send(request);
         this.buildScientistsFromJson(response);
         return this.buildScientistsFromJson(response);
@@ -178,12 +178,12 @@ public class RemoteServer implements ServerService {
         return new Animal(animalClass, height, weight, length, tagID, description);
     }
 
-    private Collection<User> buildScientistsFromJson(JSONObject json) {
+    private List<User> buildScientistsFromJson(JSONObject json) {
         if (json == null) {
             throw new IllegalArgumentException("JSON cannot be null");
         }
 
-        Collection<User> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
 
         JSONArray userArray = json.getJSONArray("users");
 

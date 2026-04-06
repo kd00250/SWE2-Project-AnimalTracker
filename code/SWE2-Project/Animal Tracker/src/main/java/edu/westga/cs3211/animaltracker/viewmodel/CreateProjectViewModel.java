@@ -10,6 +10,7 @@ import javafx.beans.property.StringProperty;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The CreateProjectViewModel.
@@ -66,7 +67,7 @@ public class CreateProjectViewModel {
      *
      * @return the available scientist
      */
-    public ArrayList<User> getAvailableScientists() {
+    public List<User> getAvailableScientists() {
 //        ArrayList<User> availableUsers = new ArrayList<>();
 //        for (User currentUser : DataStorage.getUsers()) {
 //            if (currentUser.role().equals(Role.SCIENTIST)) {
@@ -75,7 +76,7 @@ public class CreateProjectViewModel {
 //        }
 //        return availableUsers;
         GetAllScientistsRequests request = new GetAllScientistsRequests(this.authSession.getToken());
-        return (ArrayList<User>) this.serverService.requestAllScientistsFromServer(request);
+        return  this.serverService.requestAllScientistsFromServer(request);
     }
 
     /**
@@ -158,7 +159,7 @@ public class CreateProjectViewModel {
         for (User curUser : users) {
             requestUsers.add(curUser.username());
         }
-        AddProjectRequest request = new AddProjectRequest(this.getProjectNameProperty().get(), requestUsers, animals, this.authSession.getToken());
+        AddProjectRequest request = new AddProjectRequest(name, requestUsers, animals, this.authSession.getToken());
         this.serverService.AddProject(request);
     }
 
