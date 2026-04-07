@@ -20,4 +20,12 @@ class TestGetUser(unittest.TestCase):
         with self.assertRaises(Exception):
             self._user_storage.get_user("!!!!!!!!!")
 
-    
+    def test_get_user_with_username(self):
+        user = User("Bob", "1234", Role.ADMIN)
+        self._user_storage.add_user(user)
+        result = self._user_storage.get_user_with_username(user.get_username())
+        self.assertEqual(result, user)
+
+    def test_get_user_with_none_username(self):
+        result = self._user_storage.get_user_with_username(None)
+        self.assertIsNone(result)
