@@ -36,14 +36,14 @@ class TestServerStorageConstructor(unittest.TestCase):
         self.assertEqual(project_returned.get_name(), "Wildlife")
 
     def test_update_add_animal(self):
-        project = Project("test", [], [], 0)
+        project = Project("test", set(), set(), 0)
         self._server_storage.add_project(project)
         animal1 = Animal(12, 12, 12, 12, 12, "desc")
         self._server_storage.update_add_animal(0, animal1)
         self.assertTrue(animal1 in self._server_storage.get_project(0).get_animals())
 
     def test_add_project_user(self):
-        project = Project("test", [], [], 0)
+        project = Project("test", set(), set(), 0)
         self._server_storage.add_project(project)
         user = User("tim", "bob", Role.SCIENTIST)
         self._server_storage.add_project_user(0, user)

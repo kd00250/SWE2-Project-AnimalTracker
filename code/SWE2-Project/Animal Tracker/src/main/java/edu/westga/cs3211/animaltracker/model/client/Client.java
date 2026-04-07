@@ -27,6 +27,16 @@ public class Client {
     }
 
     /**
+     * This constructor is for testing purposes only.
+     * @param context the context
+     */
+    public Client(Context context) {
+        this.context = context;
+        this.socket = context.socket(ZMQ.REQ);
+        this.socket.connect(SERVER_ADDRESS);
+    }
+
+    /**
      * Sends the json string.
      * @param request the request to be sent to the server
      * @return the response from the server

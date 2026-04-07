@@ -23,7 +23,8 @@ public class TestConstuctor {
         animalIds.add(1);
         animalIds.add(2);
         animalIds.add(3);
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "www";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
 
         assertEquals(request.getAnimalIds(), animalIds);
         assertEquals(request.getScientistUsernames(), scientistUsernames);

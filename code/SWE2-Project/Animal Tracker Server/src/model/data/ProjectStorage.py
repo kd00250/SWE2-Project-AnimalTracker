@@ -19,7 +19,7 @@ class ProjectStorage:
         if project is None:
             raise Exception('Project cannot be None')
         if project not in self._projects:
-            project.set_id(len(self._projects))
+            #project.set_id(len(self._projects))
             self._projects.append(project)
             self._id_to_project[project.get_id()] = project
         return project.get_id()
@@ -29,9 +29,10 @@ class ProjectStorage:
     def remove_project(self, project):
         project_id = project.get_id()
         if project_id not in self._id_to_project:
-            return
+            return False
         self._projects.remove(project)
         del self._id_to_project[project_id]
+        return True
 
     """
     Gets a project from the storage
@@ -60,6 +61,15 @@ class ProjectStorage:
             return False
         self._id_to_project[project_id].add_user(user)
         return True
+
+    def retrieve_projects_from_user(self, user):
+        for project in self._projects:
+            if project.contains_user(user):
+                print(project.get_id())
+                yield project
+
+    def retrieve_projects_in_server(self):
+        return self._projects
 
     def reset(self):
         self._projects = []

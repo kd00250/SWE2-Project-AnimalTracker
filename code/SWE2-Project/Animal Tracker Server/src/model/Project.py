@@ -5,12 +5,12 @@ class Project:
             raise Exception("Project name cannot be None")
         if users is None:
             raise Exception("Project users cannot be None")
-        if animals is None:
-            raise Exception("Project animals cannot be None")
         if project_id < 0:
             raise Exception("Project project_id cannot be negative")
         if name.strip() == "":
             raise Exception("Project name cannot be an empty string")
+        if animals is None:
+            raise Exception("Project animals cannot be None")
         self._name = name
         self._users = users
         self._animals = animals
@@ -42,7 +42,7 @@ class Project:
             raise Exception("User cannot be None")
         if self.contains_user(user):
             raise Exception("User already exists")
-        self._users.append(user)
+        self._users.add(user)
 
     def contains_user(self, user):
         return user in self._users
@@ -52,7 +52,7 @@ class Project:
             raise Exception("Animal cannot be None")
         if self.contains_animal(animal):
             raise Exception("Animal already exists")
-        self._animals.append(animal)
+        self._animals.add(animal)
     def contains_animal(self, animal):
         return animal in self._animals
 

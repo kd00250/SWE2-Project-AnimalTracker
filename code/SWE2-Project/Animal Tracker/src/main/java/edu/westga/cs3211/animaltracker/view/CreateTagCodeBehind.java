@@ -121,7 +121,8 @@ public class CreateTagCodeBehind {
                         this.backButton,
                         PageInformation.VIEW_PROJECT_TITLE
                 );
-                controller.setProject(this.viewModel.getViewProjectViewModel().getProjectProperty().get());
+                //controller.setProject(this.viewModel.getViewProjectViewModel().getProjectProperty().get());
+                controller.setProject(this.viewModel.getViewProjectViewModel().refreshProject());
                 controller.setSession(this.viewModel.getSession(), this.viewModel.getServerService());
             } catch (IOException e) {
                 this.displayErrorPopup("Failed to navigate back: " + e.getMessage());

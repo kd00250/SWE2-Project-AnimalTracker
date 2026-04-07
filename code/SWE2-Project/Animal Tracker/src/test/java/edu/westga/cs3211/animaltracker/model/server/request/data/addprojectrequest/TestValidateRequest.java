@@ -21,7 +21,8 @@ public class TestValidateRequest {
         animalIds.add(1);
         animalIds.add(2);
         animalIds.add(3);
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "aaa";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
         assertThrows(InvalidRequestException.class, request::validateRequest);
     }
     @Test
@@ -35,7 +36,8 @@ public class TestValidateRequest {
         animalIds.add(1);
         animalIds.add(2);
         animalIds.add(3);
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "aaa";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
         assertThrows(InvalidRequestException.class, request::validateRequest);
     }
     @Test
@@ -46,7 +48,8 @@ public class TestValidateRequest {
         animalIds.add(1);
         animalIds.add(2);
         animalIds.add(3);
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "aaa";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
         assertThrows(InvalidRequestException.class, request::validateRequest);
     }
     @Test
@@ -57,7 +60,8 @@ public class TestValidateRequest {
         scientistUsernames.add("1234");
         scientistUsernames.add("5678");
         scientistUsernames.add("7890");
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "aaa";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
         assertThrows(InvalidRequestException.class, request::validateRequest);
     }
 
@@ -69,7 +73,8 @@ public class TestValidateRequest {
         scientistUsernames.add("1234");
         scientistUsernames.add("5678");
         scientistUsernames.add("7890");
-        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds);
+        String token = "aaa";
+        AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
         assertDoesNotThrow(request::validateRequest);
     }
 

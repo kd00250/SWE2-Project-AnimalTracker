@@ -65,6 +65,7 @@ public class Project {
     public Project(List<User> users, String name, List<Animal> animals, int id) {
         this(users, name, animals);
         this.id = id;
+        System.out.println("success");
     }
 
     /**

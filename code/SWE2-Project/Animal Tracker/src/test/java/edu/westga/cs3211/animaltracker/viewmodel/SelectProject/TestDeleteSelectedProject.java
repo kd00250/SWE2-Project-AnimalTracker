@@ -52,6 +52,7 @@ class TestDeleteSelectedProject {
     @Test
     void testDeleteProjectNoneSelected() {
         var vm = new SelectProjectViewModel();
+        vm.setSession(this.loginResponse, this.localServer);
         var result = vm.deleteSelectedProject();
 
         assertFalse(result);

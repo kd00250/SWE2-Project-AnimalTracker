@@ -1,5 +1,7 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetAllScientistsRequests;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 
 import edu.westga.cs3211.animaltracker.model.*;
@@ -8,6 +10,7 @@ import javafx.beans.property.StringProperty;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The CreateProjectViewModel.
@@ -64,14 +67,16 @@ public class CreateProjectViewModel {
      *
      * @return the available scientist
      */
-    public ArrayList<User> getAvailableScientists() {
-        ArrayList<User> availableUsers = new ArrayList<>();
-        for (User currentUser : DataStorage.getUsers()) {
-            if (currentUser.role().equals(Role.SCIENTIST)) {
-                availableUsers.add(currentUser);
-            }
-        }
-        return availableUsers;
+    public List<User> getAvailableScientists() {
+//        ArrayList<User> availableUsers = new ArrayList<>();
+//        for (User currentUser : DataStorage.getUsers()) {
+//            if (currentUser.role().equals(Role.SCIENTIST)) {
+//                availableUsers.add(currentUser);
+//            }
+//        }
+//        return availableUsers;
+        GetAllScientistsRequests request = new GetAllScientistsRequests(this.authSession.getToken());
+        return  this.serverService.requestAllScientistsFromServer(request);
     }
 
     /**
@@ -147,8 +152,15 @@ public class CreateProjectViewModel {
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
-        ArrayList<Animal> emptyList = new ArrayList<>();
-        new Project(users, name, emptyList);
+        //ArrayList<Animal> emptyList = new ArrayList<>();
+        ArrayList<Integer> animals = new ArrayList<>();
+        //new Project(users, name, emptyList);
+        ArrayList<String> requestUsers = new ArrayList<>();
+        for (User curUser : users) {
+            requestUsers.add(curUser.username());
+        }
+        AddProjectRequest request = new AddProjectRequest(name, requestUsers, animals, this.authSession.getToken());
+        this.serverService.AddProject(request);
     }
 
     /**
