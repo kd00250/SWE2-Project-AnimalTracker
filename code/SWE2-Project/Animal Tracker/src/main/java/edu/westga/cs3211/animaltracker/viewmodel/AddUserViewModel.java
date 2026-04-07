@@ -92,14 +92,6 @@ public class AddUserViewModel {
      * Creates and adds a new user to the system.
      */
     public void createNewUser() {
-//        if (!this.isUsernameValid()) {
-//            throw new IllegalArgumentException("Username is already taken, please try again");
-//        }
-//        String username = this.getUsername().get();
-//        String password = this.getPassword().get();
-//        Role role = this.getRole().get();
-//        User user = new User(username, password, role);
-//        DataStorage.getUsers().add(user);
         AddUserRequest request = new AddUserRequest(this.getUsername().get(), this.getPassword().get(), this.getRole().get());
         boolean validResponse = this.serverService.addUser(request);
         if (!validResponse) {
