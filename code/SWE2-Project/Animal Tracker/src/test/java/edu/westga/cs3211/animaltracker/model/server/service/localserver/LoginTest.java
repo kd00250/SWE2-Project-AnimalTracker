@@ -58,4 +58,17 @@ public class LoginTest {
         var response = auth.login(request);
         assertNull(response);
     }
+
+    @Test
+    void testUserExistButPasswordWrong() {
+        var user0 = new User("Bobby", "12344", Role.SCIENTIST);
+        DataStorage.reset();
+        DataStorage.getUsers().add(user0);
+        DataStorage.getUsernameMap().clear();
+        DataStorage.getUsernameMap().put(user0.username(), user0);
+        var request = new LoginRequest(user0.username(), "!!!!");
+        var auth = new LocalServer();
+        var response = auth.login(request);
+        assertNull(response);
+    }
 }
