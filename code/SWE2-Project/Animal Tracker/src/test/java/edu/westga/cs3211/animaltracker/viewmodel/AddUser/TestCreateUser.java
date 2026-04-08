@@ -3,7 +3,6 @@ package edu.westga.cs3211.animaltracker.viewmodel.AddUser;
 import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
-import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidResponseException;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import edu.westga.cs3211.animaltracker.viewmodel.AddUserViewModel;
@@ -30,9 +29,9 @@ class TestCreateUser {
 
         vm.createNewUser();
         User user = DataStorage.getUsers().get(2);
-        assertEquals("Kaz", user.username());
-        assertEquals("1234", user.password());
-        assertEquals(Role.SCIENTIST, user.role());
+        assertEquals("Kaz", user.getUsername());
+        assertEquals("1234", user.getPassword());
+        assertEquals(Role.SCIENTIST, user.getRole());
     }
 
     @Test

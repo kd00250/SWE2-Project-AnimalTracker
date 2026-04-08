@@ -157,7 +157,7 @@ public class CreateProjectViewModel {
         //new Project(users, name, emptyList);
         ArrayList<String> requestUsers = new ArrayList<>();
         for (User curUser : users) {
-            requestUsers.add(curUser.username());
+            requestUsers.add(curUser.getUsername());
         }
         AddProjectRequest request = new AddProjectRequest(name, requestUsers, animals, this.authSession.getToken());
         this.serverService.AddProject(request);

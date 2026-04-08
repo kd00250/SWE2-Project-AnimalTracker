@@ -5,8 +5,11 @@ package edu.westga.cs3211.animaltracker.model;
  *
  * @author mrocker1
  */
-public record User(String username, String password, Role role) {
+public class User {
 
+    private String username;
+    private String password;
+    private Role role;
     /**
      * Instantiates a new User.
      *
@@ -40,8 +43,7 @@ public record User(String username, String password, Role role) {
      *
      * @return the Scientist Name
      */
-    @Override
-    public String username() {
+    public String getUsername() {
         return this.username;
     }
 
@@ -50,8 +52,7 @@ public record User(String username, String password, Role role) {
      *
      * @return the user ID
      */
-    @Override
-    public String password() {
+    public String getPassword() {
         return this.password;
     }
 
@@ -60,8 +61,7 @@ public record User(String username, String password, Role role) {
      *
      * @return the role
      */
-    @Override
-    public Role role() {
+    public Role getRole() {
         return this.role;
     }
 

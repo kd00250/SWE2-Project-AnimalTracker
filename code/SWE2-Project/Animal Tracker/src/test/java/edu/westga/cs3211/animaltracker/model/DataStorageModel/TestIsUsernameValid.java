@@ -15,12 +15,12 @@ class TestIsUsernameValid {
     }
 
     @Test
-    void validUsername() {
+    void validGetUsername() {
         assertTrue(DataStorage.isUsernameAvailable("Kaz"));
     }
 
     @Test
-    void invalidUsername() {
+    void invalidGetUsername() {
         User user = new User("Kaz", "1234", Role.ADMIN);
         DataStorage.getUsers().add(user);
         assertFalse(DataStorage.isUsernameAvailable("Kaz"));

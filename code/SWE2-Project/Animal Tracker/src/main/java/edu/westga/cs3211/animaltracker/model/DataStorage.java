@@ -49,7 +49,7 @@ public class DataStorage {
      */
     public static Boolean isUsernameAvailable(String username) {
         for (User user : getUsers()) {
-            if (user.username().equals(username)) {
+            if (user.getUsername().equals(username)) {
                 return false;
             }
         }

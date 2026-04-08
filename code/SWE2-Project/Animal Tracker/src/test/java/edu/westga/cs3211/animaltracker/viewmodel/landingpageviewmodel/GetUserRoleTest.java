@@ -13,18 +13,18 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GetUserRoleTest {
     @Test
-    void testGetValidUserRole() {
+    void testGetValidUserGetRole() {
         var user = new User("Tim", "1234", Role.SCIENTIST);
         DataStorage.getUsers().clear();
         String token = DataStorage.generateTokenForUser(user);
         var vm = new LandingPageViewModel();
         vm.setSession(new LoginResponse(token, 500), new LocalServer());
         Role userRole = vm.getUserRole();
-        assertEquals(user.role(), userRole);
+        assertEquals(user.getRole(), userRole);
     }
 
     @Test
-    void testGetInvalidUserRole() {
+    void testGetInvalidUserGetRole() {
         var vm = new LandingPageViewModel();
         vm.setSession(new LoginResponse("1234", 500), new LocalServer());
         Role userRole = vm.getUserRole();

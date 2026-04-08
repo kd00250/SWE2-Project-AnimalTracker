@@ -29,9 +29,9 @@ class TestAddScientistToProject {
         vm.addScientistToProject(vm.getAvailableScientists().getFirst());
 
         assertEquals(1, vm.getAddedScientist().size());
-        assertEquals("Bob", vm.getAddedScientist().getFirst().username());
-        assertEquals("1234", vm.getAddedScientist().getFirst().password());
-        assertEquals(Role.SCIENTIST, vm.getAddedScientist().getFirst().role());
+        assertEquals("Bob", vm.getAddedScientist().getFirst().getUsername());
+        assertEquals("1234", vm.getAddedScientist().getFirst().getPassword());
+        assertEquals(Role.SCIENTIST, vm.getAddedScientist().getFirst().getRole());
     }
 
     @Test

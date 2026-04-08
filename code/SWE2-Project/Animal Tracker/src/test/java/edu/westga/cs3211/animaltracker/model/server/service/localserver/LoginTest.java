@@ -4,7 +4,6 @@ import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,8 +64,8 @@ public class LoginTest {
         DataStorage.reset();
         DataStorage.getUsers().add(user0);
         DataStorage.getUsernameMap().clear();
-        DataStorage.getUsernameMap().put(user0.username(), user0);
-        var request = new LoginRequest(user0.username(), "!!!!");
+        DataStorage.getUsernameMap().put(user0.getUsername(), user0);
+        var request = new LoginRequest(user0.getUsername(), "!!!!");
         var auth = new LocalServer();
         var response = auth.login(request);
         assertNull(response);

@@ -39,7 +39,7 @@ public class RequestUserRoleTest {
     }
 
     @Test
-    void validTokenReturnsRole() {
+    void validTokenReturnsGetRole() {
         var auth = new LocalServer();
         var request = new UserDataRequest(this.validResponse.getToken());
         var response = auth.requestUserRole(request);
