@@ -7,7 +7,6 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 
-import java.util.Collection;
 import java.util.List;
 
 /**

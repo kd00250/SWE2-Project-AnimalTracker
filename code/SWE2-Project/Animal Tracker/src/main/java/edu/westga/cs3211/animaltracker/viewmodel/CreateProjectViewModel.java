@@ -1,4 +1,5 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
+
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.data.GetAllScientistsRequests;
@@ -37,7 +38,7 @@ public class CreateProjectViewModel {
      * Sets the session for this view model.
      *
      * @param session the user's session
-     * @param server the server service
+     * @param server  the server service
      */
     public void setSession(LoginResponse session, ServerService server) {
         this.authSession = session;
@@ -76,7 +77,7 @@ public class CreateProjectViewModel {
 //        }
 //        return availableUsers;
         GetAllScientistsRequests request = new GetAllScientistsRequests(this.authSession.getToken());
-        return  this.serverService.requestAllScientistsFromServer(request);
+        return this.serverService.requestAllScientistsFromServer(request);
     }
 
     /**
@@ -148,7 +149,7 @@ public class CreateProjectViewModel {
     /**
      * creates a new project based on the information entered.
      *
-     * @param name the name
+     * @param name  the name
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
