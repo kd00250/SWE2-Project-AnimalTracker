@@ -3,7 +3,6 @@ package edu.westga.cs3211.animaltracker.model.server.request.data;
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_ANIMAL_REQUEST;

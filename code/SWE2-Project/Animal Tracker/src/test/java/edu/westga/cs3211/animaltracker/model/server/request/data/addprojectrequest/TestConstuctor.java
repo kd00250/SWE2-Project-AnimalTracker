@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestConstuctor {
 
-
     @Test
     void testValidRequestConstructed() {
         var name = "1234";
@@ -27,6 +26,7 @@ public class TestConstuctor {
         AddProjectRequest request = new AddProjectRequest(name, scientistUsernames, animalIds, token);
 
         assertEquals(request.getAnimalIds(), animalIds);
+        assertEquals(token, request.getToken());
         assertEquals(request.getScientistUsernames(), scientistUsernames);
         assertEquals(name, request.getProjectName());
 

@@ -108,13 +108,13 @@ public class AddProjectRequest extends Request {
         return array;
     }
 
-    private JSONArray buildIntegerArray(Collection<Integer> values) {
-        JSONArray array = new JSONArray();
-
-        for (Integer value : values) {
-            array.put(value);
-        }
-
-        return array;
-    }
+//    private JSONArray buildIntegerArray(Collection<Integer> values) {
+//        JSONArray array = new JSONArray();
+//
+//        for (Integer value : values) {
+//            array.put(value);
+//        }
+//
+//        return array;
+//    }
 }

@@ -18,11 +18,11 @@ class TestGetUsers {
     void getUsers() {
 
         assertEquals(2, DataStorage.getUsers().size());
-        assertEquals("Bob", DataStorage.getUsers().getFirst().username());
-        assertEquals("1234", DataStorage.getUsers().getFirst().password());
-        assertEquals(Role.SCIENTIST, DataStorage.getUsers().getFirst().role());
-        assertEquals("Billy", DataStorage.getUsers().get(1).username());
-        assertEquals("6767", DataStorage.getUsers().get(1).password());
-        assertEquals(Role.ADMIN, DataStorage.getUsers().get(1).role());
+        assertEquals("Bob", DataStorage.getUsers().getFirst().getUsername());
+        assertEquals("1234", DataStorage.getUsers().getFirst().getPassword());
+        assertEquals(Role.SCIENTIST, DataStorage.getUsers().getFirst().getRole());
+        assertEquals("Billy", DataStorage.getUsers().get(1).getUsername());
+        assertEquals("6767", DataStorage.getUsers().get(1).getPassword());
+        assertEquals(Role.ADMIN, DataStorage.getUsers().get(1).getRole());
     }
 }

@@ -39,7 +39,7 @@ public class LocalServer implements ServerService {
     @Override
     public boolean addUser(AddUserRequest request) {
         User user = new User(request.getUsername(), request.getPassword(), request.getRole());
-        if (!DataStorage.isUsernameAvailable(user.username())) {
+        if (!DataStorage.isUsernameAvailable(user.getUsername())) {
             return false;
         }
         DataStorage.getUsers().add(user);
@@ -54,7 +54,7 @@ public class LocalServer implements ServerService {
         request.validateRequest();
         var matchingUser = DataStorage.getUserByUsername(request.getUsername());
         if (matchingUser != null) {
-            if (matchingUser.password().equals(request.getPassword())) {
+            if (matchingUser.getPassword().equals(request.getPassword())) {
                 var token = DataStorage.generateTokenForUser(matchingUser);
                 return new LoginResponse(token, DEFAULT_TIMEOUT);
             }
@@ -70,7 +70,7 @@ public class LocalServer implements ServerService {
         request.validateRequest();
         if (DataStorage.tokenExist(request.getToken())) {
             var user = DataStorage.getUserByToken(request.getToken());
-            return user.role();
+            return user.getRole();
         }
         return null;
     }
@@ -117,7 +117,7 @@ public class LocalServer implements ServerService {
         if (role == Role.SCIENTIST || role == Role.ADMIN) {
             List<User> scientist = new ArrayList<>();
             for (User user : getUsers()) {
-                if (user.role() == Role.SCIENTIST) {
+                if (user.getRole() == Role.SCIENTIST) {
                     scientist.add(user);
                 }
             }
@@ -137,7 +137,7 @@ public class LocalServer implements ServerService {
         var users = DataStorage.getUsers();
         var scientist = new ArrayList<User>();
         for (User user : users) {
-            if (user.role() == Role.SCIENTIST) {
+            if (user.getRole() == Role.SCIENTIST) {
                 scientist.add(user);
             }
         }
@@ -175,7 +175,7 @@ public class LocalServer implements ServerService {
         List<User> scientists = new ArrayList<>();
         for (String username : usernames) {
             var scientist = DataStorage.getUserByUsername(username);
-            if (scientist.role() == Role.SCIENTIST) {
+            if (scientist.getRole() == Role.SCIENTIST) {
                 scientists.add(scientist);
             }
         }

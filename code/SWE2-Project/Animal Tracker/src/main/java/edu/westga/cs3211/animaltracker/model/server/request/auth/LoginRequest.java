@@ -4,7 +4,6 @@ import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestExcept
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONObject;
 
-import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.LOGIN_REQUEST;
 
 /**
  * The login request class.

@@ -41,14 +41,14 @@ public class TestAddProject {
 
         var baseUser = new User("1234", "1234", Role.SCIENTIST);
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
-        var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
+        var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
         String token = "aaa";
         var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {
             for (var scientist : currProject.getUsers()) {
-                assertTrue(scientistNames.contains(scientist.username()));
+                assertTrue(scientistNames.contains(scientist.getUsername()));
             }
             for (var currAnimal : currProject.getAnimals()) {
                 assertTrue(animalId.contains(currAnimal.getId()));
@@ -80,13 +80,13 @@ public class TestAddProject {
         Project project = new Project(users, name, animals);
 
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
-        var scientistNames = project.getUsers().stream().map(User::username).collect(Collectors.toCollection(ArrayList::new));
+        var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
         var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {
             for (var scientist : currProject.getUsers()) {
-                assertTrue(scientistNames.contains(scientist.username()));
+                assertTrue(scientistNames.contains(scientist.getUsername()));
             }
             for (var currAnimal : currProject.getAnimals()) {
                 assertTrue(animalId.contains(currAnimal.getId()));

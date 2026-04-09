@@ -6,7 +6,6 @@ import edu.westga.cs3211.animaltracker.model.server.request.Request;
 import org.json.JSONObject;
 
 import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.ADD_USER_REQUEST;
-import static edu.westga.cs3211.animaltracker.model.server.request.SeverSettings.GET_PROJECTS_REQUEST;
 
 /**
  * the add user request class.

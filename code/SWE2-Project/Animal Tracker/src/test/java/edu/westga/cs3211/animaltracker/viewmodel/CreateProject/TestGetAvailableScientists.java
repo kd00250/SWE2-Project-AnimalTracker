@@ -27,8 +27,8 @@ class TestGetAvailableScientists {
         vm.setSession(new LoginResponse(token, 1000), new LocalServer());
 
         assertEquals(1, vm.getAvailableScientists().size());
-        assertEquals("Bob", vm.getAvailableScientists().getFirst().username());
-        assertEquals("1234", vm.getAvailableScientists().getFirst().password());
-        assertEquals(Role.SCIENTIST, vm.getAvailableScientists().getFirst().role());
+        assertEquals("Bob", vm.getAvailableScientists().getFirst().getUsername());
+        assertEquals("1234", vm.getAvailableScientists().getFirst().getPassword());
+        assertEquals(Role.SCIENTIST, vm.getAvailableScientists().getFirst().getRole());
     }
 }

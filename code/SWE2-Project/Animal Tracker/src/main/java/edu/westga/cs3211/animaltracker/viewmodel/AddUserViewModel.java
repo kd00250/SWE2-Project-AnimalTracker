@@ -1,9 +1,7 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
-import com.sun.nio.sctp.IllegalReceiveException;
-import edu.westga.cs3211.animaltracker.model.DataStorage;
+
 import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidResponseException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
@@ -92,14 +90,6 @@ public class AddUserViewModel {
      * Creates and adds a new user to the system.
      */
     public void createNewUser() {
-//        if (!this.isUsernameValid()) {
-//            throw new IllegalArgumentException("Username is already taken, please try again");
-//        }
-//        String username = this.getUsername().get();
-//        String password = this.getPassword().get();
-//        Role role = this.getRole().get();
-//        User user = new User(username, password, role);
-//        DataStorage.getUsers().add(user);
         AddUserRequest request = new AddUserRequest(this.getUsername().get(), this.getPassword().get(), this.getRole().get());
         boolean validResponse = this.serverService.addUser(request);
         if (!validResponse) {
