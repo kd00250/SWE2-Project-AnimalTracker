@@ -46,7 +46,7 @@ public class TestRequestUserRole {
     }
 
     @Test
-    void shouldReturnRoleFromResponse() {
+    void shouldReturnGetRoleFromResponse() {
         JSONObject response = new JSONObject();
         response.put("role", Role.values()[0].name());
 

@@ -45,9 +45,9 @@ class TestConstructor {
 
         assertAll(
                 () -> {
-                    assertEquals("John Doe", user.username());
-                    assertEquals("123456789", user.password());
-                    assertEquals(Role.ADMIN, user.role());
+                    assertEquals("John Doe", user.getUsername());
+                    assertEquals("123456789", user.getPassword());
+                    assertEquals(Role.ADMIN, user.getRole());
                 }
         );
     }

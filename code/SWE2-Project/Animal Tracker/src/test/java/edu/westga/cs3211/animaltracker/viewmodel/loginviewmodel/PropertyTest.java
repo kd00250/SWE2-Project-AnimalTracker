@@ -4,7 +4,6 @@ import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
-import edu.westga.cs3211.animaltracker.model.server.service.RemoteServer;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import org.junit.jupiter.api.Test;
 
@@ -17,8 +16,8 @@ public class PropertyTest {
         DataStorage.generateTokenForUser(user);
         var vm = new LoginViewModel();
         vm.setServer(new LocalServer());
-        vm.usernameProperty().set(user.username());
-        vm.passwordProperty().set(user.password());
+        vm.usernameProperty().set(user.getUsername());
+        vm.passwordProperty().set(user.getPassword());
         vm.processLoginRequest();
         assertNotNull(vm.getLoginResponse());
         assertNotNull(vm.getServerService());

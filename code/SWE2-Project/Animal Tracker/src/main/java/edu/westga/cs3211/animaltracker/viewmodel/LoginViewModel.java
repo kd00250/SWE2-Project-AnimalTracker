@@ -4,7 +4,6 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.RemoteServer;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
-import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -30,7 +29,7 @@ public class LoginViewModel {
     }
 
     /**
-     * Sets the server instance, primarily used for testing purposes
+     * Sets the server instance, primarily used for testing purposes.
      * @param server the server
      */
     public void setServer(ServerService server) {

@@ -78,6 +78,10 @@ public class LandingPageCodeBehind {
         }
     }
 
+    /**
+     * Called when the add sighting button is clicked.
+     * @param actionEvent the click event
+     */
     public void onAddSightingClick(ActionEvent actionEvent) {
         try {
 

@@ -1,9 +1,7 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
-import com.sun.nio.sctp.IllegalReceiveException;
-import edu.westga.cs3211.animaltracker.model.DataStorage;
+
 import edu.westga.cs3211.animaltracker.model.Role;
-import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.InvalidResponseException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddUserRequest;
