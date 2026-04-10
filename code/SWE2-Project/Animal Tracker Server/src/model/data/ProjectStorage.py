@@ -1,20 +1,16 @@
 from model.data.UserStorage import UserStorage
 
-"""
-The project storage which updates and stores projects.
-"""
-class ProjectStorage:
 
+class ProjectStorage:
     """
-    Instantiates a new project storage
+    The storage class that manages projects for the server.
     """
+
     def __init__(self):
         self._projects = []
         self._id_to_project = {}
 
-    """
-    Adds a new project to the storage
-    """
+
     def add_project(self, project):
         if project is None:
             raise Exception('Project cannot be None')
@@ -23,9 +19,7 @@ class ProjectStorage:
             self._projects.append(project)
             self._id_to_project[project.get_id()] = project
         return project.get_id()
-    """
-    Removes a project from the storage
-    """
+
     def remove_project(self, project):
         project_id = project.get_id()
         if project_id not in self._id_to_project:
@@ -34,16 +28,12 @@ class ProjectStorage:
         del self._id_to_project[project_id]
         return True
 
-    """
-    Gets a project from the storage
-    """
+
     def get_project(self, project_id):
         if project_id not in self._id_to_project:
             return None
         return self._id_to_project[project_id]
-    """
-    Updates a projects name inside the storage.
-    """
+
     def update_project_name(self, project_id, name):
         if project_id not in self._id_to_project:
             return False
