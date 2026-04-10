@@ -2,9 +2,24 @@ from model.data.ServerStorage import ServerStorage
 
 
 class Authenticator:
+    """
+    Provides authentication-related functionality for validating user login
+        requests and generating authentication tokens.
+    """
 
     @staticmethod
     def check_login(request):
+
+        """
+        Validates user login requests and generates authentication tokens.
+        :param request: A JSON-like dictionary containing login data.
+                        Expected keys:
+                        "action" (str): The type of request to perform
+                        "username" (str): The username of the user
+                        "password" (str): The password of the user
+        :return: str | None: A generated authentication token if the login is successful;
+                        otherwise, None if authentication fails.
+        """
         storage = ServerStorage()
         print(f"In Authenticator")
 
