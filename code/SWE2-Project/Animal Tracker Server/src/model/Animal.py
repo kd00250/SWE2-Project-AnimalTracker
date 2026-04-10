@@ -2,7 +2,14 @@ from model.TagStatus import TagStatus
 
 
 class Animal:
+    """
+    The class that represents animals in the server
+    """
+
     def __init__(self, animal_class, height, weight, length, tag_id, description):
+        """
+        Initializes the animal for the server.
+        """
         if description is None:
             raise Exception("Description is required")
         if animal_class is None:
@@ -25,17 +32,43 @@ class Animal:
         self._tag_status = TagStatus.ACTIVE
 
     def get_animal_class(self):
+        """
+        Gets the animal class.
+        :return: The animal class.
+        """
         return self._animal_class
     def get_height(self):
+        """
+        Gets the height for the animal.
+        :return: The height for the animal.
+        """
         return self._height
     def get_weight(self):
+        """Gets the weight of the animal.
+        :return: The weight of the animal."""
         return self._weight
     def get_length(self):
+        """
+        Gets the length of the animal.
+        :return: The length of the animal.
+        """
         return self._length
     def get_tag_id(self):
+        """
+        Gets the tagId of the animal.
+        :return: The tagId of the animal.
+        """
         return self._tagId
     def get_tag_status(self):
+        """
+        Gets the tag status for the animal
+        :return: The tag status for the animal.
+        """
         return self._tag_status
     def get_description(self):
+        """
+        Gets the description of the animal.
+        :return: The description of the animal.
+        """
         return self._description
 
