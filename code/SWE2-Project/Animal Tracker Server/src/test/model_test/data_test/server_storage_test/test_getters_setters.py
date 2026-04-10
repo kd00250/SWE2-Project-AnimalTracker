@@ -85,6 +85,42 @@ class TestServerStorageConstructor(unittest.TestCase):
         result = self._server_storage.contains_username(user.get_username())
         self.assertTrue(result)
 
+    def test_retrieve_projects_from_user(self):
+        user = User("Tim", "1234", Role.SCIENTIST)
+        project = Project("Test", {user}, {}, 0)
+        self._server_storage.add_project(project)
+        projects = list(self._server_storage.retrieve_projects_from_user(user))
+        self.assertEqual(len(projects), 1)
+        self.assertEqual(projects[0].get_name(), project.get_name())
 
+    def test_get_all_users(self):
+        user = user = User("Tim", "1234", Role.SCIENTIST)
+        self._server_storage.add_user(user)
+        users = self._server_storage.get_all_users()
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0].get_username(), user.get_username())
 
+    def test_retrieve_projects_in_server(self):
+        project = Project("Test", set(), set(), 0)
+        self._server_storage.add_project(project)
+        projects = self._server_storage.retrieve_projects_in_server()
+        self.assertEqual(len(projects), 1)
+        self.assertEqual(projects[0].get_name(), project.get_name())
 
+    def test_get_user_with_username(self):
+        user = original_user = User("Tim", "1234", Role.SCIENTIST)
+        self._server_storage.add_user(original_user)
+        user = self._server_storage.get_user_with_username(original_user.get_username())
+        self.assertEqual(original_user, user)
+
+    def test_contains_users_password(self):
+        user = User("Tim", "1234", Role.SCIENTIST)
+        self._server_storage.add_user(user)
+        result = self._server_storage.contains_users_password(user.get_username(), user.get_password())
+        self.assertTrue(result)
+
+    def test_remove_user(self):
+        user = User("Tim", "1234", Role.SCIENTIST)
+        self._server_storage.add_user(user)
+        self._server_storage.remove_user(user.get_username())
+        self.assertTrue(len(self._server_storage.get_all_users()) == 0)
