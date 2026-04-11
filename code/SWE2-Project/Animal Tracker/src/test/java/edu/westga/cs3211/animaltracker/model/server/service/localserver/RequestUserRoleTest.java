@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
+import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
@@ -15,11 +16,13 @@ public class RequestUserRoleTest {
 
     @BeforeEach
     void setup() {
+        DataStorage.reset();
         var username = "Bob";
         var password = "1234";
         var request = new LoginRequest(username, password);
         var auth = new LocalServer();
         this.validResponse = auth.login(request);
+
     }
 
     @Test
