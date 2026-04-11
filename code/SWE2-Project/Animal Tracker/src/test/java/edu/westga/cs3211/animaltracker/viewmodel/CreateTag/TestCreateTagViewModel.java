@@ -10,6 +10,8 @@ import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -24,7 +26,7 @@ public class TestCreateTagViewModel {
         this.viewModel = new CreateTagViewModel();
         ViewProjectDataViewModel viewProjectViewModel = new ViewProjectDataViewModel();
 
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         viewProjectViewModel.setProject(project);
 
         LoginResponse session = new LoginResponse("validToken", 100);
@@ -209,13 +211,6 @@ public class TestCreateTagViewModel {
         assertEquals(expectedLength, newAnimal.getHeight());
         assertEquals(expectedHeight, newAnimal.getLength());
 
-    }
-
-    @Test
-    void testResetTagID() {
-        this.viewModel.tagIdProperty().set("123456");
-        this.viewModel.resetTagID();
-        assertEquals("******", this.viewModel.tagIdProperty().get());
     }
 
 }

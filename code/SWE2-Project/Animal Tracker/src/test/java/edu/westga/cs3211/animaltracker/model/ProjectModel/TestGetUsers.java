@@ -8,6 +8,8 @@ import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.Role;
 
+import java.util.ArrayList;
+
 /**
  * Tests for the getUsers method in Project class.
  * @author mrocker1
@@ -16,7 +18,7 @@ class TestGetUsers {
 
     @Test
     void testGetUsersWhenEmpty() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
 
         assertNotNull(project.getUsers(), "checking users list is not null");
         assertEquals(0, project.getUsers().size(), "checking users list is empty");
@@ -24,7 +26,7 @@ class TestGetUsers {
 
     @Test
     void testGetUsersWithOneUser() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user = new User("testuser", "password", Role.SCIENTIST);
 
         project.addUser(user);
@@ -35,7 +37,7 @@ class TestGetUsers {
 
     @Test
     void testGetUsersWithMultipleUsers() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("user1", "password1", Role.SCIENTIST);
         User user2 = new User("user2", "password2", Role.CONTRIBUTOR);
         User user3 = new User("user3", "password3", Role.GUEST);
@@ -49,7 +51,7 @@ class TestGetUsers {
 
     @Test
     void testGetUsersReturnsCorrectList() {
-        Project project = new Project("Test Project");
+        Project project = new Project(new ArrayList<>(),  "test", new ArrayList<>());
         User user1 = new User("user1", "password1", Role.SCIENTIST);
         User user2 = new User("user2", "password2", Role.ADMIN);
 

@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
 import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.DeleteProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import org.junit.jupiter.api.Test;
 
@@ -31,16 +32,19 @@ public class TestDeleteProject {
         users.add(user2);
 
         Project project = new Project(users, name, animals);
-
+        //DeleteProjectRequest deleteRequest = new DeleteProjectRequest("aaaaa", project.getId());
+        String token = "aaa";
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
         var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
-        var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
+        var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         int id = -1;
+        //server.deleteProject(deleteRequest);
         var keys = new ArrayList<Integer>(DataStorage.getProjects().keySet());
         for (Integer key : keys) {
-            server.deleteProject(key);
+            DeleteProjectRequest deleteRequest = new DeleteProjectRequest("aaaaa", key);
+            server.deleteProject(deleteRequest);
         }
         assertEquals(0, DataStorage.getProjects().size());
     }

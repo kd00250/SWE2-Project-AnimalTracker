@@ -52,6 +52,7 @@ public class LandingPageViewModel {
      */
     public Role getUserRole() {
         var request = new UserDataRequest(this.authSession.getToken());
+        //return Role.ADMIN;
         return this.serverService.requestUserRole(request);
     }
 

@@ -1,5 +1,7 @@
 package edu.westga.cs3211.animaltracker.model.server.request;
 
+import org.json.JSONObject;
+
 import java.util.Random;
 
 /**
@@ -37,4 +39,10 @@ public abstract class Request {
      * Validates that the request is valid to be sent.
      */
     public abstract void validateRequest();
+
+    /**
+     * converts the request to json to be sent.
+     * @return the json object to be sent
+     */
+    public abstract JSONObject toJson();
 }

@@ -2,7 +2,9 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
+import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddAnimalRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.*;
@@ -174,7 +176,10 @@ public class CreateTagViewModel {
             double lengthValue = this.parseDoubleOrThrow(this.length.get(), "Length");
             int id = this.parseIntOrThrow(this.tagId.get());
             Animal animal = new Animal(this.animalClass.get(), heightValue, weightValue, lengthValue, id, this.description.get());
-            this.viewProjectViewModel.getProjectProperty().get().addAnimal(animal);
+            Project project = this.getViewProjectViewModel().getProjectProperty().get();
+            //this.viewProjectViewModel.getProjectProperty().get().addAnimal(animal);
+            AddAnimalRequest request = new AddAnimalRequest(this.authSession.getToken(), project.getName(), project.getId(), animal);
+            this.serverService.requestAddAnimal(request);
             return true;
 
         } catch (Exception e) {
@@ -195,13 +200,6 @@ public class CreateTagViewModel {
                 .or(this.height.isEmpty())
                 .or(this.length.isEmpty())
                 .or(this.weight.isEmpty());
-    }
-
-    /**
-     * Resets the tag id.
-     */
-    public void resetTagID() {
-        this.tagId.set(DEFAULT_TAG);
     }
 
     private double parseDoubleOrThrow(String value, String fieldName) {

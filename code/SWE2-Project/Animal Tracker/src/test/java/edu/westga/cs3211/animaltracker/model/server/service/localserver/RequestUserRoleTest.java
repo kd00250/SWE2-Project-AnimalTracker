@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class RequestUserRoleTest {
     private LoginResponse validResponse;
+
     @BeforeEach
     void setup() {
         var username = "Bob";
@@ -20,6 +21,7 @@ public class RequestUserRoleTest {
         var auth = new LocalServer();
         this.validResponse = auth.login(request);
     }
+
     @Test
     void testNullRequest() {
         var server = new LocalServer();
@@ -37,7 +39,7 @@ public class RequestUserRoleTest {
     }
 
     @Test
-    void validTokenReturnsRole() {
+    void validTokenReturnsGetRole() {
         var auth = new LocalServer();
         var request = new UserDataRequest(this.validResponse.getToken());
         var response = auth.requestUserRole(request);

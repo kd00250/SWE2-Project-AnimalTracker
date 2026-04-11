@@ -3,6 +3,7 @@ package edu.westga.cs3211.animaltracker.viewmodel.loginviewmodel;
 import edu.westga.cs3211.animaltracker.model.DataStorage;
 import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
+import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import edu.westga.cs3211.animaltracker.viewmodel.LoginViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ public class IsLoginValidTest {
     @Test
     void testLoginResponseNull() {
         var vm = new LoginViewModel();
+        vm.setServer(new LocalServer());
         vm.usernameProperty().set(" ");
         vm.passwordProperty().set(" ");
         vm.processLoginRequest();
@@ -32,6 +34,8 @@ public class IsLoginValidTest {
     @Test
     void testLoginResponseValid() {
         var vm = new LoginViewModel();
+        vm.setServer(new LocalServer());
+
         vm.usernameProperty().set(this.user.getUsername());
         vm.passwordProperty().set(this.user.getPassword());
         vm.processLoginRequest();

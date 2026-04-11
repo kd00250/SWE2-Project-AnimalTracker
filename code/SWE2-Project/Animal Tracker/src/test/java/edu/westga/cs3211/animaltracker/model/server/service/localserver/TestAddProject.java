@@ -2,7 +2,6 @@ package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
 import edu.westga.cs3211.animaltracker.model.*;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +42,8 @@ public class TestAddProject {
         var baseUser = new User("1234", "1234", Role.SCIENTIST);
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
         var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
-        var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
+        String token = "aaa";
+        var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {
@@ -76,12 +76,12 @@ public class TestAddProject {
         animals.add(animal2);
         users.add(user1);
         users.add(user2);
-
+        String token = "aaa";
         Project project = new Project(users, name, animals);
 
         var animalId = project.getAnimals().stream().map(Animal::getId).collect(Collectors.toCollection(ArrayList::new));
         var scientistNames = project.getUsers().stream().map(User::getUsername).collect(Collectors.toCollection(ArrayList::new));
-        var request = new AddProjectRequest(project.getName(), scientistNames, animalId);
+        var request = new AddProjectRequest(project.getName(), scientistNames, animalId, token);
         var server = new LocalServer();
         server.AddProject(request);
         for (var currProject : DataStorage.getProjects().values()) {

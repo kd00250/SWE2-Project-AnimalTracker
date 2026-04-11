@@ -1,5 +1,8 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
+
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetAllScientistsRequests;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 
 import edu.westga.cs3211.animaltracker.model.*;
@@ -8,6 +11,7 @@ import javafx.beans.property.StringProperty;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The CreateProjectViewModel.
@@ -17,9 +21,9 @@ import java.util.ArrayList;
 public class CreateProjectViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private StringProperty projectName;
-    private StringProperty projectLocation;
-    private ArrayList<User> addedScientist;
+    private final StringProperty projectName;
+    private final StringProperty projectLocation;
+    private final ArrayList<User> addedScientist;
 
     /**
      * Instantiates a new CreateProjectViewModel.
@@ -34,7 +38,7 @@ public class CreateProjectViewModel {
      * Sets the session for this view model.
      *
      * @param session the user's session
-     * @param server the server service
+     * @param server  the server service
      */
     public void setSession(LoginResponse session, ServerService server) {
         this.authSession = session;
@@ -64,14 +68,16 @@ public class CreateProjectViewModel {
      *
      * @return the available scientist
      */
-    public ArrayList<User> getAvailableScientists() {
-        ArrayList<User> availableUsers = new ArrayList<>();
-        for (User currentUser : DataStorage.getUsers()) {
-            if (currentUser.getRole().equals(Role.SCIENTIST)) {
-                availableUsers.add(currentUser);
-            }
-        }
-        return availableUsers;
+    public List<User> getAvailableScientists() {
+//        ArrayList<User> availableUsers = new ArrayList<>();
+//        for (User currentUser : DataStorage.getUsers()) {
+//            if (currentUser.role().equals(Role.SCIENTIST)) {
+//                availableUsers.add(currentUser);
+//            }
+//        }
+//        return availableUsers;
+        GetAllScientistsRequests request = new GetAllScientistsRequests(this.authSession.getToken());
+        return this.serverService.requestAllScientistsFromServer(request);
     }
 
     /**
@@ -143,13 +149,19 @@ public class CreateProjectViewModel {
     /**
      * creates a new project based on the information entered.
      *
-     * @param name the name
+     * @param name  the name
      * @param users the users
      */
     public void createProject(String name, ArrayList<User> users) {
-        ArrayList<Scientist> dummyList = new ArrayList<>();
-        ArrayList<Animal> emptyList = new ArrayList<>();
-        new Project(name, dummyList, emptyList, users);
+        //ArrayList<Animal> emptyList = new ArrayList<>();
+        ArrayList<Integer> animals = new ArrayList<>();
+        //new Project(users, name, emptyList);
+        ArrayList<String> requestUsers = new ArrayList<>();
+        for (User curUser : users) {
+            requestUsers.add(curUser.getUsername());
+        }
+        AddProjectRequest request = new AddProjectRequest(name, requestUsers, animals, this.authSession.getToken());
+        this.serverService.AddProject(request);
     }
 
     /**

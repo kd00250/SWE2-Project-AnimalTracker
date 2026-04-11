@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TestGetUserNameMap {
 
     @Test
-    void testGetUsernameMap() {
+    void testGetGetUsernameMap() {
         DataStorage.getUsers().clear();
         DataStorage.getTokenMap().clear();
         DataStorage.getUsernameMap().clear();

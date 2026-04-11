@@ -72,6 +72,13 @@
                     prefWidth="120.0"
                     style="-fx-background-color: #d9534f; -fx-text-fill: white;"/>
 
+            <Button fx:id="createProjectButton"
+                    mnemonicParsing="false"
+                    onAction="#onCreateProjectClick"
+                    text="Create Project"
+                    prefWidth="120.0"
+                    style="-fx-background-color: #5cb85c; -fx-text-fill: white;"/>
+
             <Button fx:id="refreshButton"
                     mnemonicParsing="false"
                     onAction="#onRefreshClick"

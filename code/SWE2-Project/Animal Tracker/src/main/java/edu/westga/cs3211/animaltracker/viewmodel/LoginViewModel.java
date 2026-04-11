@@ -2,8 +2,8 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.RemoteServer;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
-import edu.westga.cs3211.animaltracker.model.server.service.LocalServer;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,10 +12,10 @@ import javafx.beans.property.StringProperty;
  * The login view model class.
  */
 public class LoginViewModel {
-    private StringProperty username;
-    private StringProperty password;
+    private final StringProperty username;
+    private final StringProperty password;
     private ServerService authenticator;
-    private SimpleObjectProperty<LoginResponse> loginResponse;
+    private final SimpleObjectProperty<LoginResponse> loginResponse;
 
     /**
      * Instantiates a new login view model.
@@ -24,7 +24,21 @@ public class LoginViewModel {
         this.username = new SimpleStringProperty("");
         this.password = new SimpleStringProperty("");
         this.loginResponse = new SimpleObjectProperty<>();
-        this.authenticator = new LocalServer();
+        //this.authenticator = new LocalServer();
+        this.authenticator = new RemoteServer();
+    }
+
+    /**
+     * Sets the server instance, primarily used for testing purposes.
+     * @param server the server
+     */
+    public void setServer(ServerService server) {
+
+        if (server == null) {
+            throw new IllegalArgumentException("server cannot be null");
+        }
+
+        this.authenticator = server;
     }
 
     /**
@@ -56,10 +70,7 @@ public class LoginViewModel {
      * @return true if valid, otherwise false
      */
     public boolean isLoginValid() {
-        if (this.loginResponse.getValue() == null) {
-            return false;
-        }
-        return this.authenticator.isValidToken(this.loginResponse.getValue().getToken());
+        return this.loginResponse.getValue() != null;
     }
 
     /**

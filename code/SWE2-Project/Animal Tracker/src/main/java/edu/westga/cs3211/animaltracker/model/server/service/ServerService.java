@@ -5,29 +5,35 @@ import edu.westga.cs3211.animaltracker.model.Role;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.AddProjectRequest;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
  * The auth login service interface.
  */
 public interface ServerService {
+
+    /**
+     * gets the project from the server.
+     * @param request the request to be sent
+     * @return the project
+     */
+    Project requestSingleProject(GetSingleProjectRequest request);
+
+    /**
+     * adds the user to the server.
+     * @param request the request to be sent
+     * @return the status of the request
+     */
+    boolean addUser(AddUserRequest request);
+
     /**
      * Submits a login request and retrieves a response.
      * @param request the request
      * @return the response based on the request
      */
     LoginResponse login(LoginRequest request);
-
-    /**
-     * Checks if a given token is valid.
-     * @param token the token
-     * @return true if valid, otherwise false
-     */
-    boolean isValidToken(String token);
 
     /**
      * Request the role for a given user.
@@ -42,14 +48,27 @@ public interface ServerService {
      * @param request the get all projects for user request
      * @return a list of projects associated with the user
      */
-    List<Project> requestUserProjects(UserDataRequest request);
+    List<Project> requestUserProjects(GetProjectRequest request);
+
+    /**
+     * Sends a request to the server to add a animal to the project.
+     * @param request the request
+     */
+    void requestAddAnimal(AddAnimalRequest request);
 
     /**
      * Request all scientist in the system as long as user is a scientist or admin.
      * @param request the request
      * @return the scientist in the system
      */
-    Collection<User> requestAllScientist(UserDataRequest request);
+    List<User> requestAllScientist(UserDataRequest request);
+
+    /**
+     * Requests all scientists from the server.
+     * @param request the request
+     * @return the users
+     */
+    List<User> requestAllScientistsFromServer(GetAllScientistsRequests request);
 
     /**
      * Adds a new project to the server.
@@ -59,8 +78,8 @@ public interface ServerService {
 
     /**
      * Deletes a project from the server.
-     * @param projectId the project id
+     * @param request the project id
      */
-    void deleteProject(int projectId);
+    void deleteProject(DeleteProjectRequest request);
 
 }

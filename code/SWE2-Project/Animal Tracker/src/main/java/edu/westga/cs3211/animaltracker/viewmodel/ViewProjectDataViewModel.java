@@ -4,6 +4,7 @@ import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.GetSingleProjectRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.*;
 
@@ -15,15 +16,15 @@ import java.util.List;
 public class ViewProjectDataViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private ObjectProperty<AnimalClass> animalClass;
-    private ObjectProperty<Animal> animal;
-    private ObjectProperty<Project> project;
-    private StringProperty projectName;
-    private DoubleProperty height;
-    private DoubleProperty weight;
-    private DoubleProperty length;
-    private IntegerProperty tagID;
-    private StringProperty description;
+    private final ObjectProperty<AnimalClass> animalClass;
+    private final ObjectProperty<Animal> animal;
+    private final ObjectProperty<Project> project;
+    private final StringProperty projectName;
+    private final DoubleProperty height;
+    private final DoubleProperty weight;
+    private final DoubleProperty length;
+    private final IntegerProperty tagID;
+    private final StringProperty description;
 
     /**
      * creates a new instance of view project view model.
@@ -129,6 +130,21 @@ public class ViewProjectDataViewModel {
     public void setProject(Project project) {
         this.project.set(project);
         this.projectName.set(project.getName());
+    }
+
+    /**
+     * refreshed the view project data.
+     * @return the project
+     */
+    public Project refreshProject() {
+        if (this.project.get() == null) {
+            return null;
+        }
+
+        Project currentProject = this.project.get();
+        GetSingleProjectRequest request = new GetSingleProjectRequest(this.authSession.getToken(), currentProject.getName(), currentProject.getId());
+
+        return this.serverService.requestSingleProject(request);
     }
 
     /**

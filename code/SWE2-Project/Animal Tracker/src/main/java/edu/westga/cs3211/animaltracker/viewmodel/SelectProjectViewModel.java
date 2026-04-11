@@ -2,7 +2,7 @@ package edu.westga.cs3211.animaltracker.viewmodel;
 
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
-import edu.westga.cs3211.animaltracker.model.server.request.data.UserDataRequest;
+import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -20,8 +20,8 @@ import java.util.List;
 public class SelectProjectViewModel {
     private LoginResponse authSession;
     private ServerService serverService;
-    private ListProperty<Project> projects;
-    private ObjectProperty<Project> selectedProject;
+    private final ListProperty<Project> projects;
+    private final ObjectProperty<Project> selectedProject;
 
     /**
      * Instantiates a new select project view model.
@@ -49,6 +49,7 @@ public class SelectProjectViewModel {
      */
     public ListProperty<Project> projectsProperty() {
         return this.projects;
+
     }
 
     /**
@@ -66,16 +67,28 @@ public class SelectProjectViewModel {
      * @return the selected project, or null if none selected
      */
     public Project getSelectedProject() {
-        return this.selectedProject.get();
+        var project = this.selectedProject.get();
+
+        if (project == null) {
+            return null;
+        }
+
+        String projectName = project.getName();
+        int projectID = project.getId();
+        GetSingleProjectRequest request = new GetSingleProjectRequest(this.authSession.getToken(), projectName, projectID);
+        //return this.selectedProject.get();
+        return this.serverService.requestSingleProject(request);
     }
 
     /**
      * Loads all projects for the logged-in user using the server service.
      */
     public void loadProjects() {
-        var request = new UserDataRequest(this.authSession.getToken());
+        //var request = new UserDataRequest(this.authSession.getToken());
+        GetProjectRequest request = new GetProjectRequest(this.authSession.getToken());
 
         List<Project> userProjects = this.serverService.requestUserProjects(request);
+        System.out.println(userProjects + "tttt");
 
         this.projects.setAll(userProjects);
     }
@@ -97,7 +110,9 @@ public class SelectProjectViewModel {
         if (project == null) {
             return false;
         }
-        edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
+        //edu.westga.cs3211.animaltracker.model.DataStorage.getProjects().remove(project.getId());
+        DeleteProjectRequest request = new DeleteProjectRequest(this.authSession.getToken(), project.getId());
+        this.serverService.deleteProject(request);
 
         this.refreshProjects();
 

@@ -1,6 +1,7 @@
 package edu.westga.cs3211.animaltracker.model.server.request.request;
 
 import edu.westga.cs3211.animaltracker.model.server.request.Request;
+import org.json.JSONObject;
 
 import java.util.Random;
 
@@ -19,5 +20,14 @@ public class FakeRequest extends Request {
 
     @Override
     public void validateRequest() {
+    }
+
+    /**
+     * This was for testing purposes.
+     * @return null because it isn't needed
+     */
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }

@@ -12,8 +12,6 @@ import javafx.scene.control.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import java.io.IOException;
-
 /**
  * The CreateProject CodeBehind.
  *
@@ -58,7 +56,6 @@ public class CreateProjectCodeBehind {
         this.vm.getProjectNameProperty().bind(this.projectNameTextField.textProperty());
         this.vm.getProjectLocationProperty().bind(this.projectLocationTextField.textProperty());
         this.createProjectButton.disableProperty().bind(this.projectLocationTextField.textProperty().isEmpty().or(this.projectNameTextField.textProperty().isEmpty()));
-        this.availableScientistToAddListView.getItems().addAll(this.vm.getAvailableScientists());
         this.scientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.availableScientistToAddListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         this.removeScientistToAddButton.disableProperty().bind(this.scientistToAddListView.getSelectionModel().selectedItemProperty().isNull());
@@ -105,22 +102,28 @@ public class CreateProjectCodeBehind {
             throw new IllegalArgumentException("Server cannot be null");
         }
         this.vm.setSession(session, server);
+        this.availableScientistToAddListView.getItems().clear();
+        this.availableScientistToAddListView.getItems().addAll(this.vm.getAvailableScientists());
     }
 
     @FXML
     void onBackButtonClick(ActionEvent actionEvent) {
+        this.goToProjectsPage();
+    }
+
+    private void goToProjectsPage() {
         try {
-            LandingPageCodeBehind controller = ViewSwapper.loadPageFromStage(
-                    PageInformation.LANDING_PATH,
+            SelectProjectCodeBehind controller = ViewSwapper.loadPageFromStage(
+                    PageInformation.SELECT_PROJECT_PATH,
                     this.backButton,
-                    PageInformation.LANDING_TITLE
+                    PageInformation.SELECT_PROJECT_TITLE
             );
 
             controller.setSession(
                     this.vm.getSession(),
                     this.vm.getServerService()
             );
-
+            controller.refreshProjects();
         } catch (IOException e) {
             this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
@@ -130,34 +133,30 @@ public class CreateProjectCodeBehind {
 
     @FXML
     void onAddScientistToProjectClick(ActionEvent actionEvent) {
-        this.addScientistToProjectButton.setOnAction(e -> {
-            User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
-            if (selectedUser != null) {
-                try {
-                    this.vm.addScientistToProject(selectedUser);
-                    this.scientistToAddListView.getItems().add(selectedUser);
-                } catch (IllegalArgumentException ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-                    alert.showAndWait();
-                }
+        User selectedUser = this.availableScientistToAddListView.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                this.vm.addScientistToProject(selectedUser);
+                this.scientistToAddListView.getItems().add(selectedUser);
+            } catch (IllegalArgumentException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                alert.showAndWait();
             }
-        });
+        }
     }
 
     @FXML
     void onRemoveScientistToAddClick(ActionEvent actionEvent) {
-        this.removeScientistToAddButton.setOnAction(e -> {
-            User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
-            if (selectedUser != null) {
-                try {
-                    this.vm.removeScientistFromProject(selectedUser);
-                    this.scientistToAddListView.getItems().remove(selectedUser);
-                } catch (IllegalArgumentException ex) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
-                    alert.showAndWait();
-                }
+        User selectedUser = this.scientistToAddListView.getSelectionModel().getSelectedItem();
+        if (selectedUser != null) {
+            try {
+                this.vm.removeScientistFromProject(selectedUser);
+                this.scientistToAddListView.getItems().remove(selectedUser);
+            } catch (IllegalArgumentException ex) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                alert.showAndWait();
             }
-        });
+        }
     }
 
     @FXML
@@ -166,6 +165,7 @@ public class CreateProjectCodeBehind {
         ArrayList<User> scientist = this.vm.getAddedScientist();
         this.vm.createProject(name, scientist);
         this.displaySuccessPopup();
+        this.goToProjectsPage();
     }
 
     @FXML

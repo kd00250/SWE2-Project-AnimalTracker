@@ -7,6 +7,10 @@ module edu.westga.cs3211.animaltracker {
     requires transitive javafx.graphics;
     requires java.desktop;
     requires jdk.jshell;
+    requires java.naming;
+    requires jeromq;
+    requires org.json;
+    requires jdk.sctp;
 
     opens edu.westga.cs3211.animaltracker.view to javafx.fxml;
     exports edu.westga.cs3211.animaltracker;
