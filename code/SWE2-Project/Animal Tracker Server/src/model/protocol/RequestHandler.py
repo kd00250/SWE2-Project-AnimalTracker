@@ -1,5 +1,4 @@
 import json
-
 from model.Animal import Animal
 from model.AnimalClass import AnimalClass
 from model.Project import Project
@@ -11,51 +10,60 @@ from model.protocol.ResponseBuilder import ResponseBuilder
 
 
 class RequestHandler:
+    """
+    Processes client requests and delegates actions to the appropriate
+    services such as authentication, storage, and response builder.
+    """
     storage = ServerStorage()
 
     @staticmethod
     def handle_request(message):
+        """
+        Parses an incoming request and routes it to the appropriate handler.
+        :param message: Raw JSON string containing request data
+        :return: JSON - Response object generated based on the request
+        """
         request = json.loads(message)
         print(f"Server - Received request: {request}")
 
         if request.get("action") == "login":
-            return RequestHandler.handle_login(request)
+            return RequestHandler._handle_login(request)
 
         if request.get("action") == "user_role_request":
-            return RequestHandler.handle_get_user_role_request(request)
+            return RequestHandler._handle_get_user_role_request(request)
 
         if request.get("action") == "add_user_request":
-            return RequestHandler.handle_add_user_request(request)
+            return RequestHandler._handle_add_user_request(request)
 
         if request.get("action") == "get_project_list_request":
-            return RequestHandler.handle_get_project_list_request(request)
+            return RequestHandler._handle_get_project_list_request(request)
 
         if request.get("action") == "get_project_request":
-            return RequestHandler.handle_get_project_request(request)
+            return RequestHandler._handle_get_project_request(request)
 
         if request.get("action") == "delete_project_request":
-            return RequestHandler.handle_delete_project_request(request)
+            return RequestHandler._handle_delete_project_request(request)
 
         if request.get("action") == "get_scientist_request":
-            return RequestHandler.handle_get_scientist_request(request)
+            return RequestHandler._handle_get_scientist_request(request)
 
         if request.get("action") == "create_project_request":
-            return RequestHandler.handle_create_project_request(request)
+            return RequestHandler._handle_create_project_request(request)
 
         if request.get("action") == "add_animal_request":
-            return RequestHandler.handle_add_animal_request(request)
+            return RequestHandler._handle_add_animal_request(request)
 
         return None
 
     @staticmethod
-    def handle_login(request):
+    def _handle_login(request):
         print("Handle login")
         has_token = Authenticator.check_login(request)
         response = ResponseBuilder.build_login_response(has_token)
         return response
 
     @staticmethod
-    def handle_get_user_role_request(request):
+    def _handle_get_user_role_request(request):
         print("Handle get user role request")
         token = request.get("token")
         user = RequestHandler.storage.get_user(token)
@@ -64,20 +72,19 @@ class RequestHandler:
         return response
 
     @staticmethod
-    def handle_add_user_request(request):
+    def _handle_add_user_request(request):
         print("Handle add user request")
         username = request.get("username")
         if not RequestHandler.storage.contains_username(username):
             password = request.get("password")
             role = Role[request.get("role")]
             user = User(username, password, role)
-            #TODO check this
             RequestHandler.storage.add_user(user)
             return ResponseBuilder.build_add_user_response(user)
         return ResponseBuilder.build_user_exists_response()
 
     @staticmethod
-    def handle_get_project_list_request(request):
+    def _handle_get_project_list_request(request):
         print("Handling get project list")
 
         token = request.get("token")
@@ -90,9 +97,8 @@ class RequestHandler:
         return ResponseBuilder.build_user_does_not_have_permission_response()
 
     @staticmethod
-    def handle_get_project_request(request):
+    def _handle_get_project_request(request):
         print("Handle get project request")
-        token = request.get("token")
         project_id = request.get("project id")
         print(project_id)
 
@@ -110,7 +116,7 @@ class RequestHandler:
             return ResponseBuilder.build_could_not_find_project()
 
     @staticmethod
-    def handle_delete_project_request(request):
+    def _handle_delete_project_request(request):
         print("Handling delete request")
         project_id = request.get("project id")
         token = request.get("token")
@@ -128,7 +134,7 @@ class RequestHandler:
         return ResponseBuilder.build_removed_project(has_removed_project)
 
     @staticmethod
-    def handle_get_scientist_request(request):
+    def _handle_get_scientist_request(request):
         print("Handling get scientist request")
         token = request.get("token")
         users = RequestHandler.storage.get_all_users()
@@ -139,7 +145,7 @@ class RequestHandler:
             return ResponseBuilder.build_get_scientist_response(users, project_creator)
 
     @staticmethod
-    def handle_create_project_request(request):
+    def _handle_create_project_request(request):
         print("Handling Create Project Request")
         token = request.get("token")
         user = {RequestHandler.storage.get_user(token)}
@@ -159,13 +165,13 @@ class RequestHandler:
         return ResponseBuilder.build_create_project_response(has_created_project)
 
     @staticmethod
-    def handle_add_animal_request(request):
+    def _handle_add_animal_request(request):
         print("Handling add animal request")
         project_id = int(request.get("project id"))
         project = RequestHandler.storage.get_project(project_id)
 
         if project is None:
-            print("NONEEEE")
+            print("NONE")
             return ResponseBuilder.build_could_not_find_project()
         else:
             animal_class = request.get("Class")
@@ -173,18 +179,9 @@ class RequestHandler:
             height = float(request.get("Height"))
             weight = float(request.get("Weight"))
             length = float(request.get("Length"))
-            tag_Id = int(request.get("TagID"))
+            tag_id = int(request.get("TagID"))
             description = request.get("Description")
-            animal = Animal(animal_class, height, weight, length, tag_Id, description)
+            animal = Animal(animal_class, height, weight, length, tag_id, description)
             animal = RequestHandler.storage.update_add_animal(project_id, animal)
 
-
             return ResponseBuilder.build_add_animal_request(animal)
-
-
-
-
-
-
-
-
