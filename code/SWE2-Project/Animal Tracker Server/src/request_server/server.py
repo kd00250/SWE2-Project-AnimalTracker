@@ -14,17 +14,18 @@ def build_storage():
     print("Creating User")
     storage = ServerStorage()
     bob = User("Bob", "1234", Role.SCIENTIST)
-    Joe = User("Joe", "1234", Role.SCIENTIST)
+    joe = User("Joe", "1234", Role.SCIENTIST)
     billy = User("Billy", "6767", Role.ADMIN)
     storage.add_user(bob)
     storage.add_user(billy)
-    storage.add_user(Joe)
+    storage.add_user(joe)
     animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
     animals = {animal}
     users = {bob}
     project = Project("Wildlife Migration Study", users, animals, 1)
     print(project.get_id())
     storage.add_project(project)
+
 
 def main():
     context = zmq.Context()
