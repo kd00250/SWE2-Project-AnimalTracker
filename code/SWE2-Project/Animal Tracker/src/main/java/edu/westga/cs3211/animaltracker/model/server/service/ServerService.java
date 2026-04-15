@@ -15,6 +15,13 @@ import java.util.List;
 public interface ServerService {
 
     /**
+     * adds the user to the server
+     * @param request the request to send
+     * @return if the sighting can be added or not
+     */
+    boolean addSighting(AddSightingRequest request);
+
+    /**
      * gets the project from the server.
      * @param request the request to be sent
      * @return the project
