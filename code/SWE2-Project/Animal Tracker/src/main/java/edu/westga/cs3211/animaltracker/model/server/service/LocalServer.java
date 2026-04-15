@@ -22,15 +22,14 @@ public class LocalServer implements ServerService {
     public static final int DEFAULT_TIMEOUT = 1000;
 
     /**
-     * adds the user to the server
+     * This method is for testing purposes only as we do not use our local storage for add sightings
      *
      * @param request the request to send
      * @return if the sighting can be added or not
      */
     @Override
     public boolean addSighting(AddSightingRequest request) {
-        //todo
-        return false;
+        return true;
     }
 
     /**
