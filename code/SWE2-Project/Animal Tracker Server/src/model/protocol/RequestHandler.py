@@ -53,6 +53,9 @@ class RequestHandler:
         if request.get("action") == "add_animal_request":
             return RequestHandler._handle_add_animal_request(request)
 
+        if request.get("action") == "add_sighting_request":
+            return RequestHandler._handle_add_sighting_request(request)
+
         return None
 
     @staticmethod
@@ -185,3 +188,16 @@ class RequestHandler:
             animal = RequestHandler.storage.update_add_animal(project_id, animal)
 
             return ResponseBuilder.build_add_animal_request(animal)
+
+    @staticmethod
+    def _handle_add_sighting_request(request):
+        print("Handling add sighting request")
+        token = request.get("token")
+        location = request.get("location")
+        latitude = request.get("latitude")
+        longitude = request.get("longitude")
+        time = request.get("time")
+        notes = request.get("notes")
+        animal_tag = request.get("tagID")
+
+
