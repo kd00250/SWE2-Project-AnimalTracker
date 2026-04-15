@@ -1,15 +1,13 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.Sighting;
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
+import edu.westga.cs3211.animaltracker.viewmodel.AddSightingViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 
@@ -22,10 +20,13 @@ public class AddSightingCodeBehind {
     private Button backButton;
 
     @FXML
-    private ComboBox<?> animalComboBox;
+    private TextField animalTextField;
     @FXML
-    private ComboBox<?> locationComboBox;
-
+    private TextField locationTextField;
+    @FXML
+    private TextField latitudeTextField;
+    @FXML
+    private TextField longitudeTextField;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -44,10 +45,25 @@ public class AddSightingCodeBehind {
     @FXML
     private Button clearButton;
 
+    private AddSightingViewModel vm;
+
     @FXML
     private void initialize() {
         this.hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12));
         this.minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        this.vm = new AddSightingViewModel();
+        this.bindAllProperties();
+    }
+
+    private void bindAllProperties() {
+        this.animalTextField.textProperty().bind(this.vm.animalIDProperty());
+        this.locationTextField.textProperty().bind(this.vm.locationProperty());
+        this.latitudeTextField.textProperty().bind(this.vm.latitudeProperty());
+        this.longitudeTextField.textProperty().bind(this.vm.longitudeProperty());
+        this.datePicker.accessibleTextProperty().bind(this.vm.dateProperty());
+        this.hourSpinner.accessibleTextProperty().bind(this.vm.hourProperty());
+        this.minuteSpinner.accessibleTextProperty().bind(this.vm.minuteProperty());
+        this.noteTextArea.textProperty().bind(this.vm.noteProperty());
     }
 
     @FXML
@@ -59,23 +75,52 @@ public class AddSightingCodeBehind {
                     PageInformation.LANDING_TITLE
             );
 
-//            controller.setSession(
-//                    this.vm.getSession(),
-//                    this.vm.getServerService()
-//            );
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService()
+            );
 
         } catch (IOException e) {
-            System.err.println("Unexpected Error: " + e.getMessage());
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
         }
     }
 
-    @FXML
-    public void onSaveSightingClick(ActionEvent event) {
-        // Intentionally left blank.
+    /**
+     * Shows an error alert to the user.
+     *
+     * @param message the error message
+     * @pre message != null
+     * @post alert is displayed to user
+     */
+    private void displayErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML
-    public void onClearClick(ActionEvent event) {
-        // Intentionally left blank.
+    void onSaveSightingClick(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Sighting Saved");
+        alert.setHeaderText(null);
+        alert.setContentText("Sighting Saved!");
+        alert.showAndWait();
+    }
+
+    @FXML
+    void onClearClick(ActionEvent event) {
+        this.vm.clearAllFields();
+    }
+
+    void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        this.vm.setSession(session, server);
     }
 }
