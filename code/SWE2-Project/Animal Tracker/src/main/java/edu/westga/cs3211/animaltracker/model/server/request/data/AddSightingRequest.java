@@ -64,7 +64,7 @@ public class AddSightingRequest extends Request {
 
         json.put("action", ADD_SIGHTING_REQUEST);
         json.put("token", this.getToken());
-        json.put("animal", this.getSighting().getAnimal());
+        json.put("animal", this.getSighting().getAnimalTagID());
         json.put("location", this.getSighting().getLocation());
         json.put("latitude", this.getSighting().getLatitude());
         json.put("longitude", this.getSighting().getLongitude());
