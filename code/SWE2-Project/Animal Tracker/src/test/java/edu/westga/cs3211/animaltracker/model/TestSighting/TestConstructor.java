@@ -61,6 +61,20 @@ public class TestConstructor {
     }
 
     @Test
+    void testValidSightingWithAnimalTagIDEqualZero() {
+        Sighting sighting = new Sighting(0, "Mountain", 0, 0, null, null);
+
+        assertAll(
+                () -> assertEquals(0, sighting.getAnimalTagID()),
+                () -> assertEquals("Mountain", sighting.getLocation()),
+                () -> assertEquals(0.0, sighting.getLatitude()),
+                () -> assertEquals(0.0, sighting.getLongitude()),
+                () -> assertNull(sighting.getTime()),
+                () -> assertNull(sighting.getNotes())
+        );
+    }
+
+    @Test
     void testValidSightingEmptyNotesAllowed() {
         Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Plains", 10.0, -10.0, null, "");
 
@@ -71,13 +85,6 @@ public class TestConstructor {
     void testInvalidSightingNegativeAnimalTagID() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Sighting(-1, "Forest", 45.0, 90.0, null, null);
-        });
-    }
-
-    @Test
-    void testInvalidSightingWithAnimalTagIDEqualZero() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(0, "Forest", 45.0, 90.0, null, null);
         });
     }
 
@@ -182,7 +189,8 @@ public class TestConstructor {
     @Test
     void testToString() {
         Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Swamp", 12.345, -67.890, null, null);
-        String expectedFormat = "Sighting: Mammal " + this.testAnimal.getId() + " at Swamp (12.34500, -67.89000)";
+        System.out.printf(sighting.toString());
+        String expectedFormat = "Sighting: " + this.testAnimal.getTagID() + " at Swamp (12.34500, -67.89000)";
 
         assertTrue(sighting.toString().contains("Swamp"));
         assertTrue(sighting.toString().contains("12.34500"));

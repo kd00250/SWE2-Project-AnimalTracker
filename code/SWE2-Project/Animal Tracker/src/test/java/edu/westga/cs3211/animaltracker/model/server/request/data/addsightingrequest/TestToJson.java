@@ -20,7 +20,7 @@ class TestToJson {
         Animal animal = new Animal(AnimalClass.MAMMAL, 120.5, 75.2, 50.0, 1001, "Adult deer");
         LocalDateTime time = LocalDateTime.of(2026, 4, 10, 14, 30);
         Sighting sighting = new Sighting(
-                animal,
+                animal.getTagID(),
                 "Forest Area A",
                 33.7490,
                 -84.3880,
@@ -33,7 +33,7 @@ class TestToJson {
 
         assertEquals(ADD_SIGHTING_REQUEST, json.getString("action"));
         assertEquals("token123", json.getString("token"));
-        assertEquals(animal, json.get("animal"));
+        assertEquals(animal.getTagID(), json.get("animal"));
         assertEquals("Forest Area A", json.getString("location"));
         assertEquals(33.7490, json.getDouble("latitude"));
         assertEquals(-84.3880, json.getDouble("longitude"));

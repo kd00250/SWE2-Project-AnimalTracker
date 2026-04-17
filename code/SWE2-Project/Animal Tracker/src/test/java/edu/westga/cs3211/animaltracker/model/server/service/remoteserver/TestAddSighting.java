@@ -63,7 +63,7 @@ class TestAddSighting {
 
         Animal animal = new Animal(AnimalClass.MAMMAL, 120.5, 75.2, 50.0, 1001, "Adult deer");
         Sighting sighting = new Sighting(
-                animal,
+                animal.getTagID(),
                 "Forest Area A",
                 33.7490,
                 -84.3880,
@@ -91,7 +91,7 @@ class TestAddSighting {
 
         Animal animal = new Animal(AnimalClass.MAMMAL, 120.5, 75.2, 50.0, 1001, "Adult deer");
         Sighting sighting = new Sighting(
-                animal,
+                animal.getTagID(),
                 "Forest Area A",
                 33.7490,
                 -84.3880,
