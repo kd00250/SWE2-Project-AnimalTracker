@@ -7,7 +7,7 @@ class Sighting:
     Represents a documented sighting of an animal.
     """
 
-    def __init__(self, animal_tag, location, latitude, longitude, time=None, notes=None):
+    def __init__(self, animal_tag, username, location, latitude, longitude, time=None, notes=None):
         """
         Initializes an instance of a Sighting.
         :param animal_tag: Tag for an animal.
@@ -19,6 +19,9 @@ class Sighting:
         """
         if animal_tag is None:
             raise ValueError("animal_tag must be provided.")
+
+        if username is None:
+            raise ValueError("username must be provided.")
 
         if self._is_invalid_location(location):
             raise ValueError("Location must be provided.")
@@ -36,6 +39,7 @@ class Sighting:
             raise ValueError("Notes must contain valid text if provided.")
 
         self._animal_tag = animal_tag
+        self._username = username
         self._location = location
         self._latitude = latitude
         self._longitude = longitude
@@ -87,6 +91,10 @@ class Sighting:
         """
         return latitude < -90.0 or latitude > 90.0
 
+
+    def get_username(self):
+        return self._username
+
     def get_animal_tag(self):
         """
         Gets the animal tag.
@@ -128,3 +136,4 @@ class Sighting:
         :return: The notes of sighting.
         """
         return self._notes
+

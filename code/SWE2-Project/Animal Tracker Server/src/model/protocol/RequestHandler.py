@@ -192,12 +192,13 @@ class RequestHandler:
     @staticmethod
     def _handle_add_sighting_request(request):
         print("Handling add sighting request")
-        token = request.get("token")
+        username = request.get("username")
         location = request.get("location")
         latitude = request.get("latitude")
         longitude = request.get("longitude")
         time = request.get("time")
         notes = request.get("notes")
         animal_tag = request.get("tagID")
+        #TODO Before making sighting see if user is in system
 
 
