@@ -8,6 +8,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,18 @@ public class RemoteServer implements ServerService {
      */
     public RemoteServer() {
         this.client = new Client();
+    }
+
+    /**
+     * gets all the sightings for a specific animal.
+     *
+     * @param request the request to be sent to the server
+     * @return the list of sightings from the server
+     */
+    @Override
+    public List<Sighting> getSightings(GetSightingRequest request) {
+        JSONObject response = this.client.send(request);
+        return this.buildSightingsFromResponse(response);
     }
 
     /**
@@ -242,6 +255,45 @@ public class RemoteServer implements ServerService {
 
         String description = animalJson.optString("Description", "").trim();
         return !description.isEmpty();
+    }
+
+    private List<Sighting> buildSightingsFromResponse(JSONObject response) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+
+        List<Sighting> sightings = new ArrayList<>();
+
+        JSONArray sightingsArray = response.getJSONArray("sightings");
+
+        for (int i = 0; i < sightingsArray.length(); i++) {
+            JSONObject json = sightingsArray.getJSONObject(i);
+
+            try {
+                int tagID = json.getInt("animalTagID");
+                String location = json.getString("location");
+                double latitude = json.getDouble("latitude");
+                double longitude = json.getDouble("longitude");
+
+                LocalDateTime time = null;
+                if (json.has("time") && !json.isNull("time")) {
+                    time = LocalDateTime.parse(json.getString("time"));
+                }
+
+                String notes = null;
+                if (json.has("notes") && !json.isNull("notes")) {
+                    notes = json.getString("notes");
+                }
+
+                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes);
+                sightings.add(sighting);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Skipping invalid sighting: " + json);
+            }
+        }
+
+        return sightings;
     }
 
     /**
