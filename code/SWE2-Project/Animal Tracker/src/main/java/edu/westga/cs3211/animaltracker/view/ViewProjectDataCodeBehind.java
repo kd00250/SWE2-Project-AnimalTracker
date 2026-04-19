@@ -94,9 +94,20 @@ public class ViewProjectDataCodeBehind {
     }
 
     @FXML
-    void visualize(ActionEvent event) {
-        //Implementation coming in future sprint :)
-        //The map visualization of the data (a nice to have (said in the sprint planning :) )
+    void onSightingDataClick(ActionEvent event) {
+        if (this.animalListView.getSelectionModel().getSelectedIndex() != -1) {
+            try {
+                SeeDataCodeBehind controller = ViewSwapper.loadPageFromStage(
+                        PageInformation.SEE_DATA_PATH,
+                        this.visualizeDataButton,
+                        PageInformation.SEE_DATA_TITLE
+                );
+                controller.setSession(this.vm.getSession(), this.vm.getServerService());
+            } catch (IOException e) {
+                this.displayErrorPopup("Failed to navigate to sighting data: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 
     private void displayErrorPopup(String message) {

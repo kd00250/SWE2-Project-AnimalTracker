@@ -55,11 +55,6 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="visualizeDataButton" layoutX="519.0" layoutY="562.0" mnemonicParsing="false" onAction="#visualize" prefHeight="51.0" prefWidth="202.0" text="Visualize Data">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
       <Button fx:id="createTagButton" layoutX="655.0" layoutY="101.0" mnemonicParsing="false" onAction="#onCreateTagButtonClick" prefHeight="30.0" prefWidth="28.0" text="+" />
       <Button fx:id="backButton" layoutX="770.0" layoutY="28.0" mnemonicParsing="false" onAction="#onBackButtonClick" prefHeight="35.0" prefWidth="82.0" text="Back" />
       <Label layoutX="171.0" layoutY="99.0" text="Animal Class  ">
@@ -90,5 +85,10 @@
             <Font size="24.0" />
          </font>
       </Label>
+      <Button fx:id="visualizeDataButton" layoutX="519.0" layoutY="562.0" mnemonicParsing="false" onAction="#onSightingDataClick" prefHeight="51.0" prefWidth="202.0" text="Sighting Data">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

@@ -11,13 +11,13 @@
    <children>
       <TableView fx:id="sightingTable" layoutX="43.0" layoutY="104.0" prefHeight="317.0" prefWidth="999.0">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Location" />
-            <TableColumn fx:id="submissionColumn" prefWidth="109.0" text="Longitude" />
-            <TableColumn prefWidth="75.0" text="Latitude" />
-            <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Time" />
-            <TableColumn prefWidth="75.0" text="Date" />
-            <TableColumn prefWidth="75.0" text="User" />
-            <TableColumn prefWidth="589.0" text="Notes" />
+          <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+            <TableColumn fx:id="longitudeColumn" prefWidth="109.0" text="Longitude" />
+            <TableColumn fx:id="latitudeColumn" prefWidth="75.0" text="Latitude" />
+            <TableColumn fx:id="timeColumn" prefWidth="75.0" text="Time" />
+            <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="userColumn" prefWidth="75.0" text="User" />
+            <TableColumn fx:id="notesColumn" prefWidth="589.0" text="Notes" />
         </columns>
       </TableView>
       <Label layoutX="447.0" layoutY="50.0" text="Sighting Information">
