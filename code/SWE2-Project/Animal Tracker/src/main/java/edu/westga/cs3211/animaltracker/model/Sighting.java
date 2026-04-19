@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * @author mrocker1
  */
 public class Sighting {
-    private final Animal animal;
+    private final int animalTagID;
     private final String location;
     private final double latitude;
     private final double longitude;
@@ -18,16 +18,16 @@ public class Sighting {
     /**
      * Instantiates a new Sighting object.
      *
-     * @param animal    the animal sighted (mandatory)
+     * @param animalID  the animal ID (mandatory)
      * @param location  the general location of the sighting (mandatory)
      * @param latitude  the latitude coordinate (mandatory)
      * @param longitude the longitude coordinate (mandatory)
      * @param time      the specific date and time of the sighting (optional)
      * @param notes     additional notes regarding the sighting (optional)
      */
-    public Sighting(Animal animal, String location, double latitude, double longitude, LocalDateTime time, String notes) {
-        if (animal == null) {
-            throw new IllegalArgumentException("Animal must be selected.");
+    public Sighting(int animalID, String location, double latitude, double longitude, LocalDateTime time, String notes) {
+        if (animalID < 0) {
+            throw new IllegalArgumentException("You must have an animal ID greater than zero");
         }
         if (isInvalidLocation(location)) {
             throw new IllegalArgumentException("Location must be selected/provided.");
@@ -48,7 +48,7 @@ public class Sighting {
             throw new IllegalArgumentException("Notes must contain valid text if provided.");
         }
 
-        this.animal = animal;
+        this.animalTagID = animalID;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -80,8 +80,8 @@ public class Sighting {
      * Gets the animal.
      * @return the animal
      */
-    public Animal getAnimal() {
-        return this.animal;
+    public int getAnimalTagID() {
+        return this.animalTagID;
     }
 
     /**
@@ -126,6 +126,6 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return String.format("Sighting: %s at %s (%.5f, %.5f)", this.animal.toString(), this.location, this.latitude, this.longitude);
+        return String.format("Sighting: %s at %s (%.5f, %.5f)", this.animalTagID, this.location, this.latitude, this.longitude);
     }
 }

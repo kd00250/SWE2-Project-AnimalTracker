@@ -22,6 +22,17 @@ public class LocalServer implements ServerService {
     public static final int DEFAULT_TIMEOUT = 1000;
 
     /**
+     * This method is for testing purposes only as we do not use our local storage for add sightings
+     *
+     * @param request the request to send
+     * @return if the sighting can be added or not
+     */
+    @Override
+    public boolean addSighting(AddSightingRequest request) {
+        return true;
+    }
+
+    /**
      * requests the info for a single project.
      * @param request the request to be sent
      * @return null (this is for testing)

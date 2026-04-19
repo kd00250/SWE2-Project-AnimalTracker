@@ -26,6 +26,19 @@ public class RemoteServer implements ServerService {
     }
 
     /**
+     * adds the user to the server
+     *
+     * @param request the request to send
+     * @return if the sighting can be added or not
+     */
+    @Override
+    public boolean addSighting(AddSightingRequest request) {
+        JSONObject response = this.client.send(request);
+        var responseStatus = response.getString("status");
+        return !responseStatus.equals("error");
+    }
+
+    /**
      * requests the info for a single project.
      * @param request the request to be sent
      * @return the project requested
