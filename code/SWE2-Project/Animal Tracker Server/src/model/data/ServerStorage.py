@@ -8,12 +8,10 @@ class ServerStorage:
     """
     instance = None
 
-
     def __new__(cls):
         if cls.instance is None:
             cls.instance = super().__new__(cls)
         return cls.instance
-
 
     def __init__(self):
         """
@@ -55,7 +53,6 @@ class ServerStorage:
         :param name: The new name.
         """
         self._project_storage.get_project(project_id).set_name(name)
-
 
     def update_add_animal(self, project_id, animal):
         """
@@ -167,7 +164,40 @@ class ServerStorage:
         """
         return self._user_storage.get_user_with_username(username)
 
+    def add_sighting(self, sighting):
+        """
+        Adds a sighting to the server storage.
+        :param sighting: Sighting object.
+        :return: True or False depending on if the sighting was added.
+        """
+        return self._server_storage.add_sighting(sighting)
+
+    def remove_sighting(self, sighting):
+        """
+        Removes a sighting from the server storage.
+        :param sighting: Sighting object to be removed.
+        :return: True or False depending on if the sighting was removed.
+        """
+        return self._server_storage.remove_sighting(sighting)
+
+    def retrieve_all_sightings(self):
+        """
+        Retrieves all sightings in the system.
+        :return: All sightings in the system.
+        """
+        return self._server_storage.retrieve_all_sightings()
+
+    def retrieve_sightings_by_animal_id(self, animal_tag):
+        """
+        Retrieves all sightings from the sighting list by animal tag.
+        :param animal_tag: Id of an animal.
+        :return: All sightings from the sighting list by animal tag.
+        """
+        result = self._server_storage.retrieve_sightings_by_animal_id(animal_tag)
+        return result
+
     def _reset(self):
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()
+        self._server_storage = ServerStorage()
         self._initialized = True

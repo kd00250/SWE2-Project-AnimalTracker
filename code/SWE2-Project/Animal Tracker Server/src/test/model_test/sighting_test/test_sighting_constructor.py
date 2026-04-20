@@ -11,46 +11,46 @@ class TestSightingConstructor(unittest.TestCase):
 
     def test_username_none(self):
         with self.assertRaises(Exception):
-            Sighting("A123", None, "Park", 10.0, 20.0)
+            Sighting("1234", None, "Park", 10.0, 20.0)
 
     def test_location_none(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", None, 10.0, 20.0)
+            Sighting("1234", "user", None, 10.0, 20.0)
 
     def test_location_empty(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "   ", 10.0, 20.0)
+            Sighting("1234", "user", "   ", 10.0, 20.0)
 
     def test_invalid_latitude_low(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", -91.0, 20.0)
+            Sighting("1234", "user", "Park", -91.0, 20.0)
 
     def test_invalid_latitude_high(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", 91.0, 20.0)
+            Sighting("1234", "user", "Park", 91.0, 20.0)
 
     def test_invalid_longitude_low(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", 10.0, -181.0)
+            Sighting("1234", "user", "Park", 10.0, -181.0)
 
     def test_invalid_longitude_high(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", 10.0, 181.0)
+            Sighting("1234", "user", "Park", 10.0, 181.0)
 
     def test_future_time(self):
         future = datetime.now() + timedelta(days=1)
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", 10.0, 20.0, future)
+            Sighting("1234", "user", "Park", 10.0, 20.0, future)
 
     def test_invalid_notes_empty(self):
         with self.assertRaises(Exception):
-            Sighting("A123", "user", "Park", 10.0, 20.0, None, "   ")
+            Sighting("1234", "user", "Park", 10.0, 20.0, None, "   ")
 
     def test_valid_constructor_with_all_fields(self):
         time = datetime.now() - timedelta(hours=1)
-        sighting = Sighting("A123", "user", "Park", 10.0, 20.0, time, "Near lake")
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, time, "Near lake")
 
-        self.assertEqual("A123", sighting.get_animal_tag())
+        self.assertEqual("1234", sighting.get_animal_tag())
         self.assertEqual("user", sighting.get_username())
         self.assertEqual("Park", sighting.get_location())
         self.assertEqual(10.0, sighting.get_latitude())
@@ -59,10 +59,10 @@ class TestSightingConstructor(unittest.TestCase):
         self.assertEqual("Near lake", sighting.get_notes())
 
     def test_valid_constructor_with_optional_none(self):
-        sighting = Sighting("B456", "user2", "Forest", 0.0, 0.0)
+        sighting = Sighting("1234", "user", "Forest", 0.0, 0.0)
 
-        self.assertEqual("B456", sighting.get_animal_tag())
-        self.assertEqual("user2", sighting.get_username())
+        self.assertEqual("1234", sighting.get_animal_tag())
+        self.assertEqual("user", sighting.get_username())
         self.assertEqual("Forest", sighting.get_location())
         self.assertEqual(0.0, sighting.get_latitude())
         self.assertEqual(0.0, sighting.get_longitude())
@@ -70,15 +70,15 @@ class TestSightingConstructor(unittest.TestCase):
         self.assertIsNone(sighting.get_notes())
 
     def test_boundary_latitude(self):
-        sighting1 = Sighting("A1", "u", "Loc", -90.0, 0.0)
-        sighting2 = Sighting("A2", "u", "Loc", 90.0, 0.0)
+        sighting1 = Sighting("1234", "user", "Loc", -90.0, 0.0)
+        sighting2 = Sighting("1234", "user", "Loc", 90.0, 0.0)
 
         self.assertEqual(-90.0, sighting1.get_latitude())
         self.assertEqual(90.0, sighting2.get_latitude())
 
     def test_boundary_longitude(self):
-        sighting1 = Sighting("A1", "u", "Loc", 0.0, -180.0)
-        sighting2 = Sighting("A2", "u", "Loc", 0.0, 180.0)
+        sighting1 = Sighting("1234", "user", "Loc", 0.0, -180.0)
+        sighting2 = Sighting("1234", "user", "Loc", 0.0, 180.0)
 
         self.assertEqual(-180.0, sighting1.get_longitude())
         self.assertEqual(180.0, sighting2.get_longitude())
