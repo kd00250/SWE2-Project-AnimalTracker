@@ -91,7 +91,6 @@ class Sighting:
         """
         return latitude < -90.0 or latitude > 90.0
 
-
     def get_username(self):
         return self._username
 
