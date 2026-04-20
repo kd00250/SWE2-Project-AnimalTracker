@@ -1,4 +1,5 @@
 from model.data.ProjectStorage import ProjectStorage
+from model.data.SightingStorage import SightingStorage
 from model.data.UserStorage import UserStorage
 
 
@@ -21,6 +22,7 @@ class ServerStorage:
             return
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()
+        self._sighting_storage = SightingStorage()
         self._initialized = True
 
     def add_project(self, project):
@@ -170,7 +172,7 @@ class ServerStorage:
         :param sighting: Sighting object.
         :return: True or False depending on if the sighting was added.
         """
-        return self._server_storage.add_sighting(sighting)
+        return self._sighting_storage.add_sighting(sighting)
 
     def remove_sighting(self, sighting):
         """
@@ -178,14 +180,14 @@ class ServerStorage:
         :param sighting: Sighting object to be removed.
         :return: True or False depending on if the sighting was removed.
         """
-        return self._server_storage.remove_sighting(sighting)
+        return self._sighting_storage.remove_sighting(sighting)
 
     def retrieve_all_sightings(self):
         """
         Retrieves all sightings in the system.
         :return: All sightings in the system.
         """
-        return self._server_storage.retrieve_all_sightings()
+        return self._sighting_storage.retrieve_all_sightings()
 
     def retrieve_sightings_by_animal_id(self, animal_tag):
         """
@@ -193,11 +195,11 @@ class ServerStorage:
         :param animal_tag: Id of an animal.
         :return: All sightings from the sighting list by animal tag.
         """
-        result = self._server_storage.retrieve_sightings_by_animal_id(animal_tag)
+        result = self._sighting_storage.retrieve_sightings_by_animal_id(animal_tag)
         return result
 
     def _reset(self):
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()
-        self._server_storage = ServerStorage()
+        self._sighting_storage = SightingStorage()
         self._initialized = True

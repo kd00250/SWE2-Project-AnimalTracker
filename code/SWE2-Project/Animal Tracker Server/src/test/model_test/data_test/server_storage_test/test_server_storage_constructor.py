@@ -10,3 +10,4 @@ class TestServerStorageConstructor(unittest.TestCase):
     def test_initialized(self):
         self.assertIsNotNone(self._server_storage._project_storage)
         self.assertIsNotNone(self._server_storage._user_storage)
+        self.assertIsNotNone(self._server_storage._sighting_storage)
