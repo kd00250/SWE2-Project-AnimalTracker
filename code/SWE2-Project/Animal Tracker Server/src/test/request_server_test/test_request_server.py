@@ -10,11 +10,11 @@ class TestServer(unittest.TestCase):
     @patch("request_server.server.User")
     @patch("request_server.server.ServerStorage")
     def test_build_prepopulated_storage_for_testing(
-        self,
-        mock_server_storage_class,
-        mock_user_class,
-        mock_animal_class,
-        mock_project_class
+            self,
+            mock_server_storage_class,
+            mock_user_class,
+            mock_animal_class,
+            mock_project_class
     ):
         mock_storage = MagicMock()
         mock_server_storage_class.return_value = mock_storage
@@ -22,25 +22,28 @@ class TestServer(unittest.TestCase):
         mock_bob = MagicMock()
         mock_joe = MagicMock()
         mock_billy = MagicMock()
+        mock_carl = MagicMock()
         mock_animal = MagicMock()
         mock_project = MagicMock()
 
-        mock_user_class.side_effect = [mock_bob, mock_joe, mock_billy]
+        mock_user_class.side_effect = [mock_bob, mock_joe, mock_billy, mock_carl]
         mock_animal_class.return_value = mock_animal
         mock_project_class.return_value = mock_project
         mock_project.get_id.return_value = 1
 
         build_prepopulated_storage_for_testing()
 
-        self.assertEqual(3, mock_user_class.call_count)
+        self.assertEqual(4, mock_user_class.call_count)
         self.assertEqual(1, mock_animal_class.call_count)
         self.assertEqual(1, mock_project_class.call_count)
 
         mock_storage.add_user.assert_has_calls([
             call(mock_bob),
             call(mock_billy),
-            call(mock_joe)
+            call(mock_joe),
+            call(mock_carl)
         ])
+
         mock_storage.add_project.assert_called_once_with(mock_project)
 
     @patch("request_server.server.RequestHandler.handle_request")
