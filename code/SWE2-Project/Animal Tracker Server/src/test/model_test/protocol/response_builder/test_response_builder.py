@@ -204,3 +204,16 @@ class TestResponseBuilder(unittest.TestCase):
         mock_animal = MagicMock()
         result = ResponseBuilder.build_add_animal_request(mock_animal)
         self.assertEqual({"status": "success"}, result)
+
+    def test_build_user_is_not_in_system(self):
+        result = ResponseBuilder.build_user_is_not_in_system()
+        self.assertEqual({"status": "error"}, result)
+
+    def test_build_add_sighting_request_success(self):
+        mock_sighting = MagicMock()
+        result = ResponseBuilder.build_add_sighting_request(mock_sighting)
+        self.assertEqual({"status": "success"}, result)
+
+    def test_build_add_sighting_request_error(self):
+        result = ResponseBuilder.build_add_sighting_request(None)
+        self.assertEqual({"status": "error"}, result)
