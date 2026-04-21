@@ -7,7 +7,7 @@ class Sighting:
     Represents a documented sighting of an animal.
     """
 
-    def __init__(self, animal_tag, username, location, latitude, longitude, time=None, notes=None):
+    def __init__(self, animal_tag, username, location, latitude, longitude, time, notes):
         """
         Initializes an instance of a Sighting.
         :param animal_tag: Tag for an animal.
@@ -36,7 +36,7 @@ class Sighting:
             raise ValueError("Sighting time cannot be in the future.")
 
         if self._is_invalid_notes(notes):
-            raise ValueError("Notes must contain valid text if provided.")
+            raise ValueError("Notes must contain valid text.")
 
         self._animal_tag = animal_tag
         self._username = username

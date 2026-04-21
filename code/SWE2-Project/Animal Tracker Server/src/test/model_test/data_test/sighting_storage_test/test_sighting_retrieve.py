@@ -15,8 +15,8 @@ class TestSightingStorageRetrieve(unittest.TestCase):
 
     def test_retrieve_all_sightings(self):
         storage = SightingStorage()
-        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        s2 = Sighting("1235", "user2", "Forest", 5.0, 15.0, datetime.now())
+        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        s2 = Sighting("1235", "user2", "Forest", 5.0, 15.0, datetime.now(), "Notes")
 
         storage.add_sighting(s1)
         storage.add_sighting(s2)
@@ -27,8 +27,8 @@ class TestSightingStorageRetrieve(unittest.TestCase):
 
     def test_retrieve_by_animal_id_one_match(self):
         storage = SightingStorage()
-        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        s2 = Sighting("1254", "user2", "Forest", 5.0, 15.0, datetime.now())
+        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        s2 = Sighting("1254", "user2", "Forest", 5.0, 15.0, datetime.now(), "Notes")
 
         storage.add_sighting(s1)
         storage.add_sighting(s2)
@@ -39,8 +39,8 @@ class TestSightingStorageRetrieve(unittest.TestCase):
 
     def test_retrieve_by_animal_id_multiple_matches(self):
         storage = SightingStorage()
-        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        s2 = Sighting("1234", "user2", "Forest", 5.0, 15.0, datetime.now())
+        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        s2 = Sighting("1234", "user2", "Forest", 5.0, 15.0, datetime.now(), "Notes")
 
         storage.add_sighting(s1)
         storage.add_sighting(s2)
@@ -51,7 +51,7 @@ class TestSightingStorageRetrieve(unittest.TestCase):
 
     def test_retrieve_by_animal_id_no_match(self):
         storage = SightingStorage()
-        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
+        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
 
         storage.add_sighting(s1)
 

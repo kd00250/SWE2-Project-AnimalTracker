@@ -13,7 +13,7 @@ class TestSightingStorageAdd(unittest.TestCase):
 
     def test_add_valid_sighting(self):
         storage = SightingStorage()
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
 
         result = storage.add_sighting(sighting)
 
@@ -22,7 +22,7 @@ class TestSightingStorageAdd(unittest.TestCase):
 
     def test_add_duplicate_sighting(self):
         storage = SightingStorage()
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
 
         storage.add_sighting(sighting)
         result = storage.add_sighting(sighting)

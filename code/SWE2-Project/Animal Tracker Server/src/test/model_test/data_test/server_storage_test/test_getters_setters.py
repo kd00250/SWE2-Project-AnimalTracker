@@ -128,31 +128,30 @@ class TestServerStorageConstructor(unittest.TestCase):
         self.assertTrue(len(self._server_storage.get_all_users()) == 0)
 
     def test_add_sighting(self):
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
         has_added = self._server_storage.add_sighting(sighting)
         self.assertTrue(has_added)
 
     def test_remove_sighting(self):
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
         has_added = self._server_storage.add_sighting(sighting)
         self.assertTrue(has_added)
         has_removed = self._server_storage.remove_sighting(sighting)
         self.assertTrue(has_removed)
 
     def test_retrieve_all_sightings(self):
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        sighting2 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        sighting2 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
         self._server_storage.add_sighting(sighting)
         self._server_storage.add_sighting(sighting2)
         sightings = self._server_storage.retrieve_all_sightings()
         self.assertEqual(len(sightings), 2)
 
-
     def test_retrieve_sightings_by_animal_id(self):
         animal_tag = "1234"
-        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        sighting2 = Sighting("1234", "user", "Forest", 10.0, 20.0, datetime.now())
-        sighting3 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now())
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        sighting2 = Sighting("1234", "user", "Forest", 10.0, 20.0, datetime.now(), "Notes")
+        sighting3 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
         self._server_storage.add_sighting(sighting)
         self._server_storage.add_sighting(sighting2)
         self._server_storage.add_sighting(sighting3)

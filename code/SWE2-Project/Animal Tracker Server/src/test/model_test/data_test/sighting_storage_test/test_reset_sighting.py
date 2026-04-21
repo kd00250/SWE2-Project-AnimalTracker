@@ -8,8 +8,8 @@ class TestSightingStorageReset(unittest.TestCase):
 
     def test_reset(self):
         storage = SightingStorage()
-        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now())
-        s2 = Sighting("1235", "user2", "Forest", 5.0, 15.0, datetime.now())
+        s1 = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        s2 = Sighting("1235", "user2", "Forest", 5.0, 15.0, datetime.now(), "Notes")
 
         storage.add_sighting(s1)
         storage.add_sighting(s2)
