@@ -26,9 +26,14 @@ public final class SeverSettings {
     public static final String DELETE_PROJECT_REQUEST = "delete_project_request";
 
     /**
-     * the add project request constant.
+     * the get scientists request constant.
      */
     public static final String GET_SCIENTISTS_REQUEST = "get_scientist_request";
+
+    /**
+     * the get sightings request constant.
+     */
+    public static final String GET_SIGHTINGS_REQUEST = "get_sightings_request";
 
     /**
      * the get project request constant.
@@ -39,6 +44,11 @@ public final class SeverSettings {
      * the add animal request constant.
      */
     public static final String ADD_ANIMAL_REQUEST = "add_animal_request";
+
+    /**
+     * the add sighting request constant.
+     */
+    public static final String ADD_SIGHTING_REQUEST = "add_sighting_request";
 
     /**
      * the add project request constant.

@@ -2,6 +2,7 @@ package edu.westga.cs3211.animaltracker.model.server.service;
 
 import edu.westga.cs3211.animaltracker.model.Project;
 import edu.westga.cs3211.animaltracker.model.Role;
+import edu.westga.cs3211.animaltracker.model.Sighting;
 import edu.westga.cs3211.animaltracker.model.User;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginRequest;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
@@ -13,6 +14,19 @@ import java.util.List;
  * The auth login service interface.
  */
 public interface ServerService {
+
+    /**
+     * gets all the sightings for a specific animal.
+     * @param request the request to be sent to the server
+     * @return the list of sightings from the server
+     */
+    List<Sighting> getSightings(GetSightingRequest request);
+    /**
+     * adds the user to the server
+     * @param request the request to send
+     * @return if the sighting can be added or not
+     */
+    boolean addSighting(AddSightingRequest request);
 
     /**
      * gets the project from the server.

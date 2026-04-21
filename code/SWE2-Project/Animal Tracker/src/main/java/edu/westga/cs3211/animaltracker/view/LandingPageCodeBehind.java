@@ -91,10 +91,10 @@ public class LandingPageCodeBehind {
                     PageInformation.ADD_SIGHTING_TITLE
             );
 
-//            controller.setSession(
-//                    this.landingViewModel.getSession(),
-//                    this.landingViewModel.getServerService()
-//            );
+            controller.setSession(
+                    this.landingViewModel.getSession(),
+                    this.landingViewModel.getServerService()
+            );
 
         } catch (IOException e) {
             System.err.println("Unexpected Error: " + e.getMessage());
