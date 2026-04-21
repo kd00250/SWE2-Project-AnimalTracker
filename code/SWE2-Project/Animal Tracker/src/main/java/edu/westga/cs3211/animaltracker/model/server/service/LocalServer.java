@@ -22,6 +22,18 @@ public class LocalServer implements ServerService {
     public static final int DEFAULT_TIMEOUT = 1000;
 
     /**
+     * gets all the sightings for a specific animal.
+     * note that this is a method for testing only as we do not use the local server anymore
+     *
+     * @param request the request to be sent to the server
+     * @return the list of sightings
+     */
+    @Override
+    public List<Sighting> getSightings(GetSightingRequest request) {
+        return null;
+    }
+
+    /**
      * This method is for testing purposes only as we do not use our local storage for add sightings
      *
      * @param request the request to send
