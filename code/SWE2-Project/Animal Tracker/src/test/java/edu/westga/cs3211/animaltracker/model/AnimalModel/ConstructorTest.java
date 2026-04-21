@@ -27,7 +27,7 @@ class ConstructorTest {
         assertEquals(TagStatus.ACTIVE, animal.getTagStatus());
         assertEquals("", animal.getDescription());
         assertEquals(2, animal.getId());
-        assertEquals("Bird 2", animal.toString());
+        assertEquals("Bird 122345", animal.toString());
     }
 
     @Test
