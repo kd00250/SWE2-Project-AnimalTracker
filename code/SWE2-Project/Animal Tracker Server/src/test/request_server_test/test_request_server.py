@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock, call
 
-from request_server.server import build_storage, main
+from request_server.server import build_prepopulated_storage_for_testing, main
 
 
 class TestServer(unittest.TestCase):
@@ -25,7 +25,7 @@ class TestServer(unittest.TestCase):
         mock_project_class.return_value = mock_project
         mock_project.get_id.return_value = 1
 
-        build_storage()
+        build_prepopulated_storage_for_testing()
 
         self.assertEqual(3, mock_user_class.call_count)
         self.assertEqual(1, mock_animal_class.call_count)
