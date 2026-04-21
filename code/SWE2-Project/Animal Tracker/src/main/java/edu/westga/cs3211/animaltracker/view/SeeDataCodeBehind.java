@@ -1,17 +1,17 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.Sighting;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
-import edu.westga.cs3211.animaltracker.viewmodel.SeeDataViewModel;
-import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
+import edu.westga.cs3211.animaltracker.viewmodel.seeData.SeeDataViewModel;
+import edu.westga.cs3211.animaltracker.viewmodel.seeData.SightingRowViewModel;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDateTime;
 
@@ -22,37 +22,41 @@ public class SeeDataCodeBehind {
     private Button backButton;
 
     @FXML
-    private TableColumn<Sighting, LocalDateTime> dateColumn;
+    private TableColumn<SightingRowViewModel, LocalDateTime> dateColumn;
 
     @FXML
-    private TableColumn<Sighting, Double> latitudeColumn;
+    private TableColumn<SightingRowViewModel, Double> latitudeColumn;
 
     @FXML
-    private TableColumn<Sighting, String> locationColumn;
+    private TableColumn<SightingRowViewModel, String> locationColumn;
 
     @FXML
-    private TableColumn<Sighting, Double> longitudeColumn;
+    private TableColumn<SightingRowViewModel, Double> longitudeColumn;
 
     @FXML
-    private TableColumn<Sighting, String> notesColumn;
+    private TableColumn<SightingRowViewModel, String> notesColumn;
 
     @FXML
-    private TableView<Sighting> sightingTable;
+    private TableView<SightingRowViewModel> sightingTable;
 
     @FXML
-    private TableColumn<Sighting, LocalDateTime> timeColumn;
+    private TableColumn<SightingRowViewModel, LocalDateTime> timeColumn;
 
     @FXML
-    private TableColumn<Sighting, String> userColumn;
+    private TableColumn<SightingRowViewModel, String> userColumn;
 
 
     private SeeDataViewModel vm;
 
     @FXML
     void initialize() {
-        this.vm = new SeeDataViewModel();
+
         this.setupColumns();
         this.bindProperties();
+    }
+
+    public SeeDataCodeBehind(SimpleObjectProperty<Animal> animal) {
+        this.vm = new SeeDataViewModel(animal);
     }
 
     private void bindProperties() {
@@ -71,6 +75,15 @@ public class SeeDataCodeBehind {
 
     private void setupColumns() {
         this.dateColumn.setCellValueFactory(cellData ->
-                new ReadOnlyObjectWrapper<>(cellData.getValue().getTime()));
+                cellData.getValue().timeProperty());
+        this.latitudeColumn.setCellValueFactory(cellData ->
+                cellData.getValue().latitudeProperty().asObject());
+        this.longitudeColumn.setCellValueFactory(cellData ->
+                cellData.getValue().longitudeProperty().asObject());
+        this.notesColumn.setCellValueFactory(cellData ->
+                cellData.getValue().notesProperty());
+        this.locationColumn.setCellValueFactory(cellData ->
+                cellData.getValue().locationProperty());
+
     }
 }

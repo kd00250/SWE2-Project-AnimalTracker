@@ -1,4 +1,4 @@
-package edu.westga.cs3211.animaltracker.viewmodel;
+package edu.westga.cs3211.animaltracker.viewmodel.seeData;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
@@ -6,18 +6,22 @@ import edu.westga.cs3211.animaltracker.model.Sighting;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeeDataViewModel {
     private ServerService serverService;
     private LoginResponse authSession;
-    private ListProperty<Sighting> sightings;
+    private ObjectProperty<Animal> animalProperty;
+    private ListProperty<SightingRowViewModel> sightings;
 
-    public SeeDataViewModel() {
+    public SeeDataViewModel(ObjectProperty<Animal> animal) {
+        this.animalProperty = animal;
         this.initializeProperties();
     }
     public void setSession(LoginResponse session, ServerService server) {
@@ -27,8 +31,15 @@ public class SeeDataViewModel {
 
     private void initializeProperties() {
         var items = this.initializeWithDefaultTest();
-        this.sightings = new SimpleListProperty<Sighting>(FXCollections.observableArrayList(items));
+        var temp = new ArrayList<SightingRowViewModel>();
+        for (Sighting sighting : items) {
+            temp.add(new SightingRowViewModel(sighting));
+        }
+        this.sightings = new SimpleListProperty<>(FXCollections.observableList(temp));
+    }
 
+    private List<Sighting> retrieveSightings() {
+        var sightings = this.serverService.
     }
     //TODO REMOVE
     private ArrayList<Sighting> initializeWithDefaultTest() {
@@ -41,7 +52,7 @@ public class SeeDataViewModel {
         return list;
     }
 
-    public ListProperty<Sighting> sightings() {
+    public ListProperty<SightingRowViewModel> sightings() {
         return this.sightings;
     }
 }
