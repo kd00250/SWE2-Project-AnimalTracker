@@ -104,7 +104,7 @@ public class ViewProjectDataCodeBehind {
                         PageInformation.SEE_DATA_TITLE
                 );
                 controller.setAnimal(new SimpleObjectProperty<>(this.animalListView.getSelectionModel().getSelectedItem()));
-                controller.setSession(this.vm.getSession(), this.vm.getServerService());
+                controller.setSession(this.vm.getSession(), this.vm.getServerService(), this.vm);
             } catch (IOException e) {
                 this.displayErrorPopup("Failed to navigate to sighting data: " + e.getMessage());
                 e.printStackTrace();

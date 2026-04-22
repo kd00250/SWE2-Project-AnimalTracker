@@ -53,6 +53,14 @@ public class SeeDataViewModel {
         return sightings;
     }
 
+    public ServerService getServerService() {
+        return serverService;
+    }
+
+    public LoginResponse getSession() {
+        return authSession;
+    }
+
 
     public ListProperty<SightingRowViewModel> sightings() {
         return this.sightings;
