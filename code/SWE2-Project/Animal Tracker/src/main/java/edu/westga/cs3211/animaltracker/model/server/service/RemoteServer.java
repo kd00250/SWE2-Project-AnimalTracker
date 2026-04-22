@@ -39,7 +39,7 @@ public class RemoteServer implements ServerService {
     }
 
     /**
-     * adds the user to the server
+     * adds the sighting to the server.
      *
      * @param request the request to send
      * @return if the sighting can be added or not
@@ -274,6 +274,7 @@ public class RemoteServer implements ServerService {
                 String location = json.getString("location");
                 double latitude = json.getDouble("latitude");
                 double longitude = json.getDouble("longitude");
+                String username = json.getString("username");
 
                 LocalDateTime time = null;
                 if (json.has("time") && !json.isNull("time")) {
@@ -285,7 +286,7 @@ public class RemoteServer implements ServerService {
                     notes = json.getString("notes");
                 }
 
-                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes);
+                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes, username);
                 sightings.add(sighting);
 
             } catch (IllegalArgumentException e) {

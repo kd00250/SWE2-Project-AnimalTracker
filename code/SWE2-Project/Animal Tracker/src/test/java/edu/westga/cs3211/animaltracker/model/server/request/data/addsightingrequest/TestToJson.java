@@ -25,7 +25,8 @@ class TestToJson {
                 33.7490,
                 -84.3880,
                 time,
-                "Seen near the trees");
+                "Seen near the trees",
+                null);
 
         AddSightingRequest request = new AddSightingRequest("token123", sighting);
 

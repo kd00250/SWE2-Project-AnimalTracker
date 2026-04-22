@@ -68,7 +68,8 @@ class TestAddSighting {
                 33.7490,
                 -84.3880,
                 LocalDateTime.of(2026, 4, 10, 14, 30),
-                "Seen near the trees"
+                "Seen near the trees",
+                null
         );
 
         AddSightingRequest request = new AddSightingRequest("token123", sighting);
@@ -96,7 +97,8 @@ class TestAddSighting {
                 33.7490,
                 -84.3880,
                 LocalDateTime.of(2026, 4, 10, 14, 30),
-                "Seen near the trees"
+                "Seen near the trees",
+                null
         );
 
         AddSightingRequest request = new AddSightingRequest("token123", sighting);
