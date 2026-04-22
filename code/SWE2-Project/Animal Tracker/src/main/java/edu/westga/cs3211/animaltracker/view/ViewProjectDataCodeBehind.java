@@ -7,6 +7,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -102,6 +103,7 @@ public class ViewProjectDataCodeBehind {
                         this.visualizeDataButton,
                         PageInformation.SEE_DATA_TITLE
                 );
+                controller.setAnimal(new SimpleObjectProperty<>(this.animalListView.getSelectionModel().getSelectedItem()));
                 controller.setSession(this.vm.getSession(), this.vm.getServerService());
             } catch (IOException e) {
                 this.displayErrorPopup("Failed to navigate to sighting data: " + e.getMessage());

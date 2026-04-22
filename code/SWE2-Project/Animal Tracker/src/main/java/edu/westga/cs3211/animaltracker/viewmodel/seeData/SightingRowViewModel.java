@@ -3,13 +3,16 @@ package edu.westga.cs3211.animaltracker.viewmodel.seeData;
 import edu.westga.cs3211.animaltracker.model.Sighting;
 import javafx.beans.property.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class SightingRowViewModel {
     private final StringProperty location;
     private final DoubleProperty latitude;
     private final DoubleProperty longitude;
-    private final ObjectProperty<LocalDateTime> time;
+    private final ObjectProperty<LocalDate> date;
+    private final ObjectProperty<LocalTime> time;
     private final StringProperty notes;
 
 
@@ -20,7 +23,8 @@ public class SightingRowViewModel {
         this.location = new SimpleStringProperty(sighting.getLocation());
         this.latitude = new SimpleDoubleProperty(sighting.getLatitude());
         this.longitude = new SimpleDoubleProperty(sighting.getLongitude());
-        this.time = new SimpleObjectProperty<>(sighting.getTime());
+        this.time = new SimpleObjectProperty<>(sighting.getTime().toLocalTime());
+        this.date = new SimpleObjectProperty<>(sighting.getTime().toLocalDate());
         this.notes = new SimpleStringProperty(sighting.getNotes());
     }
 
@@ -33,15 +37,16 @@ public class SightingRowViewModel {
         return notes;
     }
 
-    public LocalDateTime getTime() {
-        return time.get();
+
+
+    public ObjectProperty<LocalDate> dateProperty() {
+        return date;
     }
 
-    public ObjectProperty<LocalDateTime> timeProperty() {
+
+    public ObjectProperty<LocalTime> timeProperty() {
         return time;
     }
-
-
 
     public DoubleProperty longitudeProperty() {
         return longitude;

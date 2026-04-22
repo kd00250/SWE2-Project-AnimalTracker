@@ -13,7 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class SeeDataCodeBehind {
 
@@ -22,7 +24,7 @@ public class SeeDataCodeBehind {
     private Button backButton;
 
     @FXML
-    private TableColumn<SightingRowViewModel, LocalDateTime> dateColumn;
+    private TableColumn<SightingRowViewModel, LocalDate> dateColumn;
 
     @FXML
     private TableColumn<SightingRowViewModel, Double> latitudeColumn;
@@ -40,7 +42,7 @@ public class SeeDataCodeBehind {
     private TableView<SightingRowViewModel> sightingTable;
 
     @FXML
-    private TableColumn<SightingRowViewModel, LocalDateTime> timeColumn;
+    private TableColumn<SightingRowViewModel, LocalTime> timeColumn;
 
     @FXML
     private TableColumn<SightingRowViewModel, String> userColumn;
@@ -50,13 +52,13 @@ public class SeeDataCodeBehind {
 
     @FXML
     void initialize() {
-
+        this.vm = new SeeDataViewModel();
         this.setupColumns();
-        this.bindProperties();
+
     }
 
-    public SeeDataCodeBehind(SimpleObjectProperty<Animal> animal) {
-        this.vm = new SeeDataViewModel(animal);
+    public void setAnimal(SimpleObjectProperty<Animal> animal) {
+        this.vm.setAnimalProperty(animal);
     }
 
     private void bindProperties() {
@@ -71,11 +73,12 @@ public class SeeDataCodeBehind {
         }
 
         this.vm.setSession(session, server);
+        this.bindProperties();
     }
 
     private void setupColumns() {
         this.dateColumn.setCellValueFactory(cellData ->
-                cellData.getValue().timeProperty());
+                cellData.getValue().dateProperty());
         this.latitudeColumn.setCellValueFactory(cellData ->
                 cellData.getValue().latitudeProperty().asObject());
         this.longitudeColumn.setCellValueFactory(cellData ->
@@ -84,6 +87,7 @@ public class SeeDataCodeBehind {
                 cellData.getValue().notesProperty());
         this.locationColumn.setCellValueFactory(cellData ->
                 cellData.getValue().locationProperty());
-
+        this.timeColumn.setCellValueFactory(cellData ->
+                cellData.getValue().timeProperty());
     }
 }
