@@ -83,6 +83,7 @@ class TestGetSightings {
         assertEquals(-84.54321, result.getFirst().getLongitude());
         assertEquals(LocalDateTime.parse("2026-04-19T10:30:00"), result.getFirst().getTime());
         assertEquals("Near water", result.getFirst().getNotes());
+        assertEquals("Billy", result.getFirst().getUsername());
 
         server.close();
     }
@@ -95,6 +96,7 @@ class TestGetSightings {
         sightingJson.put("longitude", -84.54321);
         sightingJson.put("time", "2026-04-19T10:30:00");
         sightingJson.put("notes", "Near water");
+        sightingJson.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(sightingJson);
@@ -131,6 +133,7 @@ class TestGetSightings {
         validSighting.put("longitude", -83.7);
         validSighting.put("time", "2026-04-19T08:00:00");
         validSighting.put("notes", "Morning sighting");
+        validSighting.put("username", "Billy");
 
         JSONObject invalidSighting = new JSONObject();
         invalidSighting.put("animalTagID", 5);
@@ -139,6 +142,7 @@ class TestGetSightings {
         invalidSighting.put("longitude", -83.7);
         invalidSighting.put("time", "2026-04-19T08:00:00");
         invalidSighting.put("notes", "Bad data");
+        invalidSighting.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(validSighting);
@@ -157,48 +161,54 @@ class TestGetSightings {
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals("Lake", result.getFirst().getLocation());
+        assertEquals("Billy", result.getFirst().getUsername());
 
         server.close();
     }
 
     @Test
-    void testGetSightingsReturnsSightingWithNullTimeWhenTimeIsMissing() {
+    void testGetSightingsSkipsSightingWhenTimeIsMissing() {
+        JSONObject response = getObject();
+
+        this.startServerWithResponse(response.toString());
+
+        RemoteServer server = new RemoteServer();
+        GetSightingRequest request = new GetSightingRequest("token123", 5);
+
+        List<Sighting> result = server.getSightings(request);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        server.close();
+    }
+
+    private static JSONObject getObject() {
         JSONObject sightingJson = new JSONObject();
         sightingJson.put("animalTagID", 5);
         sightingJson.put("location", "Forest");
         sightingJson.put("latitude", 33.12345);
         sightingJson.put("longitude", -84.54321);
         sightingJson.put("notes", "Near water");
+        sightingJson.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(sightingJson);
 
         JSONObject response = new JSONObject();
         response.put("sightings", sightingsArray);
-
-        this.startServerWithResponse(response.toString());
-
-        RemoteServer server = new RemoteServer();
-        GetSightingRequest request = new GetSightingRequest("token123", 5);
-
-        List<Sighting> result = server.getSightings(request);
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertNull(result.getFirst().getTime());
-        assertEquals("Near water", result.getFirst().getNotes());
-
-        server.close();
+        return response;
     }
 
     @Test
-    void testGetSightingsReturnsSightingWithNullNotesWhenNotesIsMissing() {
+    void testGetSightingsSkipsSightingWhenNotesIsMissing() {
         JSONObject sightingJson = new JSONObject();
         sightingJson.put("animalTagID", 5);
         sightingJson.put("location", "Forest");
         sightingJson.put("latitude", 33.12345);
         sightingJson.put("longitude", -84.54321);
         sightingJson.put("time", "2026-04-19T10:30:00");
+        sightingJson.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(sightingJson);
@@ -214,15 +224,13 @@ class TestGetSightings {
         List<Sighting> result = server.getSightings(request);
 
         assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(LocalDateTime.parse("2026-04-19T10:30:00"), result.getFirst().getTime());
-        assertNull(result.getFirst().getNotes());
+        assertTrue(result.isEmpty());
 
         server.close();
     }
 
     @Test
-    void testGetSightingsReturnsSightingWithNullTimeWhenTimeIsJsonNull() {
+    void testGetSightingsSkipsSightingWhenTimeIsJsonNull() {
         JSONObject sightingJson = new JSONObject();
         sightingJson.put("animalTagID", 5);
         sightingJson.put("location", "Forest");
@@ -230,6 +238,7 @@ class TestGetSightings {
         sightingJson.put("longitude", -84.54321);
         sightingJson.put("time", JSONObject.NULL);
         sightingJson.put("notes", "Near water");
+        sightingJson.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(sightingJson);
@@ -245,15 +254,13 @@ class TestGetSightings {
         List<Sighting> result = server.getSightings(request);
 
         assertNotNull(result);
-        assertEquals(1, result.size());
-        assertNull(result.getFirst().getTime());
-        assertEquals("Near water", result.getFirst().getNotes());
+        assertTrue(result.isEmpty());
 
         server.close();
     }
 
     @Test
-    void testGetSightingsReturnsSightingWithNullNotesWhenNotesIsJsonNull() {
+    void testGetSightingsSkipsSightingWhenNotesIsJsonNull() {
         JSONObject sightingJson = new JSONObject();
         sightingJson.put("animalTagID", 5);
         sightingJson.put("location", "Forest");
@@ -261,6 +268,7 @@ class TestGetSightings {
         sightingJson.put("longitude", -84.54321);
         sightingJson.put("time", "2026-04-19T10:30:00");
         sightingJson.put("notes", JSONObject.NULL);
+        sightingJson.put("username", "Billy");
 
         JSONArray sightingsArray = new JSONArray();
         sightingsArray.put(sightingJson);
@@ -276,9 +284,7 @@ class TestGetSightings {
         List<Sighting> result = server.getSightings(request);
 
         assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals(LocalDateTime.parse("2026-04-19T10:30:00"), result.getFirst().getTime());
-        assertNull(result.getFirst().getNotes());
+        assertTrue(result.isEmpty());
 
         server.close();
     }
