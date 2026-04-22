@@ -405,3 +405,40 @@ class TestRequestHandler(unittest.TestCase):
         )
         RequestHandler.storage.add_sighting.assert_called_once_with(mock_sighting)
         mock_build_add_sighting_request.assert_called_once_with(mock_sighting)
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_token_does_not_exist")
+    def test_handle_request_get_sighting_request_token_missing(self, mock_build_token_missing):
+        mock_build_token_missing.return_value = {"status": "error"}
+
+        message = '{"action": "get_sighting_request", "tagID": "122345"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        mock_build_token_missing.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_tag_does_not_exist")
+    def test_handle_request_get_sighting_request_tag_missing(self, mock_build_tag_missing):
+        mock_build_tag_missing.return_value = {"status": "error"}
+
+        message = '{"action": "get_sighting_request", "token": "abc123"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        mock_build_tag_missing.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_get_sighting_response")
+    def test_handle_request_get_sighting_request_success(self, mock_build_get_sighting_response):
+        mock_sightings = [MagicMock(), MagicMock()]
+        RequestHandler.storage.retrieve_sightings_by_animal_id.return_value = mock_sightings
+
+        mock_build_get_sighting_response.return_value = {"sightings": []}
+
+        message = '{"action": "get_sighting_request", "token": "abc123", "tagID": "122345"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"sightings": []}, result)
+        RequestHandler.storage.retrieve_sightings_by_animal_id.assert_called_once_with("122345")
+        mock_build_get_sighting_response.assert_called_once_with(mock_sightings)

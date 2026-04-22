@@ -57,6 +57,9 @@ class RequestHandler:
         if request.get("action") == "add_sighting_request":
             return RequestHandler._handle_add_sighting_request(request)
 
+        if request.get("action") == "get_sighting_request":
+            return RequestHandler._handle_get_sighting_request(request)
+
         return None
 
     @staticmethod
@@ -211,3 +214,18 @@ class RequestHandler:
         sighting = Sighting(animal_tag, username, location, latitude, longitude, time, notes)
         RequestHandler.storage.add_sighting(sighting)
         return ResponseBuilder.build_add_sighting_request(sighting)
+
+    @staticmethod
+    def _handle_get_sighting_request(request):
+        print("Handling get sighting request")
+        token = request.get("token")
+        if token is None:
+            return ResponseBuilder.build_token_does_not_exist()
+
+        animal_tag = request.get("tagID")
+        if animal_tag is None:
+            return ResponseBuilder.build_tag_does_not_exist()
+
+        sightings = RequestHandler.storage.retrieve_sightings_by_animal_id(animal_tag)
+        return ResponseBuilder.build_get_sighting_response(sightings)
+
