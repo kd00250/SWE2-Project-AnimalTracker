@@ -14,6 +14,7 @@ public class Sighting {
     private final double longitude;
     private final LocalDateTime time;
     private final String notes;
+    private final String username;
 
     /**
      * Instantiates a new Sighting object.
@@ -22,10 +23,11 @@ public class Sighting {
      * @param location  the general location of the sighting (mandatory)
      * @param latitude  the latitude coordinate (mandatory)
      * @param longitude the longitude coordinate (mandatory)
-     * @param time      the specific date and time of the sighting (optional)
-     * @param notes     additional notes regarding the sighting (optional)
+     * @param time      the specific date and time of the sighting (mandatory)
+     * @param notes     additional notes regarding the sighting (mandatory)
+     * @param username  the username (optional)
      */
-    public Sighting(int animalID, String location, double latitude, double longitude, LocalDateTime time, String notes) {
+    public Sighting(int animalID, String location, double latitude, double longitude, LocalDateTime time, String notes, String username) {
         if (animalID < 0) {
             throw new IllegalArgumentException("You must have an animal ID greater than zero");
         }
@@ -48,12 +50,21 @@ public class Sighting {
             throw new IllegalArgumentException("Notes must contain valid text if provided.");
         }
 
+        if (time == null) {
+            throw new IllegalArgumentException("Sighting time cannot be null.");
+        }
+
+        if (notes == null) {
+            throw new IllegalArgumentException("Notes must contain valid text.");
+        }
+
         this.animalTagID = animalID;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
         this.time = time;
         this.notes = notes;
+        this.username = username;
     }
 
     private static boolean isInvalidLocation(String location) {
@@ -110,7 +121,7 @@ public class Sighting {
 
     /**
      * Gets the time of the sighting.
-     * @return the time, or null if not provided
+     * @return the time
      */
     public LocalDateTime getTime() {
         return this.time;
@@ -118,10 +129,18 @@ public class Sighting {
 
     /**
      * Gets the notes for the sighting.
-     * @return the notes, or null if not provided
+     * @return the notes
      */
     public String getNotes() {
         return this.notes;
+    }
+
+    /**
+     * Gets the Username.
+     * @return Username
+     */
+    public String getUsername() {
+        return this.username;
     }
 
     @Override
