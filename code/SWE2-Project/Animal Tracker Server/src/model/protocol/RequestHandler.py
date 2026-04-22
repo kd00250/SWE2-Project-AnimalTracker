@@ -3,6 +3,7 @@ from model.Animal import Animal
 from model.AnimalClass import AnimalClass
 from model.Project import Project
 from model.Role import Role
+from model.Sighting import Sighting
 from model.User import User
 from model.authentication.Authenticator import Authenticator
 from model.data.ServerStorage import ServerStorage
@@ -55,6 +56,9 @@ class RequestHandler:
 
         if request.get("action") == "add_sighting_request":
             return RequestHandler._handle_add_sighting_request(request)
+
+        if request.get("action") == "get_sighting_request":
+            return RequestHandler._handle_get_sighting_request(request)
 
         return None
 
@@ -192,13 +196,36 @@ class RequestHandler:
     @staticmethod
     def _handle_add_sighting_request(request):
         print("Handling add sighting request")
-        username = request.get("username")
+        token = request.get("token")
+        username = RequestHandler.storage.get_user(token)
+
+        if username is None:
+            return ResponseBuilder.build_user_is_not_in_system()
+
+        if not RequestHandler.storage.contains_username(username):
+            return ResponseBuilder.build_user_is_not_in_system()
+
+        animal_tag = request.get("animal")
         location = request.get("location")
         latitude = request.get("latitude")
         longitude = request.get("longitude")
         time = request.get("time")
         notes = request.get("notes")
-        animal_tag = request.get("tagID")
-        #TODO Before making sighting see if user is in system
+        sighting = Sighting(animal_tag, username, location, latitude, longitude, time, notes)
+        RequestHandler.storage.add_sighting(sighting)
+        return ResponseBuilder.build_add_sighting_request(sighting)
 
+    @staticmethod
+    def _handle_get_sighting_request(request):
+        print("Handling get sighting request")
+        token = request.get("token")
+        if token is None:
+            return ResponseBuilder.build_token_does_not_exist()
+
+        animal_tag = request.get("tagID")
+        if animal_tag is None:
+            return ResponseBuilder.build_tag_does_not_exist()
+
+        sightings = RequestHandler.storage.retrieve_sightings_by_animal_id(animal_tag)
+        return ResponseBuilder.build_get_sighting_response(sightings)
 
