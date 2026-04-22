@@ -25,14 +25,16 @@ public class Sighting {
      * @param longitude the longitude coordinate (mandatory)
      * @param time      the specific date and time of the sighting (mandatory)
      * @param notes     additional notes regarding the sighting (mandatory)
-     * @param username  the username (optional)
+     * @param username  the username (optional), The reason it is optional is that
+     *                  when creating the sighting locally, we do not store the
+     *                  username and do not want to request the server to get it.
      */
     public Sighting(int animalID, String location, double latitude, double longitude, LocalDateTime time, String notes, String username) {
         if (animalID < 0) {
             throw new IllegalArgumentException("You must have an animal ID greater than zero");
         }
         if (isInvalidLocation(location)) {
-            throw new IllegalArgumentException("Location must be selected/provided.");
+            throw new IllegalArgumentException("Location must be provided.");
         }
 
         if (isInvalidLatitude(latitude)) {
@@ -55,6 +57,10 @@ public class Sighting {
         }
 
         if (notes == null) {
+            throw new IllegalArgumentException("Notes cannot be null");
+        }
+
+        if (notes.isBlank()) {
             throw new IllegalArgumentException("Notes must contain valid text.");
         }
 
@@ -145,6 +151,6 @@ public class Sighting {
 
     @Override
     public String toString() {
-        return String.format("Sighting: %s at %s (%.5f, %.5f)", this.animalTagID, this.location, this.latitude, this.longitude);
+        return String.format("Sighting: %s at %s (%.5f, %.5f) with Notes: %s by %s at %s", this.animalTagID, this.location, this.latitude, this.longitude, this.notes, this.username, this.time);
     }
 }

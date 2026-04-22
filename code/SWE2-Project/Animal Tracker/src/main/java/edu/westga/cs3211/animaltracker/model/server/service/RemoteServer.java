@@ -285,7 +285,7 @@ public class RemoteServer implements ServerService {
                     notes = json.getString("notes");
                 }
 
-                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes);
+                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes, null);
                 sightings.add(sighting);
 
             } catch (IllegalArgumentException e) {
