@@ -117,5 +117,7 @@ public class SeeDataCodeBehind {
                 cellData.getValue().locationProperty());
         this.timeColumn.setCellValueFactory(cellData ->
                 cellData.getValue().timeProperty());
+        this.userColumn.setCellValueFactory(cellData ->
+                cellData.getValue().usernameProperty());
     }
 }

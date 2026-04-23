@@ -8,24 +8,32 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class SightingRowViewModel {
-    private final StringProperty location;
-    private final DoubleProperty latitude;
-    private final DoubleProperty longitude;
-    private final ObjectProperty<LocalDate> date;
-    private final ObjectProperty<LocalTime> time;
-    private final StringProperty notes;
+    private final Sighting sighting;
+    private StringProperty location;
+    private DoubleProperty latitude;
+    private DoubleProperty longitude;
+    private ObjectProperty<LocalDate> date;
+    private ObjectProperty<LocalTime> time;
+    private StringProperty username;
+    private StringProperty notes;
 
 
     public SightingRowViewModel(Sighting sighting) {
         if (sighting == null) {
             throw new IllegalArgumentException("Sighting cannot be null");
         }
-        this.location = new SimpleStringProperty(sighting.getLocation());
-        this.latitude = new SimpleDoubleProperty(sighting.getLatitude());
+        this.sighting = sighting;
+        this.bindProperties();
+    }
+
+    private void bindProperties() {
+        this.location = new SimpleStringProperty(this.sighting.getLocation());
+        this.latitude = new SimpleDoubleProperty(this.sighting.getLatitude());
         this.longitude = new SimpleDoubleProperty(sighting.getLongitude());
-        this.time = new SimpleObjectProperty<>(sighting.getTime().toLocalTime());
-        this.date = new SimpleObjectProperty<>(sighting.getTime().toLocalDate());
-        this.notes = new SimpleStringProperty(sighting.getNotes());
+        this.time = new SimpleObjectProperty<>(this.sighting.getTime().toLocalTime());
+        this.date = new SimpleObjectProperty<>(this.sighting.getTime().toLocalDate());
+        this.notes = new SimpleStringProperty(this.sighting.getNotes());
+        this.username = new SimpleStringProperty(this.sighting.getUsername());
     }
 
     public StringProperty locationProperty() {
@@ -54,5 +62,8 @@ public class SightingRowViewModel {
 
     public DoubleProperty latitudeProperty() {
         return latitude;
+    }
+    public StringProperty usernameProperty() {
+        return username;
     }
 }

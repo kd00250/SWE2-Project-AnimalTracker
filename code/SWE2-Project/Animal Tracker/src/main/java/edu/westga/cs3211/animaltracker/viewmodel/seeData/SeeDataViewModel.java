@@ -34,24 +34,21 @@ public class SeeDataViewModel {
     }
 
     private List<SightingRowViewModel> retrieveSightings() {
-        var request = new GetSightingRequest(this.authSession.getToken(), animalProperty.get().getTagID());
-        //var sightings = this.serverService.getSightings(request);
-        var sightings = generateFakeSightings();
-        var sightingViewModels = new ArrayList<SightingRowViewModel>();
-        for (Sighting sighting : sightings) {
-            sightingViewModels.add(new SightingRowViewModel(sighting));
+        try {
+            var request = new GetSightingRequest(this.authSession.getToken(), animalProperty.get().getTagID());
+            var sightings = this.serverService.getSightings(request);
+            System.out.println(sightings);
+            var sightingViewModels = new ArrayList<SightingRowViewModel>();
+            for (Sighting sighting : sightings) {
+                sightingViewModels.add(new SightingRowViewModel(sighting));
+            }
+            return sightingViewModels;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return sightingViewModels;
+        return null;
     }
-    //TODO DELETE
-    private List<Sighting> generateFakeSightings() {
-        var sightings = new ArrayList<Sighting>();
-        var sighting0 = new Sighting(this.animalProperty.get().getTagID(), "Florida",  10.8, 60.6, LocalDateTime.now(), "Was a nice animal with florida energy");
-        var sighting1 = new Sighting(this.animalProperty.get().getTagID(), "NewYork",  20.8, 68.6, LocalDateTime.now(), "Interesting notes about alligators in sewers");
-        sightings.add(sighting0);
-        sightings.add(sighting1);
-        return sightings;
-    }
+
 
     public ServerService getServerService() {
         return serverService;
