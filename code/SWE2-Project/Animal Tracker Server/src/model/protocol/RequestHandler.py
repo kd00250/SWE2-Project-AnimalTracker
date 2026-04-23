@@ -197,7 +197,8 @@ class RequestHandler:
     def _handle_add_sighting_request(request):
         print("Handling add sighting request")
         token = request.get("token")
-        username = RequestHandler.storage.get_user(token)
+        user = RequestHandler.storage.get_user(token)
+        username = user.get_username()
 
         if username is None:
             return ResponseBuilder.build_user_is_not_in_system()
