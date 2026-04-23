@@ -71,7 +71,7 @@ class Sighting:
         :param time: Time of animal sighting.
         :return: True or False on whether the time is invalid.
         """
-        return time is not None and time > datetime.now()
+        return time is None
 
     @staticmethod
     def _is_invalid_longitude(longitude):
