@@ -251,3 +251,62 @@ class ResponseBuilder:
                 "status": "success",
             }
         return response
+
+    @staticmethod
+    def build_user_is_not_in_system():
+        response = {
+            "status": "error",
+        }
+        return response
+
+    @staticmethod
+    def build_add_sighting_request(sighting):
+        if sighting is None:
+            response = {
+                "status": "error",
+            }
+        else:
+            response = {
+                "status": "success",
+            }
+        return response
+
+    @staticmethod
+    def build_tag_does_not_exist():
+        response = {
+            "status": "error",
+        }
+        return response
+
+    @staticmethod
+    def build_get_sighting_response(sightings):
+        sighting_list = []
+
+        if sightings is None or len(sightings) == 0:
+            sighting_list.append({
+                "Animal": "",
+                "User": "",
+                "Location": "",
+                "Latitude": "",
+                "Longitude": "",
+                "Time": "",
+                "Notes": "",
+            })
+        else:
+            for sighting in sightings:
+                sighting_list.append({
+                    "Animal": sighting.get_animal_tag(),
+                    "User": sighting.get_username(),
+                    "Location": sighting.get_location(),
+                    "Latitude": sighting.get_latitude(),
+                    "Longitude": sighting.get_longitude(),
+                    "Time": sighting.get_time(),
+                    "Notes": sighting.get_notes(),
+                })
+
+        response = {
+            "sightings": sighting_list
+        }
+
+        return response
+

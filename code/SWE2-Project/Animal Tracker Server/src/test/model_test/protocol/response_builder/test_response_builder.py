@@ -204,3 +204,83 @@ class TestResponseBuilder(unittest.TestCase):
         mock_animal = MagicMock()
         result = ResponseBuilder.build_add_animal_request(mock_animal)
         self.assertEqual({"status": "success"}, result)
+
+    def test_build_user_is_not_in_system(self):
+        result = ResponseBuilder.build_user_is_not_in_system()
+        self.assertEqual({"status": "error"}, result)
+
+    def test_build_add_sighting_request_success(self):
+        mock_sighting = MagicMock()
+        result = ResponseBuilder.build_add_sighting_request(mock_sighting)
+        self.assertEqual({"status": "success"}, result)
+
+    def test_build_add_sighting_request_error(self):
+        result = ResponseBuilder.build_add_sighting_request(None)
+        self.assertEqual({"status": "error"}, result)
+
+    def test_build_tag_does_not_exist(self):
+        result = ResponseBuilder.build_tag_does_not_exist()
+
+        self.assertEqual({
+            "status": "error",
+        }, result)
+
+    def test_build_get_sighting_response_with_none(self):
+        result = ResponseBuilder.build_get_sighting_response(None)
+
+        self.assertEqual({
+            "sightings": [
+                {
+                    "Animal": "",
+                    "User": "",
+                    "Location": "",
+                    "Latitude": "",
+                    "Longitude": "",
+                    "Time": "",
+                    "Notes": "",
+                }
+            ]
+        }, result)
+
+    def test_build_get_sighting_response_with_empty_list(self):
+        result = ResponseBuilder.build_get_sighting_response([])
+
+        self.assertEqual({
+            "sightings": [
+                {
+                    "Animal": "",
+                    "User": "",
+                    "Location": "",
+                    "Latitude": "",
+                    "Longitude": "",
+                    "Time": "",
+                    "Notes": "",
+                }
+            ]
+        }, result)
+
+    def test_build_get_sighting_response_with_sightings(self):
+        mock_sighting = MagicMock()
+        mock_sighting.get_animal_tag.return_value = "122345"
+        mock_sighting.get_username.return_value = "Bob"
+        mock_sighting.get_location.return_value = "Forest"
+        mock_sighting.get_latitude.return_value = "33.1"
+        mock_sighting.get_longitude.return_value = "-84.2"
+        mock_sighting.get_time.return_value = "2026-04-21T08:00:00"
+        mock_sighting.get_notes.return_value = "Spotted near trail"
+
+        result = ResponseBuilder.build_get_sighting_response([mock_sighting])
+
+        self.assertEqual({
+            "sightings": [
+                {
+                    "Animal": "122345",
+                    "User": "Bob",
+                    "Location": "Forest",
+                    "Latitude": "33.1",
+                    "Longitude": "-84.2",
+                    "Time": "2026-04-21T08:00:00",
+                    "Notes": "Spotted near trail",
+                }
+            ]
+        }, result)

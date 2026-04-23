@@ -10,7 +10,7 @@ from model.data.ServerStorage import ServerStorage
 from model.protocol.RequestHandler import RequestHandler
 
 
-def build_storage():
+def build_prepopulated_storage_for_testing():
     print("Creating User")
     storage = ServerStorage()
     bob = User("Bob", "1234", Role.SCIENTIST)
@@ -36,8 +36,6 @@ def main():
     socket.bind("tcp://127.0.0.1:5555")
     print("Server listening on port 5555...")
 
-    build_storage()
-
     while True:
         raw = socket.recv()
         message = raw.decode("utf-8")
@@ -55,4 +53,5 @@ def main():
 
 
 if __name__ == "__main__":
+    build_prepopulated_storage_for_testing()
     main()
