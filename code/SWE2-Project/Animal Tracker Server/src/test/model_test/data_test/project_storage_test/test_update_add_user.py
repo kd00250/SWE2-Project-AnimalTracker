@@ -9,7 +9,7 @@ from model.data.ProjectStorage import ProjectStorage
 class TestUpdateAddUser(unittest.TestCase):
     def setUp(self):
         self._project_storage = ProjectStorage()
-        self._project_storage.reset()
+        self._project_storage._reset()
 
     def test_update_add_valid_user(self):
         user0 = User("Bob","1234",Role.ADMIN)

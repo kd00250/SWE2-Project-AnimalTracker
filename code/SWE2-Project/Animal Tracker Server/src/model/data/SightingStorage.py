@@ -48,7 +48,6 @@ class SightingStorage:
         :param animal_tag: Id of an animal.
         :return: All sightings from the sighting list by animal tag.
         """
-
         for sighting in self._sightings:
             if sighting.get_animal_tag() == animal_tag:
                 yield sighting

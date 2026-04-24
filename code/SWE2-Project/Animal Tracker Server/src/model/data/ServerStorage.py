@@ -199,6 +199,11 @@ class ServerStorage:
         return result
 
     def is_animal_tag_in_server(self, animal_tag):
+        """
+        Checks if an animal tag is in the server storage.
+        :param animal_tag: Animal tag to be checked.
+        :return: Boolean depending on if the animal tag is in the server.
+        """
         return self._project_storage.is_animal_tag_in_server(animal_tag)
 
     def _reset(self):

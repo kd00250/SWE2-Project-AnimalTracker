@@ -6,6 +6,7 @@ from request_server.server import build_prepopulated_storage_for_testing, main
 class TestServer(unittest.TestCase):
 
     @patch("request_server.server.Project")
+    @patch("request_server.server.Sighting")
     @patch("request_server.server.Animal")
     @patch("request_server.server.User")
     @patch("request_server.server.ServerStorage")
@@ -14,8 +15,8 @@ class TestServer(unittest.TestCase):
             mock_server_storage_class,
             mock_user_class,
             mock_animal_class,
-            mock_project_class
-    ):
+            mock_sighting_class,
+            mock_project_class):
         mock_storage = MagicMock()
         mock_server_storage_class.return_value = mock_storage
 
@@ -23,19 +24,46 @@ class TestServer(unittest.TestCase):
         mock_joe = MagicMock()
         mock_billy = MagicMock()
         mock_carl = MagicMock()
-        mock_animal = MagicMock()
-        mock_project = MagicMock()
 
-        mock_user_class.side_effect = [mock_bob, mock_joe, mock_billy, mock_carl]
-        mock_animal_class.return_value = mock_animal
-        mock_project_class.return_value = mock_project
-        mock_project.get_id.return_value = 1
+        mock_animal = MagicMock()
+        mock_animal2 = MagicMock()
+
+        mock_sighting0 = MagicMock()
+        mock_sighting1 = MagicMock()
+        mock_sighting2 = MagicMock()
+
+        mock_project = MagicMock()
+        mock_project1 = MagicMock()
+
+        mock_user_class.side_effect = [
+            mock_bob,
+            mock_joe,
+            mock_billy,
+            mock_carl
+        ]
+
+        mock_animal_class.side_effect = [
+            mock_animal,
+            mock_animal2
+        ]
+
+        mock_sighting_class.side_effect = [
+            mock_sighting0,
+            mock_sighting1,
+            mock_sighting2
+        ]
+
+        mock_project_class.side_effect = [
+            mock_project,
+            mock_project1
+        ]
 
         build_prepopulated_storage_for_testing()
 
         self.assertEqual(4, mock_user_class.call_count)
-        self.assertEqual(1, mock_animal_class.call_count)
-        self.assertEqual(1, mock_project_class.call_count)
+        self.assertEqual(2, mock_animal_class.call_count)
+        self.assertEqual(3, mock_sighting_class.call_count)
+        self.assertEqual(2, mock_project_class.call_count)
 
         mock_storage.add_user.assert_has_calls([
             call(mock_bob),
@@ -44,14 +72,23 @@ class TestServer(unittest.TestCase):
             call(mock_carl)
         ])
 
-        mock_storage.add_project.assert_called_once_with(mock_project)
+        mock_storage.add_sighting.assert_has_calls([
+            call(mock_sighting0),
+            call(mock_sighting1),
+            call(mock_sighting2)
+        ])
+
+        mock_storage.add_project.assert_has_calls([
+            call(mock_project),
+            call(mock_project1)
+        ])
 
     @patch("request_server.server.RequestHandler.handle_request")
     @patch("request_server.server.zmq.Context")
     def test_main_handles_one_request_then_exit(
-        self,
-        mock_context_class,
-        mock_handle_request
+            self,
+            mock_context_class,
+            mock_handle_request
     ):
         mock_context = MagicMock()
         mock_socket = MagicMock()
@@ -79,9 +116,9 @@ class TestServer(unittest.TestCase):
     @patch("request_server.server.RequestHandler.handle_request")
     @patch("request_server.server.zmq.Context")
     def test_main_exits_immediately_on_exit_message(
-        self,
-        mock_context_class,
-        mock_handle_request
+            self,
+            mock_context_class,
+            mock_handle_request
     ):
         mock_context = MagicMock()
         mock_socket = MagicMock()
