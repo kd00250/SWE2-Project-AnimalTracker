@@ -37,7 +37,6 @@ public class SeeDataViewModel {
         try {
             var request = new GetSightingRequest(this.authSession.getToken(), animalProperty.get().getTagID());
             var sightings = this.serverService.getSightings(request);
-            System.out.println(sightings);
             var sightingViewModels = new ArrayList<SightingRowViewModel>();
             for (Sighting sighting : sightings) {
                 sightingViewModels.add(new SightingRowViewModel(sighting));
