@@ -12,7 +12,7 @@ class TestUpdateAddUser(unittest.TestCase):
         self._project_storage._reset()
 
     def test_update_add_valid_user(self):
-        user0 = User("Bob","1234",Role.ADMIN)
+        user0 = User("Bob", "1234", Role.ADMIN)
         project0 = Project("Test", {user0}, {}, 0)
         self._project_storage.add_project(project0)
         user1 = User("Tim", "12341234", Role.SCIENTIST)
@@ -20,7 +20,7 @@ class TestUpdateAddUser(unittest.TestCase):
         self.assertTrue(user1 in self._project_storage.get_project(0).get_users())
 
     def test_update_add_invalid_project(self):
-        user0 = User("Bob","1234",Role.ADMIN)
+        user0 = User("Bob", "1234", Role.ADMIN)
         user1 = User("Tim", "12341234", Role.SCIENTIST)
 
         project0 = Project("Test", [user0], [], 0)

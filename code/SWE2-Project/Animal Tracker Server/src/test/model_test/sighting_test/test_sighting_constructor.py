@@ -19,7 +19,7 @@ class TestSightingConstructor(unittest.TestCase):
 
     def test_location_empty(self):
         with self.assertRaises(Exception):
-            Sighting("1234", "user", "   ", 10.0, 20.0)
+            Sighting("1234", "user", "   ", 10.0, 20.0, datetime.now(), "Notes")
 
     def test_invalid_latitude_low(self):
         with self.assertRaises(Exception):

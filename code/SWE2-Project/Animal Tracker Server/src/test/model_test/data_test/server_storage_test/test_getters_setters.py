@@ -96,7 +96,7 @@ class TestServerStorageConstructor(unittest.TestCase):
         self.assertEqual(projects[0].get_name(), project.get_name())
 
     def test_get_all_users(self):
-        user = user = User("Tim", "1234", Role.SCIENTIST)
+        user = User("Tim", "1234", Role.SCIENTIST)
         self._server_storage.add_user(user)
         users = self._server_storage.get_all_users()
         self.assertEqual(len(users), 1)

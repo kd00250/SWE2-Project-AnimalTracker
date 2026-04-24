@@ -28,7 +28,6 @@ class TestConstructor(unittest.TestCase):
         with self.assertRaises(Exception):
             Project("", [User("Casey", "Winkle", Role.ADMIN)], [], 5)
 
-
     def test_create_valid_project(self):
         user = User("Casey", "Winkle", Role.ADMIN)
         animal = Animal(AnimalClass.BIRD, 10, 20, 20, 1, "A flying bird")
@@ -38,7 +37,3 @@ class TestConstructor(unittest.TestCase):
         first_animal = project.get_animals()[0]
         self.assertEqual(animal, first_animal)
         self.assertEqual(project.get_id(), 1)
-
-
-
-
