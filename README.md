@@ -35,6 +35,10 @@ Scientist login:
 	Username: Joe
 	Password: 1234
 
+Contributor login:
+	Username: Carl
+	Password: 0987
+
 1. In intellij before running the project for the first time we recommend running clean and compile from the maven menu that can be found on the right hand side once your project is open in intellij
 2. Go to the main file and run the project
 3. Go into pycharm and go to the server file
