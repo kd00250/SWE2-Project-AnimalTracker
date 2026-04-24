@@ -8,8 +8,12 @@ import edu.westga.cs3211.animaltracker.viewmodel.AddSightingViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.chrono.IsoChronology;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
 /**
@@ -55,9 +59,29 @@ public class AddSightingCodeBehind {
     private void initialize() {
         this.hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12));
         this.minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        this.setUpDatePickerFormat();
         this.vm = new AddSightingViewModel();
         this.bindAllProperties();
         this.setTextInputRestrictions();
+    }
+
+    private void setUpDatePickerFormat() {
+        var pattern = "yyyy-MM-dd";
+        var formatter = DateTimeFormatter.ofPattern(pattern);
+        this.datePicker.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? formatter.format(date) : "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, formatter);
+                }
+                return null;
+            }
+        });
     }
 
     private void bindAllProperties() {
@@ -65,9 +89,9 @@ public class AddSightingCodeBehind {
         this.locationTextField.textProperty().bindBidirectional(this.vm.locationProperty());
         this.latitudeTextField.textProperty().bindBidirectional(this.vm.latitudeProperty());
         this.longitudeTextField.textProperty().bindBidirectional(this.vm.longitudeProperty());
-        this.datePicker.accessibleTextProperty().bindBidirectional(this.vm.dateProperty());
-        this.hourSpinner.accessibleTextProperty().bindBidirectional(this.vm.hourProperty());
-        this.minuteSpinner.accessibleTextProperty().bindBidirectional(this.vm.minuteProperty());
+        this.datePicker.valueProperty().bindBidirectional(this.vm.dateProperty());
+        this.hourSpinner.getValueFactory().valueProperty().bindBidirectional(this.vm.hourProperty());
+        this.minuteSpinner.getValueFactory().valueProperty().bindBidirectional(this.vm.minuteProperty());
         this.noteTextArea.textProperty().bindBidirectional(this.vm.noteProperty());
     }
 
@@ -128,11 +152,23 @@ public class AddSightingCodeBehind {
 
     @FXML
     void onSaveSightingClick(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Sighting Saved");
-        alert.setHeaderText(null);
-        alert.setContentText("Sighting Saved!");
-        alert.showAndWait();
+        try {
+            var result = this.vm.sendSighting();
+            if (result) {
+                this.vm.clearAllFields();
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Save Sighting");
+                alert.setHeaderText(null);
+                alert.setContentText("Sighting was Saved!");
+                alert.showAndWait();
+            }
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(exc.getMessage());
+            alert.showAndWait();
+        }
     }
 
     @FXML

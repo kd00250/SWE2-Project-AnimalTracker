@@ -1,5 +1,6 @@
 package edu.westga.cs3211.animaltracker.model.server.service.localserver;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ class TestAddSighting {
 
         Animal animal = new Animal(AnimalClass.MAMMAL, 120.5, 75.2, 50.0, 1001, "Adult deer");
         Sighting sighting = new Sighting(
-                animal.getTagID(),
+                animal.getId(),
                 "Forest Area A",
                 33.7490,
                 -84.3880,
@@ -36,11 +37,11 @@ class TestAddSighting {
     }
 
     @Test
-    void addSightingShouldReturnTrueWhenRequestIsNull() {
+    void addSightingShouldReturnFalseWhenRequestIsNull() {
         LocalServer server = new LocalServer();
 
-        boolean result = server.addSighting(null);
+        var result = server.addSighting(null);
 
-        assertTrue(result);
+        assertFalse(result);
     }
 }
