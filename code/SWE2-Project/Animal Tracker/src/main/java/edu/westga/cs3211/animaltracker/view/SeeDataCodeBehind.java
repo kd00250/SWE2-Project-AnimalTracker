@@ -99,9 +99,12 @@ public class SeeDataCodeBehind {
         if (projectVM == null) {
             throw new IllegalArgumentException("ViewProjectDataViewModel cannot be null");
         }
+
         this.vm.setSession(session, server);
         this.projectVM = projectVM;
         this.bindProperties();
+
+
     }
 
     private void setupColumns() {

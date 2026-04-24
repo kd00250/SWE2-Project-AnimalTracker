@@ -3,6 +3,7 @@ package edu.westga.cs3211.animaltracker.viewmodel.seeData;
 import edu.westga.cs3211.animaltracker.model.Animal;
 import edu.westga.cs3211.animaltracker.model.AnimalClass;
 import edu.westga.cs3211.animaltracker.model.Sighting;
+import edu.westga.cs3211.animaltracker.model.server.request.InvalidRequestException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.GetSightingRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
@@ -34,18 +35,13 @@ public class SeeDataViewModel {
     }
 
     private List<SightingRowViewModel> retrieveSightings() {
-        try {
-            var request = new GetSightingRequest(this.authSession.getToken(), animalProperty.get().getTagID());
-            var sightings = this.serverService.getSightings(request);
-            var sightingViewModels = new ArrayList<SightingRowViewModel>();
-            for (Sighting sighting : sightings) {
-                sightingViewModels.add(new SightingRowViewModel(sighting));
-            }
-            return sightingViewModels;
-        } catch (Exception e) {
-            e.printStackTrace();
+        var request = new GetSightingRequest(this.authSession.getToken(), animalProperty.get().getTagID());
+        var sightings = this.serverService.getSightings(request);
+        var sightingViewModels = new ArrayList<SightingRowViewModel>();
+        for (Sighting sighting : sightings) {
+            sightingViewModels.add(new SightingRowViewModel(sighting));
         }
-        return null;
+        return sightingViewModels;
     }
 
 

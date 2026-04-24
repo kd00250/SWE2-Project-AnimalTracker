@@ -14,11 +14,18 @@ import java.util.List;
 
 public class FakeServerService implements ServerService {
     private final ArrayList<Sighting> sightings;
+    private boolean throwsException = false;
     public FakeServerService() {
         this.sightings = new ArrayList<>();
     }
+    public void setShouldThrow(boolean shouldThrow) {
+        this.throwsException = shouldThrow;
+    }
     @Override
     public List<Sighting> getSightings(GetSightingRequest request) {
+        if (this.throwsException) {
+            throw new IllegalArgumentException("Invalid Server Request");
+        }
         return this.sightings;
     }
 
