@@ -14,7 +14,7 @@ class TestSightingStorageReset(unittest.TestCase):
         storage.add_sighting(s1)
         storage.add_sighting(s2)
 
-        storage.reset()
+        storage._reset()
 
         self.assertEqual([], storage.retrieve_all_sightings())
 

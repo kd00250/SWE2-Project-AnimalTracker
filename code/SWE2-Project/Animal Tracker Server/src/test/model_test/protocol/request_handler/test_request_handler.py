@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 from unittest.mock import patch, MagicMock
 
 from model.protocol.RequestHandler import RequestHandler
@@ -380,8 +381,8 @@ class TestRequestHandler(unittest.TestCase):
         RequestHandler.storage.add_sighting.assert_not_called()
         mock_build_user_not_in_system.assert_called_once()
 
-    @patch("model.protocol.RequestHandler.ResponseBuilder.build_animal_does_not_exist")
-    def test_handle_request_add_sighting_request_animal_does_not_exist(self, mock_build_animal_does_not_exist):
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_tag_does_not_exist")
+    def test_handle_request_add_sighting_request_animal_does_not_exist(self, mock_build_tag_does_not_exist):
         mock_user = MagicMock()
         mock_user.get_username.return_value = "Bob"
 
@@ -389,7 +390,7 @@ class TestRequestHandler(unittest.TestCase):
         RequestHandler.storage.contains_username.return_value = True
         RequestHandler.storage.is_animal_tag_in_server.return_value = False
 
-        mock_build_animal_does_not_exist.return_value = {"status": "error"}
+        mock_build_tag_does_not_exist.return_value = {"status": "error"}
 
         message = (
             '{"action": "add_sighting_request", "token": "abc123", '
@@ -400,9 +401,9 @@ class TestRequestHandler(unittest.TestCase):
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "error"}, result)
-        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with("122345")
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
         RequestHandler.storage.add_sighting.assert_not_called()
-        mock_build_animal_does_not_exist.assert_called_once()
+        mock_build_tag_does_not_exist.assert_called_once()
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_sighting_request")
     @patch("model.protocol.RequestHandler.Sighting")
@@ -416,7 +417,6 @@ class TestRequestHandler(unittest.TestCase):
 
         mock_sighting = MagicMock()
         mock_sighting_class.return_value = mock_sighting
-
         mock_build_add_sighting_request.return_value = {"status": "success"}
 
         message = (
@@ -428,19 +428,18 @@ class TestRequestHandler(unittest.TestCase):
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "success"}, result)
-
         RequestHandler.storage.get_user.assert_called_once_with("abc123")
         mock_user.get_username.assert_called_once()
         RequestHandler.storage.contains_username.assert_called_once_with("Bob")
-        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with("122345")
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
 
         mock_sighting_class.assert_called_once_with(
-            "122345",
+            122345,
             "Bob",
             "Forest",
-            "33.1",
-            "-84.2",
-            "2026-04-21T08:00:00",
+            33.1,
+            -84.2,
+            datetime.fromisoformat("2026-04-21T08:00:00"),
             "Spotted near trail"
         )
 
@@ -483,3 +482,27 @@ class TestRequestHandler(unittest.TestCase):
         self.assertEqual({"sightings": []}, result)
         RequestHandler.storage.retrieve_sightings_by_animal_id.assert_called_once_with("122345")
         mock_build_get_sighting_response.assert_called_once_with(mock_sightings)
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_invalid_time")
+    def test_handle_request_add_sighting_request_invalid_time(self, mock_build_invalid_time):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = True
+
+        mock_build_invalid_time.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "not-a-date", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_invalid_time.assert_called_once()

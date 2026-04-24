@@ -53,5 +53,5 @@ class SightingStorage:
             if sighting.get_animal_tag() == animal_tag:
                 yield sighting
 
-    def reset(self):
+    def _reset(self):
         self._sightings = []
