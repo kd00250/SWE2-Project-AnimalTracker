@@ -6,10 +6,8 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.request.data.AddSightingRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -181,13 +179,8 @@ public class AddSightingViewModel {
                 throw new InvalidResponseException("Server did not save the sighting");
             }
             return true;
-        } catch (Exception exc) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Error");
-            alert.setContentText(exc.getMessage());
-            alert.showAndWait();
-            return false;
+        } catch (IllegalArgumentException exc) {
+            throw new IllegalArgumentException(exc.getMessage());
         }
     }
 

@@ -41,7 +41,10 @@ public class LocalServer implements ServerService {
      */
     @Override
     public boolean addSighting(AddSightingRequest request) {
-        return true;
+        if (request != null) {
+            return DataStorage.getAnimalById(request.getSighting().getAnimalTagID()) != null;
+        }
+        return false;
     }
 
     /**

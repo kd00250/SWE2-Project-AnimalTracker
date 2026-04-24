@@ -152,13 +152,21 @@ public class AddSightingCodeBehind {
 
     @FXML
     void onSaveSightingClick(ActionEvent event) {
-        var result = this.vm.sendSighting();
-        if (result) {
-            this.vm.clearAllFields();
-            var alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Save Sighting");
-            alert.setHeaderText(null);
-            alert.setContentText("Sighting was Saved!");
+        try {
+            var result = this.vm.sendSighting();
+            if (result) {
+                this.vm.clearAllFields();
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Save Sighting");
+                alert.setHeaderText(null);
+                alert.setContentText("Sighting was Saved!");
+                alert.showAndWait();
+            }
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(exc.getMessage());
             alert.showAndWait();
         }
     }
