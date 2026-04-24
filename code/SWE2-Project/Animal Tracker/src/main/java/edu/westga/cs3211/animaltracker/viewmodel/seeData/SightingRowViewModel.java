@@ -4,9 +4,12 @@ import edu.westga.cs3211.animaltracker.model.Sighting;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * The sighting row view model, responsible as an intermediary between
+ * the model sightings and properties required for the view, particularly rows in a table.
+ */
 public class SightingRowViewModel {
     private final Sighting sighting;
     private StringProperty location;
@@ -17,7 +20,10 @@ public class SightingRowViewModel {
     private StringProperty username;
     private StringProperty notes;
 
-
+    /**
+     * Instantiates a new row view model with sighting information.
+     * @param sighting the sighting to populate properties with
+     */
     public SightingRowViewModel(Sighting sighting) {
         if (sighting == null) {
             throw new IllegalArgumentException("Sighting cannot be null");
@@ -29,41 +35,66 @@ public class SightingRowViewModel {
     private void bindProperties() {
         this.location = new SimpleStringProperty(this.sighting.getLocation());
         this.latitude = new SimpleDoubleProperty(this.sighting.getLatitude());
-        this.longitude = new SimpleDoubleProperty(sighting.getLongitude());
+        this.longitude = new SimpleDoubleProperty(this.sighting.getLongitude());
         this.time = new SimpleObjectProperty<>(this.sighting.getTime().toLocalTime());
         this.date = new SimpleObjectProperty<>(this.sighting.getTime().toLocalDate());
         this.notes = new SimpleStringProperty(this.sighting.getNotes());
         this.username = new SimpleStringProperty(this.sighting.getUsername());
     }
 
+    /**
+     * Gets the location property of the sighting.
+     * @return the location property
+     */
     public StringProperty locationProperty() {
-        return location;
+        return this.location;
     }
 
-
+    /**
+     * Gets the notes property of the sighting.
+     * @return the notes property
+     */
     public StringProperty notesProperty() {
-        return notes;
+        return this.notes;
     }
 
-
-
+    /**
+     * Gets the date property of the sighting.
+     * @return the date property
+     */
     public ObjectProperty<LocalDate> dateProperty() {
-        return date;
+        return this.date;
     }
 
-
+    /**
+     * Gets the time property of the sighting.
+     * @return the sighting property
+     */
     public ObjectProperty<LocalTime> timeProperty() {
-        return time;
+        return this.time;
     }
 
+    /**
+     * Gets the longitude property of the sighting.
+     * @return the longitude property
+     */
     public DoubleProperty longitudeProperty() {
-        return longitude;
+        return this.longitude;
     }
 
+    /**
+     * Gets the latitude property of the sighting.
+     * @return the latitude property
+     */
     public DoubleProperty latitudeProperty() {
-        return latitude;
+        return this.latitude;
     }
+
+    /**
+     * Gets the username property of the sighting.
+     * @return the username property
+     */
     public StringProperty usernameProperty() {
-        return username;
+        return this.username;
     }
 }
