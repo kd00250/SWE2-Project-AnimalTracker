@@ -34,7 +34,7 @@ class Sighting:
             raise ValueError("Longitude must be a valid coordinate between -180 and 180.")
 
         if self._is_invalid_time(time):
-            raise ValueError("Sighting time cannot be in the future.")
+            raise ValueError("Sighting time must be provided.")
 
         if self._is_invalid_notes(notes):
             raise ValueError("Notes must contain valid text.")
@@ -72,7 +72,7 @@ class Sighting:
         :param time: Time of animal sighting.
         :return: True or False on whether the time is invalid.
         """
-        return time is not None and time > datetime.now()
+        return time is None
 
     @staticmethod
     def _is_invalid_longitude(longitude):

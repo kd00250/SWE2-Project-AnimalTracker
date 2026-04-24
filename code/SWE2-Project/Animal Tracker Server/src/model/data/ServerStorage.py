@@ -198,6 +198,9 @@ class ServerStorage:
         result = self._sighting_storage.retrieve_sightings_by_animal_id(animal_tag)
         return result
 
+    def is_animal_tag_in_server(self, animal_tag):
+        return self._project_storage.is_animal_tag_in_server(animal_tag)
+
     def _reset(self):
         self._user_storage = UserStorage()
         self._project_storage = ProjectStorage()

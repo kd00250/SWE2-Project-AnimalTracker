@@ -1,8 +1,18 @@
 package edu.westga.cs3211.animaltracker.viewmodel;
 
+import edu.westga.cs3211.animaltracker.model.Sighting;
+import edu.westga.cs3211.animaltracker.model.server.request.InvalidResponseException;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.request.data.AddSightingRequest;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The AddSightingViewModel class.
@@ -17,9 +27,9 @@ public class AddSightingViewModel {
     private SimpleStringProperty location;
     private SimpleStringProperty latitude;
     private SimpleStringProperty longitude;
-    private SimpleStringProperty date;
-    private SimpleStringProperty hour;
-    private SimpleStringProperty minute;
+    private SimpleObjectProperty<LocalDate> date;
+    private ObjectProperty<Integer> hour;
+    private ObjectProperty<Integer> minute;
     private SimpleStringProperty note;
 
     /**
@@ -40,9 +50,9 @@ public class AddSightingViewModel {
         this.location = new SimpleStringProperty("");
         this.latitude = new SimpleStringProperty("");
         this.longitude = new SimpleStringProperty("");
-        this.date = new SimpleStringProperty("");
-        this.hour = new SimpleStringProperty("");
-        this.minute = new SimpleStringProperty("");
+        this.date = new SimpleObjectProperty<LocalDate>(null);
+        this.hour = new SimpleObjectProperty<Integer>(0);
+        this.minute = new SimpleObjectProperty<Integer>(0);
         this.note = new SimpleStringProperty("");
     }
 
@@ -116,7 +126,7 @@ public class AddSightingViewModel {
      *
      * @return the date String Property
      */
-    public SimpleStringProperty dateProperty() {
+    public SimpleObjectProperty<LocalDate> dateProperty() {
         return this.date;
     }
 
@@ -125,7 +135,7 @@ public class AddSightingViewModel {
      *
      * @return the hour String Property
      */
-    public SimpleStringProperty hourProperty() {
+    public ObjectProperty<Integer> hourProperty() {
         return this.hour;
     }
 
@@ -134,7 +144,7 @@ public class AddSightingViewModel {
      *
      * @return the minute String Property
      */
-    public SimpleStringProperty minuteProperty() {
+    public ObjectProperty<Integer> minuteProperty() {
         return this.minute;
     }
 
@@ -148,6 +158,59 @@ public class AddSightingViewModel {
     }
 
     /**
+     * Creates a Sighting object and sends a request to the server.
+     *
+     * @pre none
+     * @post Sighting is saved in Server if Sighting is Valid and is Saved in Server
+     * @return true if the object was Saved, false otherwise.
+     */
+    public boolean sendSighting() {
+        try {
+            int animalID = Integer.parseInt(this.animalIDProperty().get());
+            var location = this.locationProperty().get();
+            var latitude = Double.parseDouble(this.latitudeProperty().get());
+            var longitude = Double.parseDouble(this.longitudeProperty().get());
+            var formattedTime = this.formatDateAndTime();
+            var note = this.noteProperty().get();
+            var sighting = new Sighting(animalID, location, latitude, longitude, formattedTime, note, null);
+
+            var request = new AddSightingRequest(this.authSession.getToken(), sighting);
+            var response = this.serverService.addSighting(request);
+
+            if (!response) {
+                throw new InvalidResponseException("Server did not save the sighting");
+            }
+            return true;
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(exc.getMessage());
+            alert.showAndWait();
+            return false;
+        }
+    }
+
+    private LocalDateTime formatDateAndTime() {
+        StringBuilder dateAndTime = new StringBuilder();
+        dateAndTime.append(this.dateProperty().get());
+        dateAndTime.append("T");
+        if (this.hourProperty().get() < 10) {
+            dateAndTime.append("0").append(this.hourProperty().get());
+        } else {
+            dateAndTime.append(this.hourProperty().get());
+        }
+        dateAndTime.append(":");
+        if (this.minuteProperty().get() < 10) {
+            dateAndTime.append("0").append(this.minuteProperty().get());
+        } else {
+            dateAndTime.append(this.minuteProperty().get());
+        }
+        var formattedTime = LocalDateTime.parse(dateAndTime);
+        return formattedTime;
+    }
+
+    /**
      * Clears all the fields.
      */
     public void clearAllFields() {
@@ -155,9 +218,9 @@ public class AddSightingViewModel {
         this.location.set("");
         this.latitude.set("");
         this.longitude.set("");
-        this.date.set("");
-        this.hour.set("");
-        this.minute.set("");
+        this.date.set(null);
+        this.hour.set(0);
+        this.minute.set(0);
         this.note.set("");
     }
 }
