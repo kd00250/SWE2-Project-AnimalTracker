@@ -192,6 +192,7 @@ public class ViewProjectDataViewModel {
         this.serverService = server;
     }
 
+
     /**
      * Gets the session information.
      *

@@ -7,6 +7,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -94,9 +95,21 @@ public class ViewProjectDataCodeBehind {
     }
 
     @FXML
-    void visualize(ActionEvent event) {
-        //Implementation coming in future sprint :)
-        //The map visualization of the data (a nice to have (said in the sprint planning :) )
+    void onSightingDataClick(ActionEvent event) {
+        if (this.animalListView.getSelectionModel().getSelectedIndex() != -1) {
+            try {
+                SeeDataCodeBehind controller = ViewSwapper.loadPageFromStage(
+                        PageInformation.SEE_DATA_PATH,
+                        this.visualizeDataButton,
+                        PageInformation.SEE_DATA_TITLE
+                );
+                controller.setAnimal(new SimpleObjectProperty<>(this.animalListView.getSelectionModel().getSelectedItem()));
+                controller.setSession(this.vm.getSession(), this.vm.getServerService(), this.vm);
+            } catch (IOException e) {
+                this.displayErrorPopup("Failed to navigate to sighting data: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }
 
     private void displayErrorPopup(String message) {

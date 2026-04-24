@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import zmq
 import json
 
@@ -5,6 +7,7 @@ from model.Animal import Animal
 from model.AnimalClass import AnimalClass
 from model.Project import Project
 from model.Role import Role
+from model.Sighting import Sighting
 from model.User import User
 from model.data.ServerStorage import ServerStorage
 from model.protocol.RequestHandler import RequestHandler
@@ -22,11 +25,16 @@ def build_prepopulated_storage_for_testing():
     storage.add_user(joe)
     storage.add_user(carl)
     animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
+    sighting0 = Sighting(122345, "Tim", "Florida", 10.6, 20.6, datetime.now(), "Bird is flying over a lake.")
+    sighting1 = Sighting(122345, "Bob", "Florida", 10.6, 20.6, datetime.now(), "Bird is drinking water.")
+    storage.add_sighting(sighting0)
+    storage.add_sighting(sighting1)
     animals = {animal}
     users = {bob}
     project = Project("Wildlife Migration Study", users, animals, 1)
     print(project.get_id())
     storage.add_project(project)
+    print(storage.retrieve_all_sightings())
 
 
 def main():

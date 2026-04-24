@@ -35,6 +35,7 @@ public class RemoteServer implements ServerService {
     @Override
     public List<Sighting> getSightings(GetSightingRequest request) {
         JSONObject response = this.client.send(request);
+        System.out.println(response);
         return this.buildSightingsFromResponse(response);
     }
 
@@ -263,7 +264,7 @@ public class RemoteServer implements ServerService {
         }
 
         List<Sighting> sightings = new ArrayList<>();
-
+        System.out.println(response.toString());
         JSONArray sightingsArray = response.getJSONArray("sightings");
 
         for (int i = 0; i < sightingsArray.length(); i++) {
@@ -278,7 +279,8 @@ public class RemoteServer implements ServerService {
 
                 LocalDateTime time = null;
                 if (json.has("time") && !json.isNull("time")) {
-                    time = LocalDateTime.parse(json.getString("time"));
+                    var temp = json.getString("time");
+                    time = LocalDateTime.parse(temp);
                 }
 
                 String notes = null;

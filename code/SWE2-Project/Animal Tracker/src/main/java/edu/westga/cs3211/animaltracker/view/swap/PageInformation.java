@@ -82,4 +82,7 @@ public final class PageInformation {
      * The Add Sighting Title.
      */
     public static final String ADD_SIGHTING_TITLE = "Add Sighting";
+
+    public static final String SEE_DATA_TITLE = "Sighting Information";
+    public static final String SEE_DATA_PATH = "view/seeData.fxml";
 }
