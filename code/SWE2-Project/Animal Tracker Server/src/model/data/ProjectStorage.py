@@ -61,7 +61,7 @@ class ProjectStorage:
     def is_animal_tag_in_server(self, animal_tag):
         for project in self._projects:
             for animal in project.get_animals():
-                if animal.get_tag() == animal_tag:
+                if animal.get_tag_id() == animal_tag:
                     return True
         return False
 

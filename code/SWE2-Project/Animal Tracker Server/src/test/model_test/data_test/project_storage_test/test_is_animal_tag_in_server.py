@@ -2,6 +2,8 @@ import unittest
 from unittest.mock import MagicMock
 
 from model.data.ServerStorage import ServerStorage
+
+
 class TestIsAnimalTagInServer(unittest.TestCase):
 
     def setUp(self):
@@ -9,8 +11,7 @@ class TestIsAnimalTagInServer(unittest.TestCase):
 
     def test_tag_exists(self):
         animal = MagicMock()
-        animal.get_tag.return_value = "1234"
-
+        animal.get_tag_id.return_value = "1234"
         project = MagicMock()
         project.get_animals.return_value = [animal]
 
@@ -22,8 +23,7 @@ class TestIsAnimalTagInServer(unittest.TestCase):
 
     def test_tag_does_not_exist(self):
         animal = MagicMock()
-        animal.get_tag.return_value = "1234"
-
+        animal.get_tag_id.return_value = "1234"
         project = MagicMock()
         project.get_animals.return_value = [animal]
 
