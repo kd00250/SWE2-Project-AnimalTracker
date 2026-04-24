@@ -33,7 +33,7 @@ class Sighting:
             raise ValueError("Longitude must be a valid coordinate between -180 and 180.")
 
         if self._is_invalid_time(time):
-            raise ValueError("Sighting time cannot be in the future.")
+            raise ValueError("Sighting time must be provided.")
 
         if self._is_invalid_notes(notes):
             raise ValueError("Notes must contain valid text.")

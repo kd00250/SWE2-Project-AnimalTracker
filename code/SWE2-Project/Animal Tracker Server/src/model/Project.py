@@ -1,4 +1,3 @@
-
 class Project:
     def __init__(self, name, users, animals, project_id):
         """
@@ -29,12 +28,14 @@ class Project:
         :return: The name of the project.
         """
         return self._name
+
     def get_users(self):
         """
         Gets the users in the project.
         :return: The users in the project.
         """
         return self._users
+
     def get_animals(self):
         """
         Gets the animals in the project.
@@ -48,6 +49,7 @@ class Project:
         :return: The id of the project.
         """
         return self._id
+
     def set_name(self, name):
         """
         Sets the name of the project with a new name.
@@ -98,6 +100,7 @@ class Project:
         if self.contains_animal(animal):
             raise Exception("Animal already exists")
         self._animals.add(animal)
+
     def contains_animal(self, animal):
         """
         Checks if the project contains the animal.

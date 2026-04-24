@@ -10,12 +10,10 @@ class ProjectStorage:
         self._projects = []
         self._id_to_project = {}
 
-
     def add_project(self, project):
         if project is None:
             raise Exception('Project cannot be None')
         if project not in self._projects:
-            #project.set_id(len(self._projects))
             self._projects.append(project)
             self._id_to_project[project.get_id()] = project
         return project.get_id()
@@ -27,7 +25,6 @@ class ProjectStorage:
         self._projects.remove(project)
         del self._id_to_project[project_id]
         return True
-
 
     def get_project(self, project_id):
         if project_id not in self._id_to_project:
@@ -60,6 +57,13 @@ class ProjectStorage:
 
     def retrieve_projects_in_server(self):
         return self._projects
+
+    def is_animal_tag_in_server(self, animal_tag):
+        for project in self._projects:
+            for animal in project.get_animals():
+                if animal.get_tag() == animal_tag:
+                    return True
+        return False
 
     def reset(self):
         self._projects = []

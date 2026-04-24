@@ -284,3 +284,12 @@ class TestResponseBuilder(unittest.TestCase):
                 }
             ]
         }, result)
+
+    def test_build_animal_does_not_exist(self):
+        result = ResponseBuilder.build_animal_does_not_exist()
+
+        expected = {
+            "status": "error-AnimalDoesNotExist",
+        }
+
+        self.assertEqual(expected, result)

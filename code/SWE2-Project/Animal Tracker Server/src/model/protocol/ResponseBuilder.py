@@ -310,3 +310,10 @@ class ResponseBuilder:
 
         return response
 
+    @staticmethod
+    def build_animal_does_not_exist():
+        response = {
+            "status": "error-AnimalDoesNotExist",
+        }
+        return response
+

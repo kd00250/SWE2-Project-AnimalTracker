@@ -37,14 +37,13 @@ class TestSightingConstructor(unittest.TestCase):
         with self.assertRaises(Exception):
             Sighting("1234", "user", "Park", 10.0, 181.0, datetime.now(), "Notes")
 
-    def test_future_time(self):
-        future = datetime.now() + timedelta(days=1)
+    def test_invalid_time_empty(self):
         with self.assertRaises(Exception):
-            Sighting("1234", "user", "Park", 10.0, 20.0, future, "Notes")
+            Sighting("1234", "user", "Park", 10.0, 20.0, None, "   ")
 
     def test_invalid_notes_empty(self):
         with self.assertRaises(Exception):
-            Sighting("1234", "user", "Park", 10.0, 20.0, None, "   ")
+            Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "   ")
 
     def test_valid_constructor_with_all_fields(self):
         time = datetime.now() - timedelta(hours=1)

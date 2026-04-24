@@ -198,15 +198,18 @@ class RequestHandler:
         print("Handling add sighting request")
         token = request.get("token")
         user = RequestHandler.storage.get_user(token)
-        username = user.get_username()
 
-        if username is None:
+        if user is None:
             return ResponseBuilder.build_user_is_not_in_system()
+        username = user.get_username()
 
         if not RequestHandler.storage.contains_username(username):
             return ResponseBuilder.build_user_is_not_in_system()
 
         animal_tag = request.get("animal")
+        if not RequestHandler.storage.is_animal_tag_in_server(animal_tag):
+            return ResponseBuilder.build_animal_does_not_exist()
+
         location = request.get("location")
         latitude = request.get("latitude")
         longitude = request.get("longitude")
@@ -229,4 +232,3 @@ class RequestHandler:
 
         sightings = RequestHandler.storage.retrieve_sightings_by_animal_id(animal_tag)
         return ResponseBuilder.build_get_sighting_response(sightings)
-

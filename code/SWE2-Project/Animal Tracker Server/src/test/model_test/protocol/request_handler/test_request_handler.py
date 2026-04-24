@@ -355,8 +355,12 @@ class TestRequestHandler(unittest.TestCase):
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_user_is_not_in_system")
     def test_handle_request_add_sighting_request_username_not_in_system(self, mock_build_user_not_in_system):
-        RequestHandler.storage.get_user.return_value = "Bob"
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
         RequestHandler.storage.contains_username.return_value = False
+
         mock_build_user_not_in_system.return_value = {"status": "error"}
 
         message = (
@@ -368,19 +372,51 @@ class TestRequestHandler(unittest.TestCase):
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "error"}, result)
+
         RequestHandler.storage.get_user.assert_called_once_with("abc123")
+        mock_user.get_username.assert_called_once()
         RequestHandler.storage.contains_username.assert_called_once_with("Bob")
+
         RequestHandler.storage.add_sighting.assert_not_called()
         mock_build_user_not_in_system.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_animal_does_not_exist")
+    def test_handle_request_add_sighting_request_animal_does_not_exist(self, mock_build_animal_does_not_exist):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = False
+
+        mock_build_animal_does_not_exist.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "2026-04-21T08:00:00", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with("122345")
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_animal_does_not_exist.assert_called_once()
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_sighting_request")
     @patch("model.protocol.RequestHandler.Sighting")
     def test_handle_request_add_sighting_request_success(self, mock_sighting_class, mock_build_add_sighting_request):
-        RequestHandler.storage.get_user.return_value = "Bob"
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
         RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = True
 
         mock_sighting = MagicMock()
         mock_sighting_class.return_value = mock_sighting
+
         mock_build_add_sighting_request.return_value = {"status": "success"}
 
         message = (
@@ -392,8 +428,12 @@ class TestRequestHandler(unittest.TestCase):
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "success"}, result)
+
         RequestHandler.storage.get_user.assert_called_once_with("abc123")
+        mock_user.get_username.assert_called_once()
         RequestHandler.storage.contains_username.assert_called_once_with("Bob")
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with("122345")
+
         mock_sighting_class.assert_called_once_with(
             "122345",
             "Bob",
@@ -403,6 +443,7 @@ class TestRequestHandler(unittest.TestCase):
             "2026-04-21T08:00:00",
             "Spotted near trail"
         )
+
         RequestHandler.storage.add_sighting.assert_called_once_with(mock_sighting)
         mock_build_add_sighting_request.assert_called_once_with(mock_sighting)
 
