@@ -176,7 +176,7 @@ public class AddSightingViewModel {
             var response = this.serverService.addSighting(request);
 
             if (!response) {
-                throw new InvalidResponseException("Server did not save the sighting");
+                throw new InvalidResponseException("Animal Tag could not be found.");
             }
             return true;
         } catch (IllegalArgumentException exc) {
