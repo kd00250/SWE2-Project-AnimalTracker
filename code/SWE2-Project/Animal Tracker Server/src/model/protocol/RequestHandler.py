@@ -1,4 +1,6 @@
 import json
+from datetime import datetime
+
 from model.Animal import Animal
 from model.AnimalClass import AnimalClass
 from model.Project import Project
@@ -206,14 +208,20 @@ class RequestHandler:
         if not RequestHandler.storage.contains_username(username):
             return ResponseBuilder.build_user_is_not_in_system()
 
-        animal_tag = request.get("animal")
+        animal_tag = int(request.get("animal"))
         if not RequestHandler.storage.is_animal_tag_in_server(animal_tag):
-            return ResponseBuilder.build_animal_does_not_exist()
+            return ResponseBuilder.build_tag_does_not_exist()
 
         location = request.get("location")
-        latitude = request.get("latitude")
-        longitude = request.get("longitude")
+        latitude = float(request.get("latitude"))
+        longitude = float(request.get("longitude"))
         time = request.get("time")
+
+        try:
+            time = datetime.fromisoformat(time) if time else None
+        except ValueError:
+            return ResponseBuilder.build_invalid_time()
+
         notes = request.get("notes")
         sighting = Sighting(animal_tag, username, location, latitude, longitude, time, notes)
         RequestHandler.storage.add_sighting(sighting)

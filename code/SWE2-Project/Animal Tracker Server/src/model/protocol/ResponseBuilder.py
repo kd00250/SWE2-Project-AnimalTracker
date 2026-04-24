@@ -297,7 +297,6 @@ class ResponseBuilder:
             })
         else:
             for sighting in sightings:
-
                 sighting_list.append({
                     "animalTagID": sighting.get_animal_tag(),
                     "username": sighting.get_username(),
@@ -315,7 +314,7 @@ class ResponseBuilder:
         return response
 
     @staticmethod
-    def build_animal_does_not_exist():
+    def build_invalid_time():
         response = {
             "status": "error",
         }
