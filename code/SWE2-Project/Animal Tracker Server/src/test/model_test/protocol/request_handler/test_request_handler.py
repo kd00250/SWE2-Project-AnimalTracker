@@ -410,7 +410,7 @@ class TestRequestHandler(unittest.TestCase):
     def test_handle_request_get_sighting_request_token_missing(self, mock_build_token_missing):
         mock_build_token_missing.return_value = {"status": "error"}
 
-        message = '{"action": "get_sighting_request", "tagID": "122345"}'
+        message = '{"action": "get_sightings_request", "tagID": "122345"}'
 
         result = RequestHandler.handle_request(message)
 
@@ -421,7 +421,7 @@ class TestRequestHandler(unittest.TestCase):
     def test_handle_request_get_sighting_request_tag_missing(self, mock_build_tag_missing):
         mock_build_tag_missing.return_value = {"status": "error"}
 
-        message = '{"action": "get_sighting_request", "token": "abc123"}'
+        message = '{"action": "get_sightings_request", "token": "abc123"}'
 
         result = RequestHandler.handle_request(message)
 
@@ -435,7 +435,7 @@ class TestRequestHandler(unittest.TestCase):
 
         mock_build_get_sighting_response.return_value = {"sightings": []}
 
-        message = '{"action": "get_sighting_request", "token": "abc123", "tagID": "122345"}'
+        message = '{"action": "get_sightings_request", "token": "abc123", "tagID": "122345"}'
 
         result = RequestHandler.handle_request(message)
 

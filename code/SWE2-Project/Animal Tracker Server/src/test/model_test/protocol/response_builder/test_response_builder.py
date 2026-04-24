@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 from unittest.mock import MagicMock
 
 from model.Role import Role
@@ -231,13 +232,13 @@ class TestResponseBuilder(unittest.TestCase):
         self.assertEqual({
             "sightings": [
                 {
-                    "Animal": "",
-                    "User": "",
-                    "Location": "",
-                    "Latitude": "",
-                    "Longitude": "",
-                    "Time": "",
-                    "Notes": "",
+                    "animalTagID": "",
+                    "username": "",
+                    "location": "",
+                    "latitude": "",
+                    "longitude": "",
+                    "time": "",
+                    "notes": "",
                 }
             ]
         }, result)
@@ -248,13 +249,13 @@ class TestResponseBuilder(unittest.TestCase):
         self.assertEqual({
             "sightings": [
                 {
-                    "Animal": "",
-                    "User": "",
-                    "Location": "",
-                    "Latitude": "",
-                    "Longitude": "",
-                    "Time": "",
-                    "Notes": "",
+                    "animalTagID": "",
+                    "username": "",
+                    "location": "",
+                    "latitude": "",
+                    "longitude": "",
+                    "time": "",
+                    "notes": "",
                 }
             ]
         }, result)
@@ -266,7 +267,7 @@ class TestResponseBuilder(unittest.TestCase):
         mock_sighting.get_location.return_value = "Forest"
         mock_sighting.get_latitude.return_value = "33.1"
         mock_sighting.get_longitude.return_value = "-84.2"
-        mock_sighting.get_time.return_value = "2026-04-21T08:00:00"
+        mock_sighting.get_time.return_value = datetime(2026, 4, 21, 8, 0, 0)
         mock_sighting.get_notes.return_value = "Spotted near trail"
 
         result = ResponseBuilder.build_get_sighting_response([mock_sighting])
@@ -274,13 +275,13 @@ class TestResponseBuilder(unittest.TestCase):
         self.assertEqual({
             "sightings": [
                 {
-                    "Animal": "122345",
-                    "User": "Bob",
-                    "Location": "Forest",
-                    "Latitude": "33.1",
-                    "Longitude": "-84.2",
-                    "Time": "2026-04-21T08:00:00",
-                    "Notes": "Spotted near trail",
+                    "animalTagID": "122345",
+                    "username": "Bob",
+                    "location": "Forest",
+                    "latitude": "33.1",
+                    "longitude": "-84.2",
+                    "time": "2026-04-21T08:00:00",
+                    "notes": "Spotted near trail",
                 }
             ]
         }, result)

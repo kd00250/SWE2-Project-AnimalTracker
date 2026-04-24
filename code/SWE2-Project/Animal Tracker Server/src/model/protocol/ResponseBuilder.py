@@ -1,3 +1,5 @@
+import json
+
 from model.Role import Role
 
 
@@ -280,28 +282,30 @@ class ResponseBuilder:
 
     @staticmethod
     def build_get_sighting_response(sightings):
+        print(sightings)
         sighting_list = []
 
-        if sightings is None or len(sightings) == 0:
+        if not sightings:
             sighting_list.append({
-                "Animal": "",
-                "User": "",
-                "Location": "",
-                "Latitude": "",
-                "Longitude": "",
-                "Time": "",
-                "Notes": "",
+                "animalTagID": "",
+                "username": "",
+                "location": "",
+                "latitude": "",
+                "longitude": "",
+                "time": "",
+                "notes": "",
             })
         else:
             for sighting in sightings:
+
                 sighting_list.append({
-                    "Animal": sighting.get_animal_tag(),
-                    "User": sighting.get_username(),
-                    "Location": sighting.get_location(),
-                    "Latitude": sighting.get_latitude(),
-                    "Longitude": sighting.get_longitude(),
-                    "Time": sighting.get_time(),
-                    "Notes": sighting.get_notes(),
+                    "animalTagID": sighting.get_animal_tag(),
+                    "username": sighting.get_username(),
+                    "location": sighting.get_location(),
+                    "latitude": sighting.get_latitude(),
+                    "longitude": sighting.get_longitude(),
+                    "time": sighting.get_time().isoformat(),
+                    "notes": sighting.get_notes(),
                 })
 
         response = {

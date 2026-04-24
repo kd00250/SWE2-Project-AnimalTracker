@@ -57,7 +57,7 @@ class RequestHandler:
         if request.get("action") == "add_sighting_request":
             return RequestHandler._handle_add_sighting_request(request)
 
-        if request.get("action") == "get_sighting_request":
+        if request.get("action") == "get_sightings_request":
             return RequestHandler._handle_get_sighting_request(request)
 
         return None
