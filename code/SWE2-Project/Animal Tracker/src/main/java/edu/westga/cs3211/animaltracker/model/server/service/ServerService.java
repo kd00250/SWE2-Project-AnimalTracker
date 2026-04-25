@@ -21,8 +21,9 @@ public interface ServerService {
      * @return the list of sightings from the server
      */
     List<Sighting> getSightings(GetSightingRequest request);
+
     /**
-     * adds the user to the server
+     * Adds the user to the server.
      * @param request the request to send
      * @return if the sighting can be added or not
      */

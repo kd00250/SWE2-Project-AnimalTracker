@@ -1,14 +1,12 @@
 package edu.westga.cs3211.animaltracker.view;
 
 import edu.westga.cs3211.animaltracker.model.Animal;
-import edu.westga.cs3211.animaltracker.model.Sighting;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
 import edu.westga.cs3211.animaltracker.viewmodel.ViewProjectDataViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.seeData.SeeDataViewModel;
 import edu.westga.cs3211.animaltracker.viewmodel.seeData.SightingRowViewModel;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,11 +16,12 @@ import javafx.scene.control.TableView;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * The see data code behind responsible for seeing data.
+ */
 public class SeeDataCodeBehind {
-
 
     @FXML
     private Button backButton;
@@ -50,7 +49,6 @@ public class SeeDataCodeBehind {
 
     @FXML
     private TableColumn<SightingRowViewModel, String> userColumn;
-
 
     private SeeDataViewModel vm;
     private ViewProjectDataViewModel projectVM;
@@ -82,6 +80,11 @@ public class SeeDataCodeBehind {
         }
     }
 
+    /**
+     * Set the animal to retrieve sighting information.
+     *
+     * @param animal the animal property to set
+     */
     public void setAnimal(SimpleObjectProperty<Animal> animal) {
         this.vm.setAnimalProperty(animal);
     }
@@ -89,6 +92,14 @@ public class SeeDataCodeBehind {
     private void bindProperties() {
         this.sightingTable.itemsProperty().bind(this.vm.sightings());
     }
+
+    /**
+     * Sets the session information for the code behind.
+     *
+     * @param session   the session information
+     * @param server    the server service
+     * @param projectVM the project page viewmodel
+     */
     public void setSession(LoginResponse session, ServerService server, ViewProjectDataViewModel projectVM) {
         if (session == null) {
             throw new IllegalArgumentException("Session cannot be null");
@@ -103,7 +114,6 @@ public class SeeDataCodeBehind {
         this.vm.setSession(session, server);
         this.projectVM = projectVM;
         this.bindProperties();
-
 
     }
 

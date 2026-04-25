@@ -40,7 +40,7 @@ public class User {
     }
 
     /**
-     * Gets the User Name.
+     * Gets the Username.
      *
      * @return the Scientist Name
      */

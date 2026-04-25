@@ -34,7 +34,7 @@ public class LocalServer implements ServerService {
     }
 
     /**
-     * This method is for testing purposes only as we do not use our local storage for add sightings
+     * This method is for testing purposes only as we do not use our local storage for add sightings.
      *
      * @param request the request to send
      * @return if the sighting can be added or not

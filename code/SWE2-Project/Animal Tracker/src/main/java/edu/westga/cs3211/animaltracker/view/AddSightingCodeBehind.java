@@ -1,6 +1,5 @@
 package edu.westga.cs3211.animaltracker.view;
 
-import edu.westga.cs3211.animaltracker.model.Sighting;
 import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
 import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
@@ -12,7 +11,6 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
