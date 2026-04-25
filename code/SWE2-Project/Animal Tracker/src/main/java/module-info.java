@@ -15,4 +15,5 @@ module edu.westga.cs3211.animaltracker {
     opens edu.westga.cs3211.animaltracker.view to javafx.fxml;
     exports edu.westga.cs3211.animaltracker;
     opens edu.westga.cs3211.animaltracker.viewmodel to javafx.fxml;
+    opens edu.westga.cs3211.animaltracker.viewmodel.seeData to javafx.fxml;
 }

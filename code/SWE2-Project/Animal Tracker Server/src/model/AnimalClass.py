@@ -1,4 +1,6 @@
 import enum
+
+
 class AnimalClass(enum.Enum):
     """
     The possible animal types for an animal.

@@ -33,65 +33,53 @@ public class TestConstructor {
 
     @Test
     void testValidSightingAllFields() {
-        LocalDateTime pastTime = LocalDateTime.now().minusHours(2);
-        Sighting sighting = new Sighting(this.testAnimal, "Forest", 45.0, 90.0, pastTime, "Saw it near a tree.");
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, testTime, "Saw it near a tree.", "Bob");
 
         assertAll(
-                () -> assertEquals(this.testAnimal, sighting.getAnimal()),
+                () -> assertEquals(this.testAnimal.getTagID(), sighting.getAnimalTagID()),
                 () -> assertEquals("Forest", sighting.getLocation()),
                 () -> assertEquals(45.0, sighting.getLatitude()),
                 () -> assertEquals(90.0, sighting.getLongitude()),
-                () -> assertEquals(pastTime, sighting.getTime()),
-                () -> assertEquals("Saw it near a tree.", sighting.getNotes())
+                () -> assertEquals(testTime, sighting.getTime()),
+                () -> assertEquals("Saw it near a tree.", sighting.getNotes()),
+                () -> assertEquals("Bob", sighting.getUsername())
         );
     }
 
-    @Test
-    void testValidSightingOptionalFieldsNull() {
-        Sighting sighting = new Sighting(this.testAnimal, "Mountain", 0.0, 0.0, null, null);
-
-        assertAll(
-                () -> assertEquals(this.testAnimal, sighting.getAnimal()),
-                () -> assertEquals("Mountain", sighting.getLocation()),
-                () -> assertEquals(0.0, sighting.getLatitude()),
-                () -> assertEquals(0.0, sighting.getLongitude()),
-                () -> assertNull(sighting.getTime()),
-                () -> assertNull(sighting.getNotes())
-        );
-    }
+    // Animal ID Testing
 
     @Test
-    void testValidSightingEmptyNotesAllowed() {
-        Sighting sighting = new Sighting(this.testAnimal, "Plains", 10.0, -10.0, null, "");
-
-        assertEquals("", sighting.getNotes());
-    }
-
-    @Test
-    void testInvalidSightingNullAnimal() {
+    void testInvalidSightingNegativeAnimalTagID() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(null, "Forest", 45.0, 90.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(-1, "Forest", 45.0, 90.0, testTime, "Saw it near a tree.", "Bob");
         });
     }
+
+    // Location Testing
 
     @Test
     void testInvalidSightingNullLocation() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, null, 45.0, 90.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), null, 45.0, 90.0, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testInvalidSightingEmptyLocation() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "", 45.0, 90.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "", 45.0, 90.0, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testInvalidSightingWhitespaceLocation() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "   ", 45.0, 90.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "   ", 45.0, 90.0, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
@@ -100,26 +88,30 @@ public class TestConstructor {
     @Test
     void testInvalidSightingLatitudeTooLow() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", -90.1, 0.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", -90.1, 0, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testInvalidSightingLatitudeTooHigh() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", 90.1, 0.0, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 90.1, 0, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testValidSightingLatitudeBoundaryMin() {
-        Sighting sighting = new Sighting(this.testAnimal, "South Pole", -90.0, 0.0, null, null);
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", -90.0, 0, testTime, "Saw it near a tree.", "Bob");
         assertEquals(-90.0, sighting.getLatitude());
     }
 
     @Test
     void testValidSightingLatitudeBoundaryMax() {
-        Sighting sighting = new Sighting(this.testAnimal, "North Pole", 90.0, 0.0, null, null);
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", 90.0, 0, testTime, "Saw it near a tree.", "Bob");
         assertEquals(90.0, sighting.getLatitude());
     }
 
@@ -128,26 +120,30 @@ public class TestConstructor {
     @Test
     void testInvalidSightingLongitudeTooLow() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", 0.0, -180.1, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 0, -180.1, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testInvalidSightingLongitudeTooHigh() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", 0.0, 180.1, null, null);
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 0, 180.1, testTime, "Saw it near a tree.", "Bob");
         });
     }
 
     @Test
     void testValidSightingLongitudeBoundaryMin() {
-        Sighting sighting = new Sighting(this.testAnimal, "Western Edge", 0.0, -180.0, null, null);
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", 0, -180.0, testTime, "Saw it near a tree.", "Bob");
         assertEquals(-180.0, sighting.getLongitude());
     }
 
     @Test
     void testValidSightingLongitudeBoundaryMax() {
-        Sighting sighting = new Sighting(this.testAnimal, "Eastern Edge", 0.0, 180.0, null, null);
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", 0, 180.0, testTime, "Saw it near a tree.", "Bob");
         assertEquals(180.0, sighting.getLongitude());
     }
 
@@ -157,16 +153,40 @@ public class TestConstructor {
     void testInvalidSightingFutureTime() {
         LocalDateTime futureTime = LocalDateTime.now().plusHours(1);
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", 0.0, 0.0, futureTime, null);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, futureTime, "Saw it near a tree.", "Bob");
+        });
+    }
+
+    @Test
+    void testInvalidSightingNullTime() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, null, "Saw it near a tree.", "Bob");
         });
     }
 
     // Notes Testing
 
     @Test
+    void testInvalidSightingNullNotes() {
+        LocalDateTime pastTime = LocalDateTime.now().minusHours(2);
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, pastTime, null, "Bob");
+        });
+    }
+
+    @Test
+    void testInvalidSightingEmptyNotes() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, testTime, "", "Bob");
+        });
+    }
+
+    @Test
     void testInvalidSightingWhitespaceNotes() {
         assertThrows(IllegalArgumentException.class, () -> {
-            new Sighting(this.testAnimal, "Location", 0.0, 0.0, null, "    ");
+            LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+            new Sighting(this.testAnimal.getTagID(), "Forest", 45.0, 90.0, testTime, "   ", "Bob");
         });
     }
 
@@ -174,12 +194,18 @@ public class TestConstructor {
 
     @Test
     void testToString() {
-        Sighting sighting = new Sighting(this.testAnimal, "Swamp", 12.345, -67.890, null, null);
-        String expectedFormat = "Sighting: Mammal " + this.testAnimal.getId() + " at Swamp (12.34500, -67.89000)";
+        LocalDateTime testTime = LocalDateTime.now().minusHours(2);
+        Sighting sighting = new Sighting(this.testAnimal.getTagID(), "Forest", 12.345, -67.89, testTime, "Saw it near a tree.", "Bob");
+        System.out.printf(sighting.toString());
+        String expectedFormat = "Sighting: " + this.testAnimal.getTagID() + " at Forest (12.34500, -67.89000) with Notes: " + sighting.getNotes() + " by Bob at " + sighting.getTime();
 
-        assertTrue(sighting.toString().contains("Swamp"));
-        assertTrue(sighting.toString().contains("12.34500"));
-        assertTrue(sighting.toString().contains("-67.89000"));
-        assertEquals(expectedFormat, sighting.toString());
+        assertAll(
+                () -> assertTrue(sighting.toString().contains("Forest")),
+                () -> assertTrue(sighting.toString().contains("12.34500")),
+                () -> assertTrue(sighting.toString().contains("-67.89000")),
+                () -> assertTrue(sighting.toString().contains("Saw it near a tree.")),
+                () -> assertTrue(sighting.toString().contains("Bob")),
+                () -> assertEquals(expectedFormat, sighting.toString())
+        );
     }
 }

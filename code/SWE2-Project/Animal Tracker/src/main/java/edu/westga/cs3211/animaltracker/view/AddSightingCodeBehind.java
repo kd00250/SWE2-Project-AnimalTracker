@@ -1,31 +1,38 @@
 package edu.westga.cs3211.animaltracker.view;
 
+import edu.westga.cs3211.animaltracker.model.server.request.auth.LoginResponse;
+import edu.westga.cs3211.animaltracker.model.server.service.ServerService;
 import edu.westga.cs3211.animaltracker.view.swap.PageInformation;
+import edu.westga.cs3211.animaltracker.viewmodel.AddSightingViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 /**
  * Code-behind (controller) for addSighting.fxml.
  */
 public class AddSightingCodeBehind {
 
+    private static final String ANIMAL_ID_REGEX_TEXT = "\\d{0,2}/?\\d{0,2}/?\\d{0,4}";
+    private static final String LONGITUDE_REGEX_TEXT = "([-]?1[0-7][0-9]|[0-9]?[0-9]\\.\\d+|180\\.0+?)";
+    private static final String LATITUDE_REGEX_TEXT = "([-]?[0-8]?[0-9]\\.\\d+|90\\.0+?)";
+
     @FXML
     private Button backButton;
-
     @FXML
-    private ComboBox<?> animalComboBox;
+    private TextField animalTextField;
     @FXML
-    private ComboBox<?> locationComboBox;
-
+    private TextField locationTextField;
+    @FXML
+    private TextField latitudeTextField;
+    @FXML
+    private TextField longitudeTextField;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -44,10 +51,67 @@ public class AddSightingCodeBehind {
     @FXML
     private Button clearButton;
 
+    private AddSightingViewModel vm;
+
     @FXML
     private void initialize() {
         this.hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 12));
         this.minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        this.setUpDatePickerFormat();
+        this.vm = new AddSightingViewModel();
+        this.bindAllProperties();
+        this.setTextInputRestrictions();
+    }
+
+    private void setUpDatePickerFormat() {
+        var pattern = "yyyy-MM-dd";
+        var formatter = DateTimeFormatter.ofPattern(pattern);
+        this.datePicker.setConverter(new StringConverter<LocalDate>() {
+            @Override
+            public String toString(LocalDate date) {
+                return (date != null) ? formatter.format(date) : "";
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, formatter);
+                }
+                return null;
+            }
+        });
+    }
+
+    private void bindAllProperties() {
+        this.animalTextField.textProperty().bindBidirectional(this.vm.animalIDProperty());
+        this.locationTextField.textProperty().bindBidirectional(this.vm.locationProperty());
+        this.latitudeTextField.textProperty().bindBidirectional(this.vm.latitudeProperty());
+        this.longitudeTextField.textProperty().bindBidirectional(this.vm.longitudeProperty());
+        this.datePicker.valueProperty().bindBidirectional(this.vm.dateProperty());
+        this.hourSpinner.getValueFactory().valueProperty().bindBidirectional(this.vm.hourProperty());
+        this.minuteSpinner.getValueFactory().valueProperty().bindBidirectional(this.vm.minuteProperty());
+        this.noteTextArea.textProperty().bindBidirectional(this.vm.noteProperty());
+    }
+
+    private void setTextInputRestrictions() {
+        this.setTextRestrictions(this.animalTextField, ANIMAL_ID_REGEX_TEXT);
+        this.datePicker.setEditable(false);
+    }
+
+    private void setTextRestrictions(TextField textField, String pattern) {
+        var formattedPattern = Pattern.compile(pattern);
+        var formatter = this.createInputPattern(formattedPattern);
+        textField.setTextFormatter(formatter);
+    }
+
+    private TextFormatter<String> createInputPattern(Pattern pattern) {
+        return new TextFormatter<String>(change -> {
+            if (pattern.matcher(change.getText()).matches()) {
+                return change;
+            } else {
+                return null;
+            }
+        });
     }
 
     @FXML
@@ -59,23 +123,64 @@ public class AddSightingCodeBehind {
                     PageInformation.LANDING_TITLE
             );
 
-//            controller.setSession(
-//                    this.vm.getSession(),
-//                    this.vm.getServerService()
-//            );
+            controller.setSession(
+                    this.vm.getSession(),
+                    this.vm.getServerService()
+            );
 
         } catch (IOException e) {
-            System.err.println("Unexpected Error: " + e.getMessage());
+            this.displayErrorPopup("Failed to navigate back: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Shows an error alert to the user.
+     *
+     * @param message the error message
+     * @pre message != null
+     * @post alert is displayed to user
+     */
+    private void displayErrorPopup(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void onSaveSightingClick(ActionEvent event) {
+        try {
+            var result = this.vm.sendSighting();
+            if (result) {
+                this.vm.clearAllFields();
+                var alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Save Sighting");
+                alert.setHeaderText(null);
+                alert.setContentText("Sighting was Saved!");
+                alert.showAndWait();
+            }
+        } catch (Exception exc) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(exc.getMessage());
+            alert.showAndWait();
         }
     }
 
     @FXML
-    public void onSaveSightingClick(ActionEvent event) {
-        // Intentionally left blank.
+    void onClearClick(ActionEvent event) {
+        this.vm.clearAllFields();
     }
 
-    @FXML
-    public void onClearClick(ActionEvent event) {
-        // Intentionally left blank.
+    void setSession(LoginResponse session, ServerService server) {
+        if (session == null) {
+            throw new IllegalArgumentException("Session cannot be null");
+        }
+        if (server == null) {
+            throw new IllegalArgumentException("Server cannot be null");
+        }
+        this.vm.setSession(session, server);
     }
 }

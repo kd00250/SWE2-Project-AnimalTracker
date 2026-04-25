@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime
 from unittest.mock import patch, MagicMock
 
 from model.protocol.RequestHandler import RequestHandler
@@ -285,14 +286,18 @@ class TestRequestHandler(unittest.TestCase):
         mock_project.add_user.assert_not_called()
         RequestHandler.storage.add_project.assert_called_once_with(mock_project)
 
-    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_animal_request")
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_animal_response")
     @patch("model.protocol.RequestHandler.Animal")
-    def test_handle_request_add_animal_request_success(self, mock_animal_class, mock_build_add_animal_request):
+    def test_handle_request_add_animal_request_success(
+            self,
+            mock_animal_class,
+            mock_build_add_animal_response):
         mock_project = MagicMock()
         mock_animal = MagicMock()
         updated_animal = MagicMock()
 
         mock_animal_class.return_value = mock_animal
+
         RequestHandler.storage.get_project.return_value = mock_project
         RequestHandler.storage.update_add_animal.return_value = updated_animal
 
@@ -301,14 +306,16 @@ class TestRequestHandler(unittest.TestCase):
             '"Class": "MAMMAL", "Height": "10.0", "Weight": "25.0", '
             '"Length": "15.0", "TagID": "100", "Description": "Test animal"}'
         )
-        mock_build_add_animal_request.return_value = {"status": "success"}
+
+        mock_build_add_animal_response.return_value = {"status": "success"}
 
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "success"}, result)
+
         RequestHandler.storage.get_project.assert_called_once_with(1)
         RequestHandler.storage.update_add_animal.assert_called_once_with(1, mock_animal)
-        mock_build_add_animal_request.assert_called_once_with(updated_animal)
+        mock_build_add_animal_response.assert_called_once_with(updated_animal)
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_could_not_find_project")
     def test_handle_request_add_animal_request_project_not_found(self, mock_build_not_found):
@@ -333,3 +340,175 @@ class TestRequestHandler(unittest.TestCase):
         result = RequestHandler.handle_request(message)
 
         self.assertIsNone(result)
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_user_is_not_in_system")
+    def test_handle_request_add_sighting_request_username_is_none(self, mock_build_user_not_in_system):
+        RequestHandler.storage.get_user.return_value = None
+        mock_build_user_not_in_system.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "2026-04-21T08:00:00", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        RequestHandler.storage.get_user.assert_called_once_with("abc123")
+        RequestHandler.storage.contains_username.assert_not_called()
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_user_not_in_system.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_user_is_not_in_system")
+    def test_handle_request_add_sighting_request_username_not_in_system(self, mock_build_user_not_in_system):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = False
+
+        mock_build_user_not_in_system.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "2026-04-21T08:00:00", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+
+        RequestHandler.storage.get_user.assert_called_once_with("abc123")
+        mock_user.get_username.assert_called_once()
+        RequestHandler.storage.contains_username.assert_called_once_with("Bob")
+
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_user_not_in_system.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_tag_does_not_exist")
+    def test_handle_request_add_sighting_request_animal_does_not_exist(self, mock_build_tag_does_not_exist):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = False
+
+        mock_build_tag_does_not_exist.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "2026-04-21T08:00:00", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_tag_does_not_exist.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_sighting_response")
+    @patch("model.protocol.RequestHandler.Sighting")
+    def test_handle_request_add_sighting_request_success(self, mock_sighting_class, mock_build_add_sighting_response):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = True
+
+        mock_sighting = MagicMock()
+        mock_sighting_class.return_value = mock_sighting
+        mock_build_add_sighting_response.return_value = {"status": "success"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "2026-04-21T08:00:00", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "success"}, result)
+        RequestHandler.storage.get_user.assert_called_once_with("abc123")
+        mock_user.get_username.assert_called_once()
+        RequestHandler.storage.contains_username.assert_called_once_with("Bob")
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
+
+        mock_sighting_class.assert_called_once_with(
+            122345,
+            "Bob",
+            "Forest",
+            33.1,
+            -84.2,
+            datetime.fromisoformat("2026-04-21T08:00:00"),
+            "Spotted near trail"
+        )
+
+        RequestHandler.storage.add_sighting.assert_called_once_with(mock_sighting)
+        mock_build_add_sighting_response.assert_called_once_with(mock_sighting)
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_token_does_not_exist")
+    def test_handle_request_get_sighting_request_token_missing(self, mock_build_token_missing):
+        mock_build_token_missing.return_value = {"status": "error"}
+
+        message = '{"action": "get_sightings_request", "tagID": "122345"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        mock_build_token_missing.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_tag_does_not_exist")
+    def test_handle_request_get_sighting_request_tag_missing(self, mock_build_tag_missing):
+        mock_build_tag_missing.return_value = {"status": "error"}
+
+        message = '{"action": "get_sightings_request", "token": "abc123"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        mock_build_tag_missing.assert_called_once()
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_get_sighting_response")
+    def test_handle_request_get_sighting_request_success(self, mock_build_get_sighting_response):
+        mock_sightings = [MagicMock(), MagicMock()]
+        RequestHandler.storage.retrieve_sightings_by_animal_id.return_value = mock_sightings
+
+        mock_build_get_sighting_response.return_value = {"sightings": []}
+
+        message = '{"action": "get_sightings_request", "token": "abc123", "tagID": "122345"}'
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"sightings": []}, result)
+        RequestHandler.storage.retrieve_sightings_by_animal_id.assert_called_once_with("122345")
+        mock_build_get_sighting_response.assert_called_once_with(mock_sightings)
+
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_invalid_time")
+    def test_handle_request_add_sighting_request_invalid_time(self, mock_build_invalid_time):
+        mock_user = MagicMock()
+        mock_user.get_username.return_value = "Bob"
+
+        RequestHandler.storage.get_user.return_value = mock_user
+        RequestHandler.storage.contains_username.return_value = True
+        RequestHandler.storage.is_animal_tag_in_server.return_value = True
+
+        mock_build_invalid_time.return_value = {"status": "error"}
+
+        message = (
+            '{"action": "add_sighting_request", "token": "abc123", '
+            '"animal": "122345", "location": "Forest", "latitude": "33.1", '
+            '"longitude": "-84.2", "time": "not-a-date", "notes": "Spotted near trail"}'
+        )
+
+        result = RequestHandler.handle_request(message)
+
+        self.assertEqual({"status": "error"}, result)
+        RequestHandler.storage.is_animal_tag_in_server.assert_called_once_with(122345)
+        RequestHandler.storage.add_sighting.assert_not_called()
+        mock_build_invalid_time.assert_called_once()

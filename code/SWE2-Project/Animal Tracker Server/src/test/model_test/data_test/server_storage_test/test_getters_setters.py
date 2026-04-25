@@ -1,8 +1,10 @@
 import unittest
+from datetime import datetime
 
 from model.Animal import Animal
 from model.Project import Project
 from model.Role import Role
+from model.Sighting import Sighting
 from model.User import User
 from model.data.ServerStorage import ServerStorage
 
@@ -94,7 +96,7 @@ class TestServerStorageConstructor(unittest.TestCase):
         self.assertEqual(projects[0].get_name(), project.get_name())
 
     def test_get_all_users(self):
-        user = user = User("Tim", "1234", Role.SCIENTIST)
+        user = User("Tim", "1234", Role.SCIENTIST)
         self._server_storage.add_user(user)
         users = self._server_storage.get_all_users()
         self.assertEqual(len(users), 1)
@@ -108,7 +110,7 @@ class TestServerStorageConstructor(unittest.TestCase):
         self.assertEqual(projects[0].get_name(), project.get_name())
 
     def test_get_user_with_username(self):
-        user = original_user = User("Tim", "1234", Role.SCIENTIST)
+        original_user = User("Tim", "1234", Role.SCIENTIST)
         self._server_storage.add_user(original_user)
         user = self._server_storage.get_user_with_username(original_user.get_username())
         self.assertEqual(original_user, user)
@@ -124,3 +126,41 @@ class TestServerStorageConstructor(unittest.TestCase):
         self._server_storage.add_user(user)
         self._server_storage.remove_user(user.get_username())
         self.assertTrue(len(self._server_storage.get_all_users()) == 0)
+
+    def test_add_sighting(self):
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        has_added = self._server_storage.add_sighting(sighting)
+        self.assertTrue(has_added)
+
+    def test_remove_sighting(self):
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        has_added = self._server_storage.add_sighting(sighting)
+        self.assertTrue(has_added)
+        has_removed = self._server_storage.remove_sighting(sighting)
+        self.assertTrue(has_removed)
+
+    def test_retrieve_all_sightings(self):
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        sighting2 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        self._server_storage.add_sighting(sighting)
+        self._server_storage.add_sighting(sighting2)
+        sightings = self._server_storage.retrieve_all_sightings()
+        self.assertEqual(len(sightings), 2)
+
+    def test_retrieve_sightings_by_animal_id(self):
+        animal_tag = "1234"
+        sighting = Sighting("1234", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        sighting2 = Sighting("1234", "user", "Forest", 10.0, 20.0, datetime.now(), "Notes")
+        sighting3 = Sighting("1235", "user", "Park", 10.0, 20.0, datetime.now(), "Notes")
+        self._server_storage.add_sighting(sighting)
+        self._server_storage.add_sighting(sighting2)
+        self._server_storage.add_sighting(sighting3)
+        sightings = list(self._server_storage.retrieve_sightings_by_animal_id(animal_tag))
+        self.assertEqual(len(sightings), 2)
+        self.assertEqual([sighting, sighting2], sightings)
+
+
+
+
+
+

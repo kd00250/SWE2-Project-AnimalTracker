@@ -8,6 +8,7 @@ import edu.westga.cs3211.animaltracker.model.server.request.data.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,32 @@ public class RemoteServer implements ServerService {
      */
     public RemoteServer() {
         this.client = new Client();
+    }
+
+    /**
+     * gets all the sightings for a specific animal.
+     *
+     * @param request the request to be sent to the server
+     * @return the list of sightings from the server
+     */
+    @Override
+    public List<Sighting> getSightings(GetSightingRequest request) {
+        JSONObject response = this.client.send(request);
+        System.out.println(response);
+        return this.buildSightingsFromResponse(response);
+    }
+
+    /**
+     * adds the sighting to the server.
+     *
+     * @param request the request to send
+     * @return if the sighting can be added or not
+     */
+    @Override
+    public boolean addSighting(AddSightingRequest request) {
+        JSONObject response = this.client.send(request);
+        var responseStatus = response.getString("status");
+        return !responseStatus.equals("error");
     }
 
     /**
@@ -81,7 +108,7 @@ public class RemoteServer implements ServerService {
      */
     @Override
     public void requestAddAnimal(AddAnimalRequest request) {
-        JSONObject response = this.client.send(request);
+        this.client.send(request);
     }
 
     /**
@@ -113,7 +140,7 @@ public class RemoteServer implements ServerService {
 
     @Override
     public void deleteProject(DeleteProjectRequest request) {
-        JSONObject response = this.client.send(request);
+        this.client.send(request);
     }
 
     private List<Project> parseProjects(JSONObject response) {
@@ -229,6 +256,46 @@ public class RemoteServer implements ServerService {
 
         String description = animalJson.optString("Description", "").trim();
         return !description.isEmpty();
+    }
+
+    private List<Sighting> buildSightingsFromResponse(JSONObject response) {
+        if (response == null) {
+            throw new IllegalArgumentException("Response cannot be null");
+        }
+
+        List<Sighting> sightings = new ArrayList<>();
+        JSONArray sightingsArray = response.getJSONArray("sightings");
+
+        for (int i = 0; i < sightingsArray.length(); i++) {
+            JSONObject json = sightingsArray.getJSONObject(i);
+
+            try {
+                int tagID = json.getInt("animalTagID");
+                String location = json.getString("location");
+                double latitude = json.getDouble("latitude");
+                double longitude = json.getDouble("longitude");
+                String username = json.getString("username");
+
+                LocalDateTime time = null;
+                if (json.has("time") && !json.isNull("time")) {
+                    var temp = json.getString("time");
+                    time = LocalDateTime.parse(temp);
+                }
+
+                String notes = null;
+                if (json.has("notes") && !json.isNull("notes")) {
+                    notes = json.getString("notes");
+                }
+
+                Sighting sighting = new Sighting(tagID, location, latitude, longitude, time, notes, username);
+                sightings.add(sighting);
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("Skipping invalid sighting: " + json);
+            }
+        }
+
+        return sightings;
     }
 
     /**
