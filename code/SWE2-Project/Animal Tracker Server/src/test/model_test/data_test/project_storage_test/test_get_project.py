@@ -7,7 +7,7 @@ from model.data.ProjectStorage import ProjectStorage
 class TestProjectStorageConstructor(unittest.TestCase):
     def setUp(self):
         self._project_storage = ProjectStorage()
-        self._project_storage.reset()
+        self._project_storage._reset()
 
     def test_get_valid_project(self):
         project0 = Project("Test", [], [], 0)

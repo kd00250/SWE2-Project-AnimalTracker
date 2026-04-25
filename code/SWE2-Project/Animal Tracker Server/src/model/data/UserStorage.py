@@ -1,5 +1,6 @@
 import uuid
 
+
 class UserStorage:
     """
     The storage class that manages users for the server.
@@ -74,6 +75,7 @@ class UserStorage:
                 user = current_user
 
         self._users.remove(user)
+
     def contains_user(self, user):
         """
         Checks if a user exists in the user storage.
@@ -124,4 +126,3 @@ class UserStorage:
         :return: The list of users.
         """
         return list(self._users)
-

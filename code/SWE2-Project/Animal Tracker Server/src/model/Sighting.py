@@ -1,5 +1,3 @@
-import json
-from datetime import datetime
 from typing import Optional
 
 
@@ -63,7 +61,7 @@ class Sighting:
         :param notes: Notes of animal sighting.
         :return: True or False on whether the notes are invalid.
         """
-        return notes is not None and notes.strip() == ""
+        return notes is None or notes.strip() == ""
 
     @staticmethod
     def _is_invalid_time(time):
@@ -136,4 +134,3 @@ class Sighting:
         :return: The notes of sighting.
         """
         return self._notes
-

@@ -286,14 +286,18 @@ class TestRequestHandler(unittest.TestCase):
         mock_project.add_user.assert_not_called()
         RequestHandler.storage.add_project.assert_called_once_with(mock_project)
 
-    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_animal_request")
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_animal_response")
     @patch("model.protocol.RequestHandler.Animal")
-    def test_handle_request_add_animal_request_success(self, mock_animal_class, mock_build_add_animal_request):
+    def test_handle_request_add_animal_request_success(
+            self,
+            mock_animal_class,
+            mock_build_add_animal_response):
         mock_project = MagicMock()
         mock_animal = MagicMock()
         updated_animal = MagicMock()
 
         mock_animal_class.return_value = mock_animal
+
         RequestHandler.storage.get_project.return_value = mock_project
         RequestHandler.storage.update_add_animal.return_value = updated_animal
 
@@ -302,14 +306,16 @@ class TestRequestHandler(unittest.TestCase):
             '"Class": "MAMMAL", "Height": "10.0", "Weight": "25.0", '
             '"Length": "15.0", "TagID": "100", "Description": "Test animal"}'
         )
-        mock_build_add_animal_request.return_value = {"status": "success"}
+
+        mock_build_add_animal_response.return_value = {"status": "success"}
 
         result = RequestHandler.handle_request(message)
 
         self.assertEqual({"status": "success"}, result)
+
         RequestHandler.storage.get_project.assert_called_once_with(1)
         RequestHandler.storage.update_add_animal.assert_called_once_with(1, mock_animal)
-        mock_build_add_animal_request.assert_called_once_with(updated_animal)
+        mock_build_add_animal_response.assert_called_once_with(updated_animal)
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_could_not_find_project")
     def test_handle_request_add_animal_request_project_not_found(self, mock_build_not_found):
@@ -405,9 +411,9 @@ class TestRequestHandler(unittest.TestCase):
         RequestHandler.storage.add_sighting.assert_not_called()
         mock_build_tag_does_not_exist.assert_called_once()
 
-    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_sighting_request")
+    @patch("model.protocol.RequestHandler.ResponseBuilder.build_add_sighting_response")
     @patch("model.protocol.RequestHandler.Sighting")
-    def test_handle_request_add_sighting_request_success(self, mock_sighting_class, mock_build_add_sighting_request):
+    def test_handle_request_add_sighting_request_success(self, mock_sighting_class, mock_build_add_sighting_response):
         mock_user = MagicMock()
         mock_user.get_username.return_value = "Bob"
 
@@ -417,7 +423,7 @@ class TestRequestHandler(unittest.TestCase):
 
         mock_sighting = MagicMock()
         mock_sighting_class.return_value = mock_sighting
-        mock_build_add_sighting_request.return_value = {"status": "success"}
+        mock_build_add_sighting_response.return_value = {"status": "success"}
 
         message = (
             '{"action": "add_sighting_request", "token": "abc123", '
@@ -444,7 +450,7 @@ class TestRequestHandler(unittest.TestCase):
         )
 
         RequestHandler.storage.add_sighting.assert_called_once_with(mock_sighting)
-        mock_build_add_sighting_request.assert_called_once_with(mock_sighting)
+        mock_build_add_sighting_response.assert_called_once_with(mock_sighting)
 
     @patch("model.protocol.RequestHandler.ResponseBuilder.build_token_does_not_exist")
     def test_handle_request_get_sighting_request_token_missing(self, mock_build_token_missing):

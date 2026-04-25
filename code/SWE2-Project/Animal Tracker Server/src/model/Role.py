@@ -1,5 +1,6 @@
 import enum
 
+
 class Role(enum.Enum):
     """
     The possible roles for a user.

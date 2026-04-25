@@ -1,5 +1,8 @@
-
 class User:
+    """
+    Class representing a user.
+    """
+
     def __init__(self, username, password, role):
         """
         Initializes a new user.
@@ -26,12 +29,14 @@ class User:
         :return: The username of the user.
         """
         return self._username
+
     def get_password(self):
         """
         Gets the password of the user.
         :return: The password of the user.
         """
         return self._password
+
     def get_role(self):
         """
         Gets the role of the user.

@@ -1,4 +1,8 @@
 class Project:
+    """
+    Project class that defines the name, users, animals, and project id associated with a project.
+    """
+
     def __init__(self, name, users, animals, project_id):
         """
         Initializes a new project.

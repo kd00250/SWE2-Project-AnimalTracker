@@ -7,7 +7,7 @@ from model.data.ProjectStorage import ProjectStorage
 class TestRemoveProject(unittest.TestCase):
     def setUp(self):
         self._project_storage = ProjectStorage()
-        self._project_storage.reset()
+        self._project_storage._reset()
 
     def test_remove_valid_project(self):
         project = Project("Test", [], [], 0)

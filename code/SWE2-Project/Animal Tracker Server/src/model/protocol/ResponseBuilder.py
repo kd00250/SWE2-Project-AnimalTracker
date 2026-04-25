@@ -1,5 +1,3 @@
-import json
-
 from model.Role import Role
 
 
@@ -17,12 +15,10 @@ class ResponseBuilder:
         :return: JSON - Response object generated based on the request
         """
         if has_token:
-            print("Server - Received login, sending request to client...")
             response = {
                 "token": has_token
             }
         else:
-            print("Server - Login Failed")
             response = {
                 "status": "error",
             }
@@ -37,15 +33,11 @@ class ResponseBuilder:
         :return: JSON - Response containing role or error status
         """
         if has_role:
-            print("Server - Received get role, sending request to client...")
-            print(has_role)
-            print(type(has_role))
             response = {
                 "role": has_role
             }
             print(response)
         else:
-            print("Server - Get role Failed")
             response = {
                 "status": "error",
             }
@@ -59,12 +51,10 @@ class ResponseBuilder:
         :return: JSON - Response object generated based on the request
         """
         if user is not None:
-            print("Server - Received add user, sending request to client...")
             response = {
                 "status": "success",
             }
         else:
-            print("Server - Add user Failed")
             response = {
                 "status": "error",
             }
@@ -76,7 +66,6 @@ class ResponseBuilder:
         Builds the response for user exists request.
         :return: JSON - Error response
         """
-        print("Server - User exists Failed")
         response = {
             "status": "error",
         }
@@ -89,8 +78,6 @@ class ResponseBuilder:
         :param projects: Collection of project objects
         :return: JSON - Response object generated based on the request
         """
-        print("Server - Received retrieved projects, sending request to client...")
-
         if projects is None:
             response = {
                 "status": "error",
@@ -100,7 +87,6 @@ class ResponseBuilder:
 
         project_list = []
         for project in projects:
-            print(project.get_id())
             project_list.append({
                 "name": project.get_name(),
                 "id": project.get_id(),
@@ -116,7 +102,6 @@ class ResponseBuilder:
         Builds the response for user does not have a permission request.
         :return: JSON - Error response
         """
-        print("Server - Has no Permission")
         response = {
             "status": "error",
         }
@@ -128,7 +113,6 @@ class ResponseBuilder:
         Builds the response for could not find project request.
         :return: JSON - Error response
         """
-        print("Server - Could not find project")
         response = {
             "status": "error",
         }
@@ -175,13 +159,11 @@ class ResponseBuilder:
         :return: JSON - Success or Error
         """
         if has_removed_project:
-            print("Server - Success, Received removed project, sending request to client...")
             response = {
                 "status": "success",
             }
             return response
         else:
-            print("Server - Removed project Failed")
             response = {
                 "status": "error",
             }
@@ -238,7 +220,7 @@ class ResponseBuilder:
         return response
 
     @staticmethod
-    def build_add_animal_request(animal):
+    def build_add_animal_response(animal):
         """
         Builds the response for add animal request.
         :param animal: Animal object that was added
@@ -256,13 +238,22 @@ class ResponseBuilder:
 
     @staticmethod
     def build_user_is_not_in_system():
+        """
+        Builds the response for user is not in system request.
+        :return: A status error.
+        """
         response = {
             "status": "error",
         }
         return response
 
     @staticmethod
-    def build_add_sighting_request(sighting):
+    def build_add_sighting_response(sighting):
+        """
+        Builds the response for add sighting request.
+        :param sighting: Sighting object that was added
+        :return: Status depending on if the sighting was added.
+        """
         if sighting is None:
             response = {
                 "status": "error",
@@ -275,6 +266,10 @@ class ResponseBuilder:
 
     @staticmethod
     def build_tag_does_not_exist():
+        """
+        Builds the response for tag does not exist request.
+        :return: Status error.
+        """
         response = {
             "status": "error",
         }
@@ -282,7 +277,11 @@ class ResponseBuilder:
 
     @staticmethod
     def build_get_sighting_response(sightings):
-        print(sightings)
+        """
+        Builds the response for get sighting request.
+        :param sightings: Sightings object that was added.
+        :return: Response containing a filtered sighting list.
+        """
         sighting_list = []
 
         if not sightings:
@@ -315,8 +314,11 @@ class ResponseBuilder:
 
     @staticmethod
     def build_invalid_time():
+        """
+        Builds the response for invalid time request.
+        :return: Status error.
+        """
         response = {
             "status": "error",
         }
         return response
-

@@ -198,12 +198,12 @@ class TestResponseBuilder(unittest.TestCase):
         self.assertEqual({"status": "success"}, result)
 
     def test_build_add_animal_request_error(self):
-        result = ResponseBuilder.build_add_animal_request(None)
+        result = ResponseBuilder.build_add_animal_response(None)
         self.assertEqual({"status": "error"}, result)
 
     def test_build_add_animal_request_success(self):
         mock_animal = MagicMock()
-        result = ResponseBuilder.build_add_animal_request(mock_animal)
+        result = ResponseBuilder.build_add_animal_response(mock_animal)
         self.assertEqual({"status": "success"}, result)
 
     def test_build_user_is_not_in_system(self):
@@ -212,11 +212,11 @@ class TestResponseBuilder(unittest.TestCase):
 
     def test_build_add_sighting_request_success(self):
         mock_sighting = MagicMock()
-        result = ResponseBuilder.build_add_sighting_request(mock_sighting)
+        result = ResponseBuilder.build_add_sighting_response(mock_sighting)
         self.assertEqual({"status": "success"}, result)
 
     def test_build_add_sighting_request_error(self):
-        result = ResponseBuilder.build_add_sighting_request(None)
+        result = ResponseBuilder.build_add_sighting_response(None)
         self.assertEqual({"status": "error"}, result)
 
     def test_build_tag_does_not_exist(self):
