@@ -1,0 +1,16 @@
+See Sighting Data
+Context
+Scientist is logged in and on the view project page
+
+Primary Flow
+1. User filters animals by their classification
+2. User selects animal from the animal list.
+3. User selects the see data button.
+4. Server retrieves and displays the sighting information for the animal
+5. User can sort the sighting information on the table.
+
+Alternative Flows
+
+User leaves Page
+A6. User hits the Back button
+A7. Return to Primary Flow step 1
