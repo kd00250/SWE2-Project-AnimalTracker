@@ -44,7 +44,7 @@ Contributor login:
 3. Go into pycharm and go to the server file
 4. run the python server by running the server file
 
-##Test instructions
+## Test instructions
 explain how to run the tests for all portions of the system
 1. To run the tests for the project you will want to hover over either java package or the edu.westga.cs3211.animaltracker packages under the initial test package
 2. Right click the hovered package and hover over more run/debug to show side options and click "run tests with coverage"
