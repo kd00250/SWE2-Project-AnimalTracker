@@ -108,7 +108,7 @@ public class RemoteServer implements ServerService {
      */
     @Override
     public void requestAddAnimal(AddAnimalRequest request) {
-        JSONObject response = this.client.send(request);
+        this.client.send(request);
     }
 
     /**
@@ -140,7 +140,7 @@ public class RemoteServer implements ServerService {
 
     @Override
     public void deleteProject(DeleteProjectRequest request) {
-        JSONObject response = this.client.send(request);
+        this.client.send(request);
     }
 
     private List<Project> parseProjects(JSONObject response) {
@@ -264,7 +264,6 @@ public class RemoteServer implements ServerService {
         }
 
         List<Sighting> sightings = new ArrayList<>();
-        System.out.println(response.toString());
         JSONArray sightingsArray = response.getJSONArray("sightings");
 
         for (int i = 0; i < sightingsArray.length(); i++) {
