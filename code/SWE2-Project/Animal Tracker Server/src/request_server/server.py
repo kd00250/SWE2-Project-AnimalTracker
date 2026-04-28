@@ -19,11 +19,15 @@ def build_prepopulated_storage_for_testing():
     bob = User("Bob", "1234", Role.SCIENTIST)
     joe = User("Joe", "1234", Role.SCIENTIST)
     billy = User("Billy", "6767", Role.ADMIN)
+    sarah = User("Sarah", "333", Role.SCIENTIST)
+    kevin = User("Kevin", "777", Role.SCIENTIST)
     carl = User("Carl", "0987", Role.CONTRIBUTOR)
     storage.add_user(bob)
     storage.add_user(billy)
     storage.add_user(joe)
     storage.add_user(carl)
+    storage.add_user(sarah)
+    storage.add_user(kevin)
     #animal1 bird study
 
     animal = Animal(AnimalClass.BIRD, 11.0, 15.0, 17.0, 122345, "Subject is a very aggressive bird DANGER!!!")
